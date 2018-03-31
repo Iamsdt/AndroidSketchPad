@@ -25,7 +25,7 @@ interface ApplicationComponent{
 
     //retrofit
     //val retrofitHandler:RetrofitHandler
-    val wpRestInterface:RetInterface
+    val retInterface:RetInterface
 
     //val event bus
     val eventBus: EventBus

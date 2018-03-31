@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -69,7 +71,7 @@ dependencies {
     //room implement and architecture component
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "android.arch.persistence.room:runtime:1.0.0"
-    implementation "android.arch.paging:runtime:1.0.0-alpha4-1"
+    //implementation "android.arch.paging:runtime:1.0.0-alpha4-1"
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
     annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
     //to avoid runtime error must add this line
