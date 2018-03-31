@@ -17,7 +17,7 @@ import javax.inject.Named
  * at 12:00 PM
  */
 
-@Module
+@Module (includes = [NetworkModule::class])
 class RetrofitModule {
     @Provides
     @AppScope

@@ -11,7 +11,7 @@ import org.greenrobot.eventbus.EventBus
  */
 
 @Module
-internal class EventBusModule{
+class EventBusModule{
 
     @Provides
     @AppScope

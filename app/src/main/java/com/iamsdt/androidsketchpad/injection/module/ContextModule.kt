@@ -11,7 +11,7 @@ import dagger.Provides
  */
 
 @Module
-internal class ContextModule(context: Context) {
+class ContextModule(context: Context) {
 
     private val mContext = context
 
