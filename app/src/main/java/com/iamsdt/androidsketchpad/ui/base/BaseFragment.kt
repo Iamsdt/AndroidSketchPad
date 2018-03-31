@@ -11,7 +11,7 @@ import com.iamsdt.androidsketchpad.injection.module.FragmentModule
  * Created by Shudipto Trafder on 3/31/2018.
  * at 6:25 PM
  */
-class BaseFragment:Fragment(){
+abstract class BaseFragment:Fragment(){
 
     @Suppress("DEPRECATION")
     @UiThread
