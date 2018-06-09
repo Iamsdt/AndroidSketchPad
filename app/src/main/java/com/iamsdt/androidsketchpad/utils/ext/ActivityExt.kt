@@ -7,6 +7,9 @@ package com.iamsdt.androidsketchpad.utils.ext
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
+import com.iamsdt.androidsketchpad.utils.model.EventMessage
+import es.dmoral.toasty.Toasty
 import kotlin.reflect.KClass
 
 
@@ -39,4 +42,20 @@ fun AppCompatActivity.toNextActivity(
         finish()
     }
 }
+
+fun AppCompatActivity.showToast(
+        type: ToastType,
+        message: String,
+        time:Int = Toast.LENGTH_SHORT,
+        withIcon:Boolean = true){
+
+    when (type) {
+        ToastType.INFO -> Toasty.info(this,message,time,withIcon).show()
+        ToastType.ERROR -> Toasty.error(this,message,time,withIcon).show()
+        ToastType.SUCCESSFUL -> Toasty.success(this,message,time,withIcon).show()
+        ToastType.WARNING -> Toasty.warning(this,message,time,withIcon).show()
+    }
+}
+
+
 
