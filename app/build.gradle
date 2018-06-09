@@ -23,7 +23,7 @@ android {
 
     buildTypes.each {
         it.buildConfigField 'String', 'BloggerApiKey', '"Blogger ApiKey";'
-        it.buildConfigField 'String', 'BloggerID', '"blogger ID";'
+        it.buildConfigField 'String', 'BloggerID', '"Blogger ID";'
     }
 
     buildTypes {
