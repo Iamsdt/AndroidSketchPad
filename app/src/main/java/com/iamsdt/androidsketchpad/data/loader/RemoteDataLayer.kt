@@ -13,6 +13,7 @@ class RemoteDataLayer(private val spUtils: SpUtils,
                       val layerUtils: LayerUtils,
                       private val apiKey: String) {
 
+
     fun getBlogDetails() {
         val call = retInterface.getBlog()
         layerUtils.executeBlogCall(call)

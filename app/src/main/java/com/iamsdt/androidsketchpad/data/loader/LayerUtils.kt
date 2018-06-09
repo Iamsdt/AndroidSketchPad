@@ -28,6 +28,7 @@ class LayerUtils(private val spUtils: SpUtils,
 
     val serviceLiveData:SingleLiveEvent<EventMessage> = SingleLiveEvent()
 
+
     fun executePostCall(call: Call<PostsResponse>){
         async {
             call.enqueue(object :Callback<PostsResponse>{

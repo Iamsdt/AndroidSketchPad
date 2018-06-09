@@ -20,6 +20,7 @@ class DataLayer(val remoteDataLayer: RemoteDataLayer,
                 val spUtils: SpUtils){
 
 
+
     fun getDataForFirstTime(): LiveData<PagedList<PostTable>> {
 
         val source = postTableDao.getAllPost

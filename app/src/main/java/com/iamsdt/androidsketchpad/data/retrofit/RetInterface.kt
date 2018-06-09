@@ -26,7 +26,7 @@ interface RetInterface {
             @Query("key") key: String):Call<PostsResponse>
 
     @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
-    fun getPostFormSearchWithToken(@Query("getPostWithToken") token: String,
+    fun getPostWithToken(@Query("getPostWithToken") token: String,
                                    @Query("key") key: String):Call<PostsResponse>
 
     //posts/postId
@@ -46,6 +46,6 @@ interface RetInterface {
     fun getPageView(@Query("key") key: String)
 
 
-    @GET
+    @GET("/blogger/v3/blogs/141872694236847267")
     fun getBlog():Call<BlogResponse>
 }
