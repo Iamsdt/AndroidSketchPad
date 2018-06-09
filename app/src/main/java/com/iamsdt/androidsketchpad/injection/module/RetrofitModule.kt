@@ -3,14 +3,13 @@ package com.iamsdt.androidsketchpad.injection.module
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
-import com.iamsdt.androidsketchpad.injection.scopes.AppScope
-import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
+import javax.inject.Singleton
 
 /**
  * Created by Shudipto Trafder on 3/31/2018.
@@ -19,39 +18,40 @@ import javax.inject.Named
 
 @Module (includes = [NetworkModule::class])
 class RetrofitModule {
+
     @Provides
-    @AppScope
+    @Singleton
     fun getWPRestInterface(@Named("post") retrofit: Retrofit): RetInterface =
             retrofit.create(RetInterface::class.java)
 
     @Provides
-    @AppScope
+    @Singleton
     @Named("detailsRest")
     fun getWPRestInterfaceDetails(@Named("details") retrofit: Retrofit): RetInterface =
             retrofit.create(RetInterface::class.java)
 
     @Provides
-    @AppScope
+    @Singleton
     @Named("post")
     fun getRetrofitPost(okHttpClient: OkHttpClient, gson: Gson): Retrofit
             = Retrofit.Builder()
-            .baseUrl(ConstantUtils.retrofit.baseUrl)
+            .baseUrl("https://www.googleapis.com/blogger/v3/blogs/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
     @Provides
-    @AppScope
+    @Singleton
     @Named("details")
     fun getRetrofitDetails(okHttpClient: OkHttpClient,gson: Gson): Retrofit
             = Retrofit.Builder()
-            .baseUrl(ConstantUtils.retrofit.baseUrl)
+            .baseUrl("https://www.googleapis.com/blogger/v3/blogs/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
 
     @Provides
-    @AppScope
+    @Singleton
     fun getGson():Gson = GsonBuilder().create()
 }
