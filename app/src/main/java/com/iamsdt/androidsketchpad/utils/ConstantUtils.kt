@@ -7,11 +7,13 @@ package com.iamsdt.androidsketchpad.utils
 
 class ConstantUtils{
 
-    object Retrofit{
-        val baseUrl:String = "https://www.googleapis.com/blogger/v3/blogs/blogId/"
-    }
-
     companion object {
+        //sp
+        const val SP_NAME = "APP_SP"
+        const val PAGE_TOKEN = "page_token"
+
+
+
         //network
         const val internet = "internet"
         const val connected = "connected"
