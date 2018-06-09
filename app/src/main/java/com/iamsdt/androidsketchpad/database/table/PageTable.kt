@@ -12,7 +12,6 @@ import android.arch.persistence.room.PrimaryKey
 data class PageTable(
         @PrimaryKey
         var id: String = "",
-        var authorID: String,
         var published: String = "",
         var title: String = "",
         var updated: String = "",

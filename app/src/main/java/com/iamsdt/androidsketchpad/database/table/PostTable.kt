@@ -10,9 +10,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity
 data class PostTable(
-        @PrimaryKey(autoGenerate = true)
-        var key: Int = 0,
-
+        @PrimaryKey
         var  id: String,
 
         var nextPostToken:String,
@@ -27,4 +25,4 @@ data class PostTable(
 
         val content: String = "",
 
-        var authorId: String = "")
+        var bookmark:Boolean)
