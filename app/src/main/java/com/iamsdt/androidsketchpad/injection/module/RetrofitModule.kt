@@ -23,12 +23,12 @@ class RetrofitModule {
 
     @Provides
     @Singleton
-    fun getWPRestInterfaceDetails(retrofit: Retrofit): RetInterface =
+    fun getRestInterface(retrofit: Retrofit): RetInterface =
             retrofit.create(RetInterface::class.java)
 
     @Provides
     @Singleton
-    fun getRetrofitDetails(okHttpClient: OkHttpClient,gson: Gson): Retrofit
+    fun getRetrofit(okHttpClient: OkHttpClient,gson: Gson): Retrofit
             = Retrofit.Builder()
             .baseUrl("https://www.googleapis.com/blogger/v3/blogs/${BuildConfig.BloggerID}")
             .client(okHttpClient)

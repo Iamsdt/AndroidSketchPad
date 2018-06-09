@@ -18,10 +18,10 @@ interface PageTableDao{
     fun add(pageTable: PageTable):Long
 
     @Update
-    fun update(pageTable: PageTable):Long
+    fun update(pageTable: PageTable):Int
 
     @Delete
-    fun delete(pageTable: PageTable):Long
+    fun delete(pageTable: PageTable):Int
 
     @get:Query("Select * From PageTable")
     val getAllPage: LiveData<PageTable>

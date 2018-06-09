@@ -1,6 +1,7 @@
 package com.iamsdt.androidsketchpad.database.dao
 
 import android.arch.lifecycle.LiveData
+import android.arch.paging.DataSource
 import android.arch.paging.PagedList
 import android.arch.persistence.room.*
 import com.iamsdt.androidsketchpad.database.table.PostTable
@@ -17,19 +18,19 @@ interface PostTableDao{
     fun add(postTable: PostTable):Long
 
     @Update
-    fun update(postTable: PostTable):Long
+    fun update(postTable: PostTable):Int
 
     @Delete
-    fun delete(postTable: PostTable):Long
+    fun delete(postTable: PostTable):Int
 
     @get:Query("Select * From PostTable")
-    val getAllPost:LiveData<PagedList<PostTable>>
+    val getAllPost: DataSource.Factory<Int, PostTable>
 
     @Query("Select * From PostTable where id = :id")
     fun getSinglePost(id:String):LiveData<PostTable>
 
     @get:Query("Select * From PostTable where bookmark = 1")
-    val getBookmarkedPost:LiveData<PagedList<PostTable>>
+    val getBookmarkedPost:DataSource.Factory<Int, PostTable>
 
     @Query("Update PostTable set bookmark = 1 where id = :id")
     fun setBookmark(id: String):Long
