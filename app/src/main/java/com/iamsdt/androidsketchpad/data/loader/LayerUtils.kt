@@ -6,6 +6,7 @@
 package com.iamsdt.androidsketchpad.data.loader
 
 import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
 import com.iamsdt.androidsketchpad.database.dao.PageTableDao
@@ -13,15 +14,19 @@ import com.iamsdt.androidsketchpad.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.database.table.PageTable
 import com.iamsdt.androidsketchpad.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
+import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
+import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import kotlinx.coroutines.experimental.async
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import timber.log.Timber
 
-class LayerUtils(val spUtils: SpUtils,
-                 val pageTableDao: PageTableDao,
-                 val postTableDao: PostTableDao){
+class LayerUtils(private val spUtils: SpUtils,
+                 private val pageTableDao: PageTableDao,
+                 private val postTableDao: PostTableDao){
+
+    val serviceLiveData:SingleLiveEvent<EventMessage> = SingleLiveEvent()
 
     fun executePostCall(call: Call<PostsResponse>){
         async {
@@ -39,6 +44,7 @@ class LayerUtils(val spUtils: SpUtils,
                         spUtils.savePageToken(data.nextPageToken)
 
                         val list = data.items ?: emptyList()
+                        var author:Author ?= null
                         for (post in list){
                             val postTable = PostTable(
                                     post.id,post.images,
@@ -48,8 +54,12 @@ class LayerUtils(val spUtils: SpUtils,
                                     post.content,
                                     false)
 
+                            author = post.author
+
                             postTableDao.add(postTable)
                         }
+                        //save author
+                        spUtils.saveAuthor(author)
                     }
                 }
 
