@@ -26,6 +26,7 @@ import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.UPDATE
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.APP_RUN_FIRST_TIME
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.PAGE_TOKEN
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SP_NAME
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.USED_PAGE_TOKEN
 import com.iamsdt.androidsketchpad.utils.model.AuthorModel
 import com.iamsdt.androidsketchpad.utils.model.BlogModel
 
@@ -40,6 +41,14 @@ class SpUtils(private val context: Context) {
             putBoolean(APP_RUN_FIRST_TIME, false)
         }
     }
+
+    fun saveUsedPageToken(string: String) {
+        sp.edit {
+            putString(USED_PAGE_TOKEN, string)
+        }
+    }
+
+    val getUsedPageToken: String get() = sp.getString(USED_PAGE_TOKEN, "")
 
     fun savePageToken(string: String) {
         sp.edit {
@@ -85,13 +94,15 @@ class SpUtils(private val context: Context) {
             context.getSharedPreferences(ConstantUtils.Blog.SP_NAME, Context.MODE_PRIVATE)
 
     //author
-    fun saveAuthor(author: Author) {
-        authorSP.edit {
-            putString(IMAGEURL, author.image.url)
-            putString(DISPLAY_NAME, author.displayName)
-            putString(ID, author.id)
-            putString(URL, author.url)
-            putString(DES, RemoteUtils.getAuthorDes())
+    fun saveAuthor(author: Author?) {
+        if (author != null) {
+            authorSP.edit {
+                putString(IMAGEURL, author.image.url)
+                putString(DISPLAY_NAME, author.displayName)
+                putString(ID, author.id)
+                putString(URL, author.url)
+                putString(DES, RemoteUtils.getAuthorDes())
+            }
         }
     }
 

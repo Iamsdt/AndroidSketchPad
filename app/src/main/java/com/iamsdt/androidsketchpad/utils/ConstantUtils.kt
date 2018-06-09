@@ -14,12 +14,17 @@ class ConstantUtils{
         //sp
         const val SP_NAME = "APP_SP"
         const val PAGE_TOKEN = "page_token"
+        const val USED_PAGE_TOKEN = "page_token"
         const val APP_RUN_FIRST_TIME = "firstTime"
 
         //network
         const val internet = "internet"
         const val connected = "connected"
         const val noInternet = "noInternet"
+    }
+
+    object Event{
+
     }
 
     //blog sp
