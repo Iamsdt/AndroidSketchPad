@@ -1,9 +1,8 @@
 package com.iamsdt.androidsketchpad.database
 
 import android.arch.persistence.room.Database
-import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
-import android.content.Context
+import android.arch.persistence.room.TypeConverters
 import com.iamsdt.androidsketchpad.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.database.table.PageTable
@@ -14,6 +13,7 @@ import com.iamsdt.androidsketchpad.database.table.PostTable
  * at 11:43 AM
  */
 
+@TypeConverters(DataConverter::class)
 @Database(entities = [PageTable::class,PostTable::class],version = 1,
         exportSchema = false)
 abstract class MyDB:RoomDatabase(){
@@ -21,9 +21,4 @@ abstract class MyDB:RoomDatabase(){
     abstract val pageTableDao:PageTableDao
     abstract val postTableDao:PostTableDao
 
-    companion object {
-        private const val dbName = "ShokerSchool"
-
-
-    }
 }
