@@ -2,14 +2,12 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.iamsdt.androidsketchpad.BuildConfig
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 /**
@@ -17,7 +15,7 @@ import javax.inject.Singleton
  * at 12:00 PM
  */
 
-@Module (includes = [NetworkModule::class])
+@Module(includes = [NetworkModule::class])
 class RetrofitModule {
 
 
@@ -30,7 +28,7 @@ class RetrofitModule {
     @Singleton
     fun getRetrofit(okHttpClient: OkHttpClient,gson: Gson): Retrofit
             = Retrofit.Builder()
-            .baseUrl("https://www.googleapis.com/blogger/v3/blogs/${BuildConfig.BloggerID}")
+            .baseUrl("https://www.googleapis.com/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

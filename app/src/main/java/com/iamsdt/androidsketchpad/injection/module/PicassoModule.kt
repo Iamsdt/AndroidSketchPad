@@ -1,5 +1,6 @@
 package com.iamsdt.androidsketchpad.injection.module
 
+import android.app.Application
 import android.content.Context
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Downloader
@@ -19,7 +20,7 @@ class PicassoModule {
 
     @Provides
     @Singleton
-    fun getPicasso(context: Context,downloader: Downloader): Picasso =
+    fun getPicasso(context: Application,downloader: Downloader): Picasso =
             Picasso.Builder(context)
                     .downloader(downloader)
                     .loggingEnabled(true)

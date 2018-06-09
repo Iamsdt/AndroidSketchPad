@@ -1,5 +1,6 @@
 package com.iamsdt.androidsketchpad.injection.module
 
+import android.app.Application
 import android.content.Context
 import dagger.Module
 import dagger.Provides
@@ -38,6 +39,6 @@ class NetworkModule{
 
     @Provides
     @Singleton
-    fun getFile(context: Context): File = File(context.cacheDir, "okHttp")
+    fun getFile(context: Application): File = File(context.cacheDir, "okHttp")
 
 }

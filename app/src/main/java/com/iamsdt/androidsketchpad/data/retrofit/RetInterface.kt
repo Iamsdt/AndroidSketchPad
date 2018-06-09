@@ -16,33 +16,33 @@ import retrofit2.http.Query
  */
 interface RetInterface {
 
-    @GET("/posts?fetchImages=true")
-    fun getPostForFirstTime(@Query("key") key: String):Call<List<PostsResponse>>
+    @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
+    fun getPostForFirstTime(@Query("key") key: String):Call<PostsResponse>
 
     //posts/search?q=documentation
-    @GET("/posts?fetchImages=true")
+    @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
     fun getPostFormSearch(
             @Query("search") search: String,
-            @Query("key") key: String):Call<List<PostsResponse>>
+            @Query("key") key: String):Call<PostsResponse>
 
-    @GET("/posts?fetchImages=true")
+    @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
     fun getPostFormSearchWithToken(@Query("getPostWithToken") token: String,
-                                   @Query("key") key: String):Call<List<PostsResponse>>
+                                   @Query("key") key: String):Call<PostsResponse>
 
     //posts/postId
-    @GET("/posts/{id}?fetchImages=true")
+    @GET("/blogger/v3/blogs/141872694236847267/posts/{id}?fetchImages=true")
     fun getSinglePost(@Path("id") posID: Int,
                       @Query("key") key: String):Call<SinglePostResponse>
 
     ///pages?fetchImages=true&key
-    @GET("/pages/?fetchImages=true")
-    fun getPageList(@Query("key") key: String):Call<List<PageResponse>>
+    @GET("/blogger/v3/blogs/141872694236847267/pages/?fetchImages=true")
+    fun getPageList(@Query("key") key: String):Call<PageResponse>
 
-    @GET("/pages/{id}?fetchImages=true")
+    @GET("/blogger/v3/blogs/141872694236847267/pages/{id}?fetchImages=true")
     fun getSinglePage(@Path("id") posID: Int,
                       @Query("key") key: String):Call<SinglePageResponse>
 
-    @GET("/pageviews?range=all")
+    @GET("/blogger/v3/blogs/141872694236847267/pageviews?range=all")
     fun getPageView(@Query("key") key: String)
 
 
