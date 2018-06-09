@@ -1,9 +1,9 @@
 /*
  * Created by Shudipto Trafder
- * on 6/9/18 1:04 PM
+ * on 6/9/18 12:59 PM
  */
 
-package com.iamsdt.androidsketchpad.data.retrofit.model.singlePage
+package com.iamsdt.androidsketchpad.data.retrofit.model.common
 
 import com.google.gson.annotations.SerializedName
 

@@ -6,6 +6,9 @@
 package com.iamsdt.androidsketchpad.data.retrofit.model.singlePost
 
 import com.google.gson.annotations.SerializedName
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Blog
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.ImagesItem
 
 data class SinglePostResponse(@SerializedName("images")
                               val images: List<ImagesItem>?,

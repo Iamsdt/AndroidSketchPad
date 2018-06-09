@@ -6,6 +6,8 @@
 package com.iamsdt.androidsketchpad.data.retrofit.model.singlePage
 
 import com.google.gson.annotations.SerializedName
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Blog
 
 data class SinglePageResponse(@SerializedName("kind")
                               val kind: String = "",

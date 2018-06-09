@@ -22,8 +22,8 @@ android {
     }
 
     buildTypes.each {
-        it.buildConfigField 'String', 'BloggerApiKey', '"AIzaSyDtBl0hqSVQerXtf3f4_ruZxzlBr5jwtVA";'
-        it.buildConfigField 'String', 'BloggerID', '"141872694236847267";'
+        it.buildConfigField 'String', 'BloggerApiKey', '"Api Key";'
+        it.buildConfigField 'String', 'BloggerID', '"blogger ID";'
     }
 
     buildTypes {
