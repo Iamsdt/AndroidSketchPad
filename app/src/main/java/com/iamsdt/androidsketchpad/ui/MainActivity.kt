@@ -1,16 +1,12 @@
 package com.iamsdt.androidsketchpad.ui
 
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.ui.base.BaseActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
-        //dagger inject
-        getComponent().inject(this)
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
