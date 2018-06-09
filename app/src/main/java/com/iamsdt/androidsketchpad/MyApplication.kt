@@ -8,6 +8,7 @@ import com.iamsdt.androidsketchpad.injection.DaggerAppComponent
 import com.iamsdt.androidsketchpad.utils.ext.DebugLogTree
 import com.iamsdt.androidsketchpad.utils.ext.LifeCycle
 import com.iamsdt.androidsketchpad.utils.ext.ReleaseLogTree
+import com.rohitss.uceh.UCEHandler
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
@@ -33,6 +34,8 @@ class MyApplication : DaggerApplication() {
         super.onCreate()
 
         component.inject(this)
+
+        UCEHandler.Builder(applicationContext).build()
 
         if (BuildConfig.DEBUG) Timber.plant(DebugLogTree())
         else Timber.plant(ReleaseLogTree())
