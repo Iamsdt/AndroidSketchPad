@@ -7,9 +7,14 @@ package com.iamsdt.androidsketchpad.utils
 
 class ConstantUtils{
 
+    object Retrofit{
+        val baseUrl:String = "https://www.googleapis.com/blogger/v3/blogs/blogId/"
+    }
 
-
-    object retrofit{
-        final val baseUrl:String = ""
+    companion object {
+        //network
+        const val internet = "internet"
+        const val connected = "connected"
+        const val noInternet = "noInternet"
     }
 }
