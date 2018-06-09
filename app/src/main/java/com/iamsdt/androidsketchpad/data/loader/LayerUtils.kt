@@ -28,8 +28,7 @@ class LayerUtils(private val spUtils: SpUtils,
 
     val serviceLiveData:SingleLiveEvent<EventMessage> = SingleLiveEvent()
 
-
-    fun executePostCall(call: Call<PostsResponse>){
+    fun executePostCall(call: Call<PostsResponse>,token:String = ""){
         async {
             call.enqueue(object :Callback<PostsResponse>{
                 override fun onFailure(call: Call<PostsResponse>?, t: Throwable?) {
@@ -43,6 +42,13 @@ class LayerUtils(private val spUtils: SpUtils,
                         val data:PostsResponse = response.body()!!
 
                         spUtils.savePageToken(data.nextPageToken)
+                        Timber.i("New post token${data.nextPageToken}")
+
+                        //save used token
+                        if (token.isNotEmpty()){
+                            spUtils.saveUsedPageToken(token)
+                            Timber.i("Used page token$token")
+                        }
 
                         val list = data.items ?: emptyList()
                         var author:Author ?= null
@@ -57,10 +63,17 @@ class LayerUtils(private val spUtils: SpUtils,
 
                             author = post.author
 
+                            Timber.i("Add post: title:${post.title}")
                             postTableDao.add(postTable)
                         }
                         //save author
                         spUtils.saveAuthor(author)
+                        Timber.i("Save author:${author?.displayName}")
+
+                        //set RemoteDataLayer.isAlreadyRequested is false
+                        // that's means I am ready for new request
+                        RemoteDataLayer.isAlreadyRequested = false
+                        Timber.i("Open for new request")
                     }
                 }
 
@@ -88,6 +101,8 @@ class LayerUtils(private val spUtils: SpUtils,
                                     page.id,page.published,page.title,page.updated,
                                     page.url,page.content)
 
+                            Timber.i("Adding page data ${page.title}")
+
                             pageTableDao.add(pageTable)
 
                         }
@@ -112,6 +127,7 @@ class LayerUtils(private val spUtils: SpUtils,
                         //save token
                         val data:BlogResponse = response.body()!!
                         spUtils.saveBlog(data)
+                        Timber.i("Saved blog data ${data.name}")
                     }
                 }
 
