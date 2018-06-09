@@ -25,6 +25,23 @@ android {
         it.buildConfigField 'String', 'BloggerApiKey', '"Blogger ApiKey";'
         it.buildConfigField 'String', 'BloggerID', '"Blogger ID";'
     }
+
+    buildTypes {
+        debug {
+            ext.alwaysUpdateBuildId = false
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable true
+            jniDebuggable true
+            renderscriptDebuggable true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
 }
 
 dependencies {
