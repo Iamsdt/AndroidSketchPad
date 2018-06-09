@@ -6,6 +6,8 @@ import com.iamsdt.androidsketchpad.BuildConfig
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
+import com.iamsdt.androidsketchpad.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.utils.ext.blockingObserve
 import kotlinx.coroutines.experimental.async
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +16,6 @@ import retrofit2.Retrofit
 import timber.log.Timber
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity() {
 
     @Inject
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var retrofit: Retrofit
+
+    @Inject
+    lateinit var dao:PageTableDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
