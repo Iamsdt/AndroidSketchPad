@@ -8,6 +8,9 @@ package com.iamsdt.androidsketchpad.utils
 class ConstantUtils{
 
     companion object {
+
+        const val DB_NAME = "AndroidSketchPad"
+
         //sp
         const val SP_NAME = "APP_SP"
         const val PAGE_TOKEN = "page_token"
