@@ -10,6 +10,7 @@ import com.iamsdt.androidsketchpad.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.utils.ext.blockingObserve
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import kotlinx.coroutines.experimental.async
+import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import retrofit2.Call
@@ -22,13 +23,7 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var retInterface: RetInterface
-
-    @Inject
-    lateinit var retrofit: Retrofit
-
-    @Inject
-    lateinit var dao:PageTableDao
+    lateinit var bus: EventBus
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,5 +33,16 @@ class MainActivity : AppCompatActivity() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun busEvent(eventMessage: EventMessage){
 
+    }
+
+
+    override fun onStart() {
+        super.onStart()
+        bus.register(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        bus.unregister(this)
     }
 }

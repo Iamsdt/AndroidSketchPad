@@ -23,10 +23,6 @@ class ConstantUtils{
         const val noInternet = "noInternet"
     }
 
-    object Event{
-
-    }
-
     //blog sp
     object Blog{
         const val SP_NAME = "BLOG_SP"
