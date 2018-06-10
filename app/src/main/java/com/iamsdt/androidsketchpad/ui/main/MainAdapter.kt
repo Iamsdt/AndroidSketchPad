@@ -27,6 +27,7 @@ import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.main_list_item.view.*
+import timber.log.Timber
 
 class MainAdapter(private val picasso: Picasso,
                   author: String,
@@ -41,13 +42,13 @@ class MainAdapter(private val picasso: Picasso,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.main_list_item, parent, false)
-
         return VH(view)
     }
 
     //must change context to avoid crash
     fun changeContext(context: Context){
         this.context = context
+        Timber.i("Change context to activity context")
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
