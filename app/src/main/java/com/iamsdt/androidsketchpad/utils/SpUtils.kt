@@ -25,6 +25,8 @@ import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.PUBLISHED
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.UPDATE
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.APP_RUN_FIRST_TIME
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.PAGE_TOKEN
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SERVICE_RUN_DATE
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SERVICE_RUN_FIRST_TIME
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SP_NAME
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.USED_PAGE_TOKEN
 import com.iamsdt.androidsketchpad.utils.model.AuthorModel
@@ -33,12 +35,28 @@ import com.iamsdt.androidsketchpad.utils.model.BlogModel
 class SpUtils(private val context: Context) {
 
 
-    //app
+    /** Application related  SharedPreferences */
     val isFirstTime get() = sp.getBoolean(APP_RUN_FIRST_TIME, true)
 
     fun setAppRunFirstTime() {
         sp.edit {
             putBoolean(APP_RUN_FIRST_TIME, false)
+        }
+    }
+
+    val isServiceFirstTime get() = sp.getBoolean(SERVICE_RUN_FIRST_TIME, true)
+
+    fun setServiceRunFirstTime() {
+        sp.edit {
+            putBoolean(SERVICE_RUN_FIRST_TIME, false)
+        }
+    }
+
+    val getServiceRunDate:Long get() = sp.getLong(SERVICE_RUN_DATE, 0L)
+
+    fun setServiceRunDate() {
+        sp.edit {
+            putLong(SERVICE_RUN_DATE, DateUtils.currentDate())
         }
     }
 
@@ -62,7 +80,14 @@ class SpUtils(private val context: Context) {
         get() =
             context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
 
-    //blog
+    /** Settings related SharedPreferences */
+    fun syncTimeInterval(context: Context):Int{
+        // TODO: 6/10/2018 put real time value with settings
+        return 7
+    }
+
+
+    /** Blog details  SharedPreferences */
     fun getBlog(): BlogModel {
         val page = blogSp.getString(PAGE, "")
         val name = blogSp.getString(NAME, "")
@@ -93,7 +118,7 @@ class SpUtils(private val context: Context) {
         get() =
             context.getSharedPreferences(ConstantUtils.Blog.SP_NAME, Context.MODE_PRIVATE)
 
-    //author
+    /** Author details  SharedPreferences */
     fun saveAuthor(author: Author?) {
         if (author != null) {
             authorSP.edit {

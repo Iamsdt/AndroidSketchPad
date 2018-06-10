@@ -10,6 +10,9 @@
 
 package com.iamsdt.androidsketchpad.utils
 
+import org.joda.time.DateTime
+import org.joda.time.Days
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -28,6 +31,26 @@ class DateUtils{
             val sp = SimpleDateFormat("h:mm a",Locale.getDefault())
             sp.format(Date())
             return sp.format(Date())
+        }
+
+        fun currentDate():Long = Date().time
+
+        fun compareTwoDate(first: Date, second: Date): Date
+                = if (first.before(second)) {
+            first
+        } else {
+            second
+        }
+
+        fun compareDateIntervals(oldDate:Long):Int{
+
+            val today = DateTime(Date())
+            val preDate = DateTime(oldDate)
+
+            val day = Days.daysBetween(preDate,today).days
+            Timber.i(day.toString())
+
+            return day
         }
     }
 

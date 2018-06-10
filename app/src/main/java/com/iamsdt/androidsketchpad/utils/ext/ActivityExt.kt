@@ -8,12 +8,11 @@ package com.iamsdt.androidsketchpad.utils.ext
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
-import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import es.dmoral.toasty.Toasty
 import kotlin.reflect.KClass
 
 
-fun AppCompatActivity.getThread(timer: Long, clazz: KClass<out AppCompatActivity>) =
+fun AppCompatActivity.runThread(timer: Long, clazz: KClass<out AppCompatActivity>) =
         Thread({
             try {
                 Thread.sleep(timer)

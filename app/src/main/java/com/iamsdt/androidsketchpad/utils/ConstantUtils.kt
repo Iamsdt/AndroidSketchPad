@@ -16,11 +16,22 @@ class ConstantUtils{
         const val PAGE_TOKEN = "page_token"
         const val USED_PAGE_TOKEN = "page_token"
         const val APP_RUN_FIRST_TIME = "firstTime"
+        const val SERVICE_RUN_FIRST_TIME = "ServiceFirstTime"
+        const val SERVICE_RUN_DATE= "serviceDate"
 
         //network
         const val internet = "internet"
         const val connected = "connected"
         const val noInternet = "noInternet"
+    }
+
+    object Event{
+        //post call
+        const val POST_KEY = "PostCall"
+        const val BLOG_KEY = "BLOGCall"
+        const val PAGE_KEY = "PageCall"
+
+        const val SERVICE = "SERVICE"
     }
 
     //blog sp
