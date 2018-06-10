@@ -1,0 +1,13 @@
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/10/18 3:40 PM
+  -->
+
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+</menu>
