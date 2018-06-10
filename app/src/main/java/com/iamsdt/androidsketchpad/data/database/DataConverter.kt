@@ -10,7 +10,6 @@ import kotlin.text.StringBuilder
 
 class DataConverter{
 
-
     @TypeConverter
     fun toImageString(list: List<ImagesItem>?):String{
         val string = StringBuilder()
@@ -37,27 +36,5 @@ class DataConverter{
         return list
     }
 
-    @TypeConverter
-    fun toList(string: String?):List<String>{
-        val list = arrayListOf<String>()
-        if (string != null &&string.contains(",")){
-            val strings = string.split(",")
-            for (li in strings){
-                list.add(li)
-            }
-        }
 
-        return list
-    }
-
-    @TypeConverter
-    fun toString(list: List<String>?):String{
-        val string = StringBuilder()
-        val newList = list ?: emptyList()
-        for (s in newList){
-            string.append("$s,")
-        }
-
-        return string.toString()
-    }
 }
