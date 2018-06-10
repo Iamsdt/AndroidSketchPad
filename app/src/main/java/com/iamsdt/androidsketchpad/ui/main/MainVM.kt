@@ -6,13 +6,13 @@
 package com.iamsdt.androidsketchpad.ui.main
 
 import android.arch.lifecycle.ViewModel
+import com.iamsdt.androidsketchpad.data.loader.DataLayer
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import javax.inject.Inject
 
-class MainVM @Inject constructor(val dataLayer: RemoteDataLayer):ViewModel(){
+class MainVM @Inject constructor(val dataLayer: DataLayer):ViewModel(){
 
-    fun getData(){
+    val  getData get () = dataLayer.getPostData()
 
-    }
 
 }

@@ -2,25 +2,18 @@ package com.iamsdt.androidsketchpad.ui
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.iamsdt.androidsketchpad.BuildConfig
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
-import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.utils.ext.blockingObserve
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.connected
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.internet
+import com.iamsdt.androidsketchpad.utils.ext.ToastType
+import com.iamsdt.androidsketchpad.utils.ext.showToast
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
-import kotlinx.coroutines.experimental.async
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class SplashScreen : AppCompatActivity() {
 
     @Inject
     lateinit var bus: EventBus
@@ -32,7 +25,13 @@ class MainActivity : AppCompatActivity() {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun busEvent(eventMessage: EventMessage){
-
+        if (eventMessage.key == internet){
+            if (eventMessage.message == connected){
+                showToast(ToastType.SUCCESSFUL,"Network connected")
+            } else{
+                showToast(ToastType.WARNING,"No Internet")
+            }
+        }
     }
 
 
