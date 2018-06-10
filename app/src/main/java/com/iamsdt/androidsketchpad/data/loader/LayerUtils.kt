@@ -90,8 +90,10 @@ class LayerUtils(private val spUtils: SpUtils,
                         // that's means I am ready for new request
                         RemoteDataLayer.isAlreadyRequested = false
                         Timber.i("Open for new request")
-                        serviceLiveData.postValue(EventMessage(POST_KEY, token, 1))
+                        if (isCalledFromService)
+                            serviceLiveData.postValue(EventMessage(POST_KEY, token, 1))
                     } else{
+                        if (isCalledFromService)
                         serviceLiveData.postValue(EventMessage(POST_KEY, token, 0))
                     }
                 }

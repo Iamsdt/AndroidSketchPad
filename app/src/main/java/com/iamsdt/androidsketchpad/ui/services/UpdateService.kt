@@ -13,13 +13,9 @@ import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
-import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.SERVICE
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
-import com.iamsdt.androidsketchpad.utils.ext.ToastType
-import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import dagger.android.AndroidInjection
-import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -27,9 +23,6 @@ class UpdateService : LifecycleService() {
 
     @Inject
     lateinit var remoteDataLayer: RemoteDataLayer
-
-    @Inject
-    lateinit var bus: EventBus
 
     @Inject
     lateinit var spUtils: SpUtils
@@ -112,9 +105,9 @@ class UpdateService : LifecycleService() {
     private fun setUpdateTime() {
         if (blogFinished && pageFinished && postFinished) {
             spUtils.setServiceRunDate()
-            bus.post(EventMessage(SERVICE,"",1))
             spUtils.setBlogUpdate()
             Timber.i("Update time set")
+            isComplete = true
         }
     }
 
@@ -153,5 +146,6 @@ class UpdateService : LifecycleService() {
 
     companion object {
         var isRunningService = false
+        var isComplete = false
     }
 }

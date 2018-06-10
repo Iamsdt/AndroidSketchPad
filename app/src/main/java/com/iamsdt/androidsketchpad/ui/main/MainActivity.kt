@@ -79,8 +79,8 @@ class MainActivity : AppCompatActivity(),
 
         viewModel.uiLiveData.observe(this, Observer {
             if (it != null && it.key == POST_KEY){
-                if (it.status == 1 && !postRequestComplete){
-                    viewModel.getTokenPost()
+                if (it.status == 1){
+                    if (!postRequestComplete) viewModel.getTokenPost()
                 } else{
                     viewModel.getTokenPost()
                 }
@@ -161,13 +161,6 @@ class MainActivity : AppCompatActivity(),
                 showToast(ToastType.WARNING, "No Internet")
             }
         }
-
-        if (eventMessage.key == ConstantUtils.Event.SERVICE && eventMessage.status == 1) {
-            if (UpdateService.isRunningService) {
-                stopService(Intent(this, UpdateService::class.java))
-                Timber.i("Service complete, stopping service")
-            }
-        }
     }
 
 
@@ -177,6 +170,11 @@ class MainActivity : AppCompatActivity(),
 
         if (!bus.isRegistered(this)) {
             bus.register(this@MainActivity)
+        }
+
+        if (UpdateService.isRunningService && UpdateService.isComplete) {
+            stopService(Intent(this, UpdateService::class.java))
+            Timber.i("Service complete, stopping service")
         }
     }
 
