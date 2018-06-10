@@ -6,111 +6,158 @@
 package com.iamsdt.androidsketchpad.ui.main
 
 import android.app.Activity
-
-import android.app.ActionBar
-import android.app.Fragment
-import android.app.FragmentManager
-import android.content.Context
-import android.os.Build
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import android.support.v4.widget.DrawerLayout
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.widget.ArrayAdapter
-import android.widget.TextView
-
+import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.ui.services.UpdateService
+import com.iamsdt.androidsketchpad.utils.ConstantUtils
+import com.iamsdt.androidsketchpad.utils.ext.ToastType
+import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
+import com.iamsdt.androidsketchpad.utils.ext.showToast
+import com.iamsdt.androidsketchpad.utils.model.EventMessage
+import com.iamsdt.themelibrary.ColorActivity
+import com.iamsdt.themelibrary.ThemeUtils
+import dagger.internal.DelegateFactory
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.main_layout.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),
-        NavigationDrawerFragment.NavigationDrawerCallbacks {
+        NavigationView.OnNavigationItemSelectedListener {
 
-    /**
-     * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
-     */
-    private var mNavigationDrawerFragment: NavigationDrawerFragment? = null
+    @Inject
+    lateinit var bus: EventBus
 
-    /**
-     * Used to store the last screen title. For use in [.restoreActionBar].
-     */
-    private var mTitle: CharSequence? = null
+    @Inject
+    lateinit var adapter: MainAdapter
+
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val viewModel:MainVM by lazy {
+        ViewModelProviders.of(this,factory).get(MainVM::class.java)
+    }
+
+    private val themeRequestCode = 101
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ThemeUtils.initialize(this)
         setContentView(R.layout.activity_main)
 
-        mNavigationDrawerFragment =
-                fragmentManager.findFragmentById(R.id.navigation_drawer) as NavigationDrawerFragment
+        adapter.changeContext(this)
 
-        mTitle = title
+        viewModel.getData.observe(this, Observer {
+            adapter.submitList(it)
+        })
 
-        // Set up the drawer.
-        mNavigationDrawerFragment!!.setUp(
-                R.id.navigation_drawer,
-                findViewById<View>(R.id.drawer_layout) as DrawerLayout)
+        val toggle = ActionBarDrawerToggle(
+                this, drawer_layout, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close)
+        drawer_layout.addDrawerListener(toggle)
+        toggle.syncState()
+
+        nav_view.setNavigationItemSelectedListener(this)
     }
 
-    override fun onNavigationDrawerItemSelected(position: Int) {
-        // update the main content by replacing fragments
-        val fragmentManager = fragmentManager
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
-                .commit()
-    }
-
-    fun onSectionAttached(number: Int) {
-        when (number) {
-            1 -> mTitle = getString(R.string.title_section1)
-            2 -> mTitle = getString(R.string.title_section2)
-            3 -> mTitle = getString(R.string.title_section3)
+    override fun onBackPressed() {
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+            drawer_layout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
         }
     }
 
-    fun restoreActionBar() {
-        val actionBar = actionBar
-        actionBar!!.navigationMode = ActionBar.NAVIGATION_MODE_STANDARD
-        actionBar.setDisplayShowTitleEnabled(true)
-        actionBar.title = mTitle
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    class PlaceholderFragment : Fragment() {
-
-        override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                                  savedInstanceState: Bundle): View? {
-            return inflater.inflate(R.layout.fragment_main, container, false)
-        }
-
-        override fun onAttach(activity: Activity) {
-            super.onAttach(activity)
-            (activity as MainActivity).onSectionAttached(
-                    arguments.getInt(ARG_SECTION_NUMBER))
-        }
-
-        companion object {
-            /**
-             * The fragment argument representing the section number for this
-             * fragment.
-             */
-            private val ARG_SECTION_NUMBER = "section_number"
-
-            /**
-             * Returns a new instance of this fragment for the given section
-             * number.
-             */
-            fun newInstance(sectionNumber: Int): PlaceholderFragment {
-                val fragment = PlaceholderFragment()
-                val args = Bundle()
-                args.putInt(ARG_SECTION_NUMBER, sectionNumber)
-                fragment.arguments = args
-                return fragment
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        // Handle navigation view item clicks here.
+        when (item.itemId) {
+            R.id.nav_bookmark -> {
+                //startActivity(Intent(this@MainActivity, BookmarkActivity::class.java))
             }
+
+            R.id.nav_categories -> {
+
+            }
+
+            R.id.nav_page -> {
+
+            }
+
+            R.id.nav_setting -> {
+                //startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            }
+
+            R.id.nav_choseColor -> {
+                startActivityForResult(ColorActivity.createIntent(this), themeRequestCode)
+            }
+
+            R.id.nav_about -> {
+
+            }
+
+            R.id.nav_copyright -> {
+            }
+
+            R.id.nav_tms -> {
+            }
+        }
+
+        drawer_layout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == themeRequestCode && resultCode == Activity.RESULT_OK) {
+            //recreate this activity
+            recreate()
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun busEvent(eventMessage: EventMessage) {
+        if (eventMessage.key == ConstantUtils.internet) {
+            if (eventMessage.message == ConstantUtils.connected) {
+                showToast(ToastType.SUCCESSFUL, "Network connected")
+            } else {
+                showToast(ToastType.WARNING, "No Internet")
+            }
+        }
+
+        if (eventMessage.key == ConstantUtils.Event.SERVICE && eventMessage.status == 0) {
+            if (UpdateService.isRunningService) {
+                stopService(Intent(this, UpdateService::class.java))
+            }
+        }
+    }
+
+
+    //register and unregister event bus
+    override fun onStart() {
+        super.onStart()
+
+        if (!bus.isRegistered(this)) {
+            bus.register(this@MainActivity)
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (bus.isRegistered(this)) {
+            bus.unregister(this@MainActivity)
         }
     }
 

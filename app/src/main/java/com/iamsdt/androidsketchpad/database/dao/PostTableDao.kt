@@ -33,8 +33,8 @@ interface PostTableDao{
     val getBookmarkedPost:DataSource.Factory<Int, PostTable>
 
     @Query("Update PostTable set bookmark = 1 where id = :id")
-    fun setBookmark(id: String):Long
+    fun setBookmark(id: String):Int
 
     @Query("Update PostTable set bookmark = 0 where id = :id")
-    fun deleteBookmark(id: String):Long
+    fun deleteBookmark(id: String):Int
 }

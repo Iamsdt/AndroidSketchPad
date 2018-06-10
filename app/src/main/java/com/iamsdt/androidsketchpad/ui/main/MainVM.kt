@@ -14,5 +14,4 @@ class MainVM @Inject constructor(val dataLayer: DataLayer):ViewModel(){
 
     val  getData get () = dataLayer.getPostData()
 
-
 }

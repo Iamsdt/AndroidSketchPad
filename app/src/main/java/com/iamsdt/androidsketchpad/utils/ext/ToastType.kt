@@ -11,3 +11,8 @@ enum class ToastType{
     SUCCESSFUL,
     WARNING
 }
+
+enum class BookMark{
+    SET,
+    DELETE
+}

@@ -14,13 +14,15 @@ import com.iamsdt.androidsketchpad.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.database.table.PageTable
 import com.iamsdt.androidsketchpad.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
+import com.iamsdt.androidsketchpad.utils.ext.BookMark
+import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
+import kotlinx.coroutines.experimental.async
 import timber.log.Timber
 
 class DataLayer(private val remoteDataLayer: RemoteDataLayer,
                 private val postTableDao: PostTableDao,
                 private val pageTableDao: PageTableDao,
                 private val spUtils: SpUtils) {
-
 
     fun getPostData(): LiveData<PagedList<PostTable>> {
 
@@ -65,6 +67,4 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
 
         return mediatorLiveData
     }
-
-
 }

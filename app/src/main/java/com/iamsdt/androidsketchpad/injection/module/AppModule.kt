@@ -13,14 +13,27 @@ import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import com.iamsdt.androidsketchpad.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
+import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [DBModule::class])
+@Module(includes = [DBModule::class,PicassoModule::class])
 class AppModule {
 
+
+    @Provides
+    @Singleton
+    fun getAdapter(picasso: Picasso,
+                   spUtils: SpUtils,
+                   postTableDao: PostTableDao,
+                   application: Application):MainAdapter =
+            MainAdapter(picasso,
+                    spUtils.getAuthor().displayName,
+                    postTableDao,
+                    application)
 
     @Provides
     @Singleton

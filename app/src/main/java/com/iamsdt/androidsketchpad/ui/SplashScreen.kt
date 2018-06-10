@@ -24,9 +24,6 @@ import javax.inject.Inject
 class SplashScreen : AppCompatActivity() {
 
     @Inject
-    lateinit var bus: EventBus
-
-    @Inject
     lateinit var spUtils: SpUtils
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,33 +52,5 @@ class SplashScreen : AppCompatActivity() {
 
     private fun timeForUpdate():Boolean{
         return false
-    }
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun busEvent(eventMessage: EventMessage){
-        if (eventMessage.key == internet){
-            if (eventMessage.message == connected){
-                showToast(ToastType.SUCCESSFUL,"Network connected")
-            } else{
-                showToast(ToastType.WARNING,"No Internet")
-            }
-        }
-
-        if (eventMessage.key == SERVICE && eventMessage.status == 0){
-            if (UpdateService.isRunningService){
-                stopService(Intent(this,UpdateService::class.java))
-            }
-        }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        bus.register(this)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        bus.unregister(this)
     }
 }

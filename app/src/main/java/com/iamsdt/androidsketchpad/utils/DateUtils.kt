@@ -26,6 +26,18 @@ class DateUtils{
             return sp.format(Date())
         }
 
+        fun getReadableDate(string: String?):String{
+            if (string == null || string.isEmpty()){
+                return ""
+            }
+
+            val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.US)
+            val output = SimpleDateFormat("EEE, MMM d yy",Locale.US)
+            val postDate = sdf.parse(string)
+
+            return output.format(postDate)
+        }
+
         fun getCurrentTime():String{
             //look like 12:30 pm
             val sp = SimpleDateFormat("h:mm a",Locale.getDefault())

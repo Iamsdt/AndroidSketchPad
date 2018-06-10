@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_bookmark"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Bookmark" />
+        <item
+            android:id="@+id/nav_categories"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Categories" />
+
+        <item
+            android:id="@+id/nav_page"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Pages" />
+    </group>
+
+    <item android:title="@string/action_settings">
+        <menu>
+            <item
+                android:id="@+id/nav_setting"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="@string/action_settings" />
+
+            <item
+                android:id="@+id/nav_choseColor"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Choose Theme" />
+        </menu>
+    </item>
+
+    <item android:title="About">
+        <menu>
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_menu_share"
+                android:title="About" />
+
+            <item
+                android:id="@+id/nav_copyright"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Copyright" />
+
+            <item
+                android:id="@+id/nav_tms"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Terms of uses" />
+        </menu>
+    </item>
+
+</menu>
