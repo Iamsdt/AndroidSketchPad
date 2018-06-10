@@ -26,13 +26,14 @@ class DateUtils{
             return sp.format(Date())
         }
 
+        //demo 2018-06-08T23:02:00+06:00
         fun getReadableDate(string: String?):String{
             if (string == null || string.isEmpty()){
                 return ""
             }
 
             val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.US)
-            val output = SimpleDateFormat("EEE, MMM d yy",Locale.US)
+            val output = SimpleDateFormat("EEE, MMM d, yy",Locale.US)
             val postDate = sdf.parse(string)
 
             return output.format(postDate)

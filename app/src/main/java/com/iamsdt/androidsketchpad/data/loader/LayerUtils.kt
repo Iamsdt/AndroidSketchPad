@@ -5,21 +5,25 @@
 
 package com.iamsdt.androidsketchpad.data.loader
 
-import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
-import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
-import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
-import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
+import android.os.AsyncTask
+import android.os.Handler
+import android.os.HandlerThread
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
+import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
+import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
+import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
+import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_WITH_TOKEN
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
-import kotlinx.coroutines.experimental.async
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,48 +31,56 @@ import timber.log.Timber
 
 class LayerUtils(private val spUtils: SpUtils,
                  private val pageTableDao: PageTableDao,
-                 private val postTableDao: PostTableDao){
+                 private val postTableDao: PostTableDao) {
 
-    val serviceLiveData:SingleLiveEvent<EventMessage> = SingleLiveEvent()
+    val serviceLiveData: SingleLiveEvent<EventMessage> = SingleLiveEvent()
+    val uiLIveEvent: SingleLiveEvent<EventMessage> = SingleLiveEvent()
 
-    fun executePostCall(call: Call<PostsResponse>,token:String = ""){
-        async {
-            call.enqueue(object :Callback<PostsResponse>{
+    fun executePostCall(call: Call<PostsResponse>, token: String = "",
+                        isCalledFromService:Boolean) {
+
+        val thread = HandlerThread("Postcall")
+        thread.start()
+        Handler(thread.looper).post {
+            call.enqueue(object : Callback<PostsResponse> {
                 override fun onFailure(call: Call<PostsResponse>?, t: Throwable?) {
-                    Timber.i(t,"page data failed")
-                    serviceLiveData.postValue(EventMessage(POST_KEY,token,0))
+                    Timber.i(t, "page data failed")
+                    serviceLiveData.postValue(EventMessage(POST_KEY, token, 0))
                 }
 
                 override fun onResponse(call: Call<PostsResponse>?, response: Response<PostsResponse>?) {
-                    serviceLiveData.postValue(EventMessage(POST_KEY,token,0))
-                    if (response != null && response.isSuccessful){
+                    if (response != null && response.isSuccessful) {
                         //save token
-                        val data:PostsResponse = response.body()!!
+                        val data: PostsResponse = response.body()!!
 
                         spUtils.savePageToken(data.nextPageToken)
                         Timber.i("New post token${data.nextPageToken}")
 
-                        //save used token
-                        if (token.isNotEmpty()){
-                            spUtils.saveUsedPageToken(token)
-                            Timber.i("Used page token$token")
-                        }
-
                         val list = data.items ?: emptyList()
-                        var author:Author ?= null
-                        for (post in list){
-                            val postTable = PostTable(
-                                    post.id,post.images,
-                                    post.title,
-                                    post.published,
-                                    post.labels,
-                                    post.content,
-                                    false)
+                        var author: Author? = null
+                        AsyncTask.execute {
+                            var inserted: Long = 0
+                            for (post in list) {
+                                val postTable = PostTable(
+                                        post.id, post.images,
+                                        post.title,
+                                        post.published,
+                                        post.labels,
+                                        post.content,
+                                        false)
 
-                            author = post.author
+                                author = post.author
 
-                            Timber.i("Add post: title:${post.title}")
-                            postTableDao.add(postTable)
+                                Timber.i("Add post: title:${post.title}")
+                                inserted += postTableDao.add(postTable)
+                            }
+
+                            if (inserted != 0L && !isCalledFromService) {
+                                MainActivity.postRequestComplete = true
+                                uiLIveEvent.postValue(EventMessage(POST_KEY, "complete", 1))
+                            }
+
+                            Timber.i("Inserted:$inserted")
                         }
                         //save author
                         spUtils.saveAuthor(author)
@@ -78,69 +90,87 @@ class LayerUtils(private val spUtils: SpUtils,
                         // that's means I am ready for new request
                         RemoteDataLayer.isAlreadyRequested = false
                         Timber.i("Open for new request")
-                        serviceLiveData.postValue(EventMessage(POST_KEY,token,1))
+                        serviceLiveData.postValue(EventMessage(POST_KEY, token, 1))
+                    } else{
+                        serviceLiveData.postValue(EventMessage(POST_KEY, token, 0))
                     }
                 }
 
             })
+            thread.quitSafely()
         }
     }
 
-    fun executePageCall(call: Call<PageResponse>){
-        async {
-            call.enqueue(object :Callback<PageResponse>{
+    fun executePageCall(call: Call<PageResponse>) {
+        val thread = HandlerThread("PageCall")
+        thread.start()
+        Handler(thread.looper).post {
+            call.enqueue(object : Callback<PageResponse> {
                 override fun onFailure(call: Call<PageResponse>?, t: Throwable?) {
-                    Timber.i(t,"page data failed")
-                    serviceLiveData.postValue(EventMessage(PAGE_KEY,"failed",0))
+                    Timber.i(t, "page data failed")
+                    serviceLiveData.postValue(EventMessage(PAGE_KEY, "failed", 0))
                 }
 
                 override fun onResponse(call: Call<PageResponse>?,
                                         response: Response<PageResponse>?) {
-                    serviceLiveData.postValue(EventMessage(PAGE_KEY,"failed",0))
-                    if (response != null && response.isSuccessful){
+                    if (response != null && response.isSuccessful) {
                         //save token
-                        val data:PageResponse = response.body()!!
+                        val data: PageResponse = response.body()!!
 
                         val list = data.items ?: emptyList()
-                        for (page in list){
-                            val pageTable = PageTable(
-                                    page.id,page.published,page.title,page.updated,
-                                    page.url,page.content)
+                        AsyncTask.execute({
+                            var inserted:Long = 0
+                            for (page in list) {
+                                val pageTable = PageTable(
+                                        page.id, page.published, page.title, page.updated,
+                                        page.url, page.content)
 
-                            Timber.i("Adding page data ${page.title}")
+                                Timber.i("Adding page data ${page.title}")
 
-                            pageTableDao.add(pageTable)
-                            serviceLiveData.postValue(EventMessage(PAGE_KEY,"Success",1))
-                        }
+                                inserted += pageTableDao.add(pageTable)
+                            }
+                            if (inserted != 0L){
+                                serviceLiveData.postValue(EventMessage(PAGE_KEY, "Success", 1))
+                            }
+                        })
+                    } else{
+                        serviceLiveData.postValue(EventMessage(PAGE_KEY, "failed", 0))
                     }
-                }
 
+
+                }
             })
+            thread.quitSafely()
         }
     }
 
-    fun executeBlogCall(call: Call<BlogResponse>){
-        async {
-            call.enqueue(object :Callback<BlogResponse>{
+    fun executeBlogCall(call: Call<BlogResponse>) {
+        val thread = HandlerThread("BlogCall")
+        thread.start()
+        Handler(thread.looper).post {
+            call.enqueue(object : Callback<BlogResponse> {
                 override fun onFailure(call: Call<BlogResponse>?, t: Throwable?) {
-                    Timber.i(t,"page data failed")
-                    serviceLiveData.postValue(EventMessage(BLOG_KEY,"failed",0))
+                    Timber.i(t, "blog data failed")
+                    serviceLiveData.postValue(EventMessage(BLOG_KEY, "failed: $t", 0))
                 }
 
                 override fun onResponse(call: Call<BlogResponse>?,
                                         response: Response<BlogResponse>?) {
 
-                    serviceLiveData.postValue(EventMessage(BLOG_KEY,"failed",0))
-                    if (response != null && response.isSuccessful){
+                    if (response != null && response.isSuccessful) {
                         //save token
-                        val data:BlogResponse = response.body()!!
+                        val data: BlogResponse = response.body()!!
                         spUtils.saveBlog(data)
                         Timber.i("Saved blog data ${data.name}")
-                        serviceLiveData.postValue(EventMessage(BLOG_KEY,"Success",1))
+                        serviceLiveData.postValue(EventMessage(BLOG_KEY, "Success", 1))
+                    } else{
+                        serviceLiveData.postValue(EventMessage(BLOG_KEY, "failed", 0))
                     }
                 }
 
             })
+            thread.quitSafely()
         }
+
     }
 }

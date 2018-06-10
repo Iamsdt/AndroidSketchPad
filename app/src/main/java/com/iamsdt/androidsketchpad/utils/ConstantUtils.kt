@@ -18,12 +18,14 @@ class ConstantUtils{
         const val APP_RUN_FIRST_TIME = "firstTime"
         const val SERVICE_RUN_FIRST_TIME = "ServiceFirstTime"
         const val SERVICE_RUN_DATE= "serviceDate"
+        const val BLOG_UPDATE= "blogUpdate"
 
         //network
         const val internet = "internet"
         const val connected = "connected"
         const val noInternet = "noInternet"
     }
+
 
     object Event{
         //post call
@@ -32,6 +34,8 @@ class ConstantUtils{
         const val PAGE_KEY = "PageCall"
 
         const val SERVICE = "SERVICE"
+
+        const val POST_WITH_TOKEN = "postToken"
     }
 
     //blog sp

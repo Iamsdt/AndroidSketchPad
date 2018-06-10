@@ -14,25 +14,24 @@ class RemoteDataLayer(private val spUtils: SpUtils,
                       val layerUtils: LayerUtils,
                       private val apiKey: String) {
 
-
     fun getBlogDetails() {
         Timber.i("Request for blog data")
-        val call = retInterface.getBlog()
+        val call = retInterface.getBlog(apiKey)
         layerUtils.executeBlogCall(call)
     }
 
-    fun getPostDetailsForFirstTime() {
+    fun getPostDetailsForFirstTime(isCalledFromService: Boolean = true) {
         Timber.i("Request for post data for first time")
         val call = retInterface.getPostForFirstTime(apiKey)
-        layerUtils.executePostCall(call)
+        layerUtils.executePostCall(call, isCalledFromService = isCalledFromService)
     }
 
-    fun getPostWithToken(token: String) {
+    fun getPostWithToken(token: String, isCalledFromService: Boolean = true) {
         Timber.i("Request for post data with token:$token")
-        if (token.isEmpty() && !isAlreadyRequested) {
+        if (token.isNotEmpty() && !isAlreadyRequested) {
             Timber.i("Executing post Request data with token:$token")
             val call = retInterface.getPostWithToken(token, apiKey)
-            layerUtils.executePostCall(call, token)
+            layerUtils.executePostCall(call, token, isCalledFromService)
             isAlreadyRequested = true
         }
 
@@ -41,30 +40,13 @@ class RemoteDataLayer(private val spUtils: SpUtils,
     fun getPostFromSearch(searchEvent: String) {
         Timber.i("Request post from search:$searchEvent")
         val call = retInterface.getPostFormSearch(searchEvent, apiKey)
-        layerUtils.executePostCall(call)
+        layerUtils.executePostCall(call, isCalledFromService = false)
     }
 
     fun getPageDetails() {
         Timber.i("Request for page details")
         val call = retInterface.getPageList(apiKey)
         layerUtils.executePageCall(call)
-    }
-
-    fun isReadyForNextToken(): Boolean {
-
-        val newToken = spUtils.getPageToken
-        val usedPageToken = spUtils.getUsedPageToken
-
-        Timber.i("Compare token:$newToken and oldToken$usedPageToken")
-
-        if (usedPageToken.isNotEmpty() && newToken != usedPageToken) {
-            return true
-        } else if (usedPageToken.isEmpty() && newToken.isNotEmpty()) {
-            // no token is used yet
-            return true
-        }
-
-        return false
     }
 
     companion object {

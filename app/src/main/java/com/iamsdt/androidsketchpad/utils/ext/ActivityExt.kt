@@ -22,7 +22,7 @@ fun AppCompatActivity.runThread(timer: Long, clazz: KClass<out AppCompatActivity
                 toNextActivity(clazz)
                 finish()
             }
-        })
+        }).start()
 
 fun AppCompatActivity.toNextActivity(
         clazz: KClass<out AppCompatActivity>,

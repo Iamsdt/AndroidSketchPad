@@ -24,6 +24,7 @@ import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.POSTS
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.PUBLISHED
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Blog.UPDATE
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.APP_RUN_FIRST_TIME
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.BLOG_UPDATE
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.PAGE_TOKEN
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SERVICE_RUN_DATE
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SERVICE_RUN_FIRST_TIME
@@ -52,6 +53,14 @@ class SpUtils(private val context: Context) {
         }
     }
 
+    val getBlogUpdate:Long get() = sp.getLong(BLOG_UPDATE, 0L)
+
+    fun setBlogUpdate() {
+        sp.edit {
+            putLong(BLOG_UPDATE, DateUtils.currentDate())
+        }
+    }
+
     val getServiceRunDate:Long get() = sp.getLong(SERVICE_RUN_DATE, 0L)
 
     fun setServiceRunDate() {
@@ -60,13 +69,13 @@ class SpUtils(private val context: Context) {
         }
     }
 
-    fun saveUsedPageToken(string: String) {
+    fun saveServicePageToken(string: String) {
         sp.edit {
             putString(USED_PAGE_TOKEN, string)
         }
     }
 
-    val getUsedPageToken: String get() = sp.getString(USED_PAGE_TOKEN, "")
+    val getServicePageToken: String get() = sp.getString(USED_PAGE_TOKEN, "")
 
     fun savePageToken(string: String) {
         sp.edit {
@@ -133,7 +142,7 @@ class SpUtils(private val context: Context) {
 
     fun getAuthor(): AuthorModel {
         val imageUrl: String = authorSP.getString(IMAGEURL, "")
-        val displayName: String = authorSP.getString(DISPLAY_NAME, "")
+        val displayName: String = authorSP.getString(DISPLAY_NAME, "Shudipto Trafder")
         val id: String = authorSP.getString(ID, "")
         val url: String = authorSP.getString(URL, "")
         val des: String = authorSP.getString(DES, "")

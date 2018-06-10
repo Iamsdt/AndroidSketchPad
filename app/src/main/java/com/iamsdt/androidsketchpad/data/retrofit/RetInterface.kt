@@ -47,5 +47,5 @@ interface RetInterface {
 
 
     @GET("/blogger/v3/blogs/141872694236847267")
-    fun getBlog():Call<BlogResponse>
+    fun getBlog(@Query("key") key: String):Call<BlogResponse>
 }

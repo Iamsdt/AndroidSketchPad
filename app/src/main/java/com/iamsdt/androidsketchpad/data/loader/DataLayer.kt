@@ -21,35 +21,7 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
                 private val pageTableDao: PageTableDao,
                 private val spUtils: SpUtils) {
 
-    fun getPostData(): LiveData<PagedList<PostTable>> {
 
-        val source = postTableDao.getAllPost
-
-        val config = PagedList.Config.Builder()
-                .setPageSize(7)
-                .setInitialLoadSizeHint(10)//by default page size * 3
-                .setPrefetchDistance(5) // default page size
-                .setEnablePlaceholders(true) //default true
-                // that's means scroll bar is not jump and all data set show on the
-                //recycler view first after 30 it will show empty view
-                // when load it will update with animation
-                .build()
-
-        val data = LivePagedListBuilder(source, config).build()
-
-        val mediatorLiveData = MediatorLiveData<PagedList<PostTable>>()
-        mediatorLiveData.addSource(data, {
-            if (it == null || it.size <= 0) {
-                Timber.i("Post List is null or empty so call for remote data")
-                remoteDataLayer.getPostDetailsForFirstTime()
-            } else if (remoteDataLayer.isReadyForNextToken() && it.size >= 7) { //7 for initial size
-                Timber.i("Post List is greater than 7 so call for next page from token")
-                remoteDataLayer.getPostWithToken(spUtils.getPageToken)
-            }
-        })
-
-        return mediatorLiveData
-    }
 
     fun getPageData(): LiveData<PageTable> {
         val data = pageTableDao.getAllPage
