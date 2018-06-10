@@ -72,12 +72,12 @@ class MainAdapter(private val picasso: Picasso,
 
                     Handler(Looper.getMainLooper()).post({
                         if (set > 0) {
-                            showToast("Bookmarked")
+                            Toasty.success(context, "Bookmarked", Toast.LENGTH_SHORT, true).show()
                             holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
                         }
 
                         if (delete > 0) {
-                            showToast("Bookmark deleted")
+                            Toasty.warning(context, "Bookmark deleted", Toast.LENGTH_SHORT, true).show()
                             holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark))
                         }
                     })
@@ -113,7 +113,7 @@ class MainAdapter(private val picasso: Picasso,
     }
 
     private fun showToast(message: String) {
-        Toasty.info(context, message, Toast.LENGTH_SHORT, true).show()
+
     }
 
     companion object {
