@@ -6,9 +6,11 @@
 package com.iamsdt.androidsketchpad.data.loader
 
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
+import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 
-class RemoteDataLayer(private val retInterface: RetInterface,
+class RemoteDataLayer(private val spUtils: SpUtils,
+                      private val retInterface: RetInterface,
                       val layerUtils: LayerUtils,
                       private val apiKey: String) {
 
@@ -46,6 +48,23 @@ class RemoteDataLayer(private val retInterface: RetInterface,
         Timber.i("Request for page details")
         val call = retInterface.getPageList(apiKey)
         layerUtils.executePageCall(call)
+    }
+
+    fun isReadyForNextToken(): Boolean {
+
+        val newToken = spUtils.getPageToken
+        val usedPageToken = spUtils.getUsedPageToken
+
+        Timber.i("Compare token:$newToken and oldToken$usedPageToken")
+
+        if (usedPageToken.isNotEmpty() && newToken != usedPageToken) {
+            return true
+        } else if (usedPageToken.isEmpty() && newToken.isNotEmpty()) {
+            // no token is used yet
+            return true
+        }
+
+        return false
     }
 
     companion object {

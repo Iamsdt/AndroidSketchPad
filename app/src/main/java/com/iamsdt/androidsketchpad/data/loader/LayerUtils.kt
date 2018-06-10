@@ -13,10 +13,14 @@ import com.iamsdt.androidsketchpad.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.database.table.PageTable
 import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
+import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import kotlinx.coroutines.experimental.async
+import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -33,10 +37,11 @@ class LayerUtils(private val spUtils: SpUtils,
             call.enqueue(object :Callback<PostsResponse>{
                 override fun onFailure(call: Call<PostsResponse>?, t: Throwable?) {
                     Timber.i(t,"page data failed")
+                    serviceLiveData.postValue(EventMessage(POST_KEY,token,0))
                 }
 
                 override fun onResponse(call: Call<PostsResponse>?, response: Response<PostsResponse>?) {
-
+                    serviceLiveData.postValue(EventMessage(POST_KEY,token,0))
                     if (response != null && response.isSuccessful){
                         //save token
                         val data:PostsResponse = response.body()!!
@@ -74,6 +79,7 @@ class LayerUtils(private val spUtils: SpUtils,
                         // that's means I am ready for new request
                         RemoteDataLayer.isAlreadyRequested = false
                         Timber.i("Open for new request")
+                        serviceLiveData.postValue(EventMessage(POST_KEY,token,1))
                     }
                 }
 
@@ -86,11 +92,12 @@ class LayerUtils(private val spUtils: SpUtils,
             call.enqueue(object :Callback<PageResponse>{
                 override fun onFailure(call: Call<PageResponse>?, t: Throwable?) {
                     Timber.i(t,"page data failed")
+                    serviceLiveData.postValue(EventMessage(PAGE_KEY,"failed",0))
                 }
 
                 override fun onResponse(call: Call<PageResponse>?,
                                         response: Response<PageResponse>?) {
-
+                    serviceLiveData.postValue(EventMessage(PAGE_KEY,"failed",0))
                     if (response != null && response.isSuccessful){
                         //save token
                         val data:PageResponse = response.body()!!
@@ -104,7 +111,7 @@ class LayerUtils(private val spUtils: SpUtils,
                             Timber.i("Adding page data ${page.title}")
 
                             pageTableDao.add(pageTable)
-
+                            serviceLiveData.postValue(EventMessage(PAGE_KEY,"Success",1))
                         }
                     }
                 }
@@ -118,16 +125,19 @@ class LayerUtils(private val spUtils: SpUtils,
             call.enqueue(object :Callback<BlogResponse>{
                 override fun onFailure(call: Call<BlogResponse>?, t: Throwable?) {
                     Timber.i(t,"page data failed")
+                    serviceLiveData.postValue(EventMessage(BLOG_KEY,"failed",0))
                 }
 
                 override fun onResponse(call: Call<BlogResponse>?,
                                         response: Response<BlogResponse>?) {
 
+                    serviceLiveData.postValue(EventMessage(BLOG_KEY,"failed",0))
                     if (response != null && response.isSuccessful){
                         //save token
                         val data:BlogResponse = response.body()!!
                         spUtils.saveBlog(data)
                         Timber.i("Saved blog data ${data.name}")
+                        serviceLiveData.postValue(EventMessage(BLOG_KEY,"Success",1))
                     }
                 }
 

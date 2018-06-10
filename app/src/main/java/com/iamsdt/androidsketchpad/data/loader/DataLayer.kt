@@ -14,7 +14,6 @@ import com.iamsdt.androidsketchpad.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.database.table.PageTable
 import com.iamsdt.androidsketchpad.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
-import kotlinx.coroutines.experimental.async
 import timber.log.Timber
 
 class DataLayer(private val remoteDataLayer: RemoteDataLayer,
@@ -26,9 +25,6 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
     fun getPostData(): LiveData<PagedList<PostTable>> {
 
         val source = postTableDao.getAllPost
-
-        val newToken = spUtils.getPageToken
-        val usedPageToken = spUtils.getUsedPageToken
 
         val config = PagedList.Config.Builder()
                 .setPageSize(7)
@@ -47,9 +43,9 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
             if (it == null || it.size <= 0) {
                 Timber.i("Post List is null or empty so call for remote data")
                 remoteDataLayer.getPostDetailsForFirstTime()
-            } else if (isReadyForNextToken(newToken, usedPageToken) && it.size >= 7) { //7 for initial size
+            } else if (remoteDataLayer.isReadyForNextToken() && it.size >= 7) { //7 for initial size
                 Timber.i("Post List is greater than 7 so call for next page from token")
-                remoteDataLayer.getPostWithToken(newToken)
+                remoteDataLayer.getPostWithToken(spUtils.getPageToken)
             }
         })
 
@@ -70,17 +66,5 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
         return mediatorLiveData
     }
 
-    private fun isReadyForNextToken(newToken: String, usedPageToken: String): Boolean {
 
-        Timber.i("Compare token:$newToken and oldToken$usedPageToken")
-
-        if (usedPageToken.isNotEmpty() && newToken != usedPageToken) {
-            return true
-        } else if (usedPageToken.isEmpty() && newToken.isNotEmpty()) {
-            // no token is used yet
-            return true
-        }
-
-        return false
-    }
 }
