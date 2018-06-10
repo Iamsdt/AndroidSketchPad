@@ -16,7 +16,8 @@ class EventBusModule{
     @Provides
     @Singleton
     fun getBus():EventBus = EventBus.builder()
-            .sendSubscriberExceptionEvent(true)
-            .installDefaultEventBus()
+            .logNoSubscriberMessages(false)
+            .sendNoSubscriberEvent(false)
+            .build()
 
 }

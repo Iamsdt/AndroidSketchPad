@@ -7,6 +7,7 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
 import com.iamsdt.androidsketchpad.BuildConfig
+import com.iamsdt.androidsketchpad.data.loader.DataLayer
 import com.iamsdt.androidsketchpad.data.loader.LayerUtils
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
@@ -17,15 +18,25 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module
+@Module(includes = [DBModule::class])
 class AppModule {
+
 
     @Provides
     @Singleton
-    fun getDataLayer(spUtils: SpUtils,
-                     retInterface: RetInterface,
-                     layerUtils: LayerUtils):RemoteDataLayer =
-            RemoteDataLayer(spUtils,retInterface,layerUtils,BuildConfig.BloggerApiKey)
+    fun getDataLayer(remoteDataLayer: RemoteDataLayer,
+                     postTableDao: PostTableDao,
+                     pageTableDao: PageTableDao,
+                     spUtils: SpUtils): DataLayer =
+            DataLayer(remoteDataLayer, postTableDao, pageTableDao, spUtils)
+
+
+    @Provides
+    @Singleton
+    fun getRemoteDataLayer(spUtils: SpUtils,
+                           retInterface: RetInterface,
+                           layerUtils: LayerUtils): RemoteDataLayer =
+            RemoteDataLayer(spUtils, retInterface, layerUtils, BuildConfig.BloggerApiKey)
 
 
     @Provides
@@ -33,7 +44,7 @@ class AppModule {
     fun getLayerUtils(spUtils: SpUtils,
                       pageTableDao: PageTableDao,
                       postTableDao: PostTableDao): LayerUtils =
-            LayerUtils(spUtils,pageTableDao,postTableDao)
+            LayerUtils(spUtils, pageTableDao, postTableDao)
 
     @Provides
     @Singleton

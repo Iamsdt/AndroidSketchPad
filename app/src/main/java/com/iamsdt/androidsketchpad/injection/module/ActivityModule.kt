@@ -6,6 +6,8 @@
 package com.iamsdt.androidsketchpad.injection.module
 
 import com.iamsdt.androidsketchpad.ui.SplashScreen
+import com.iamsdt.androidsketchpad.ui.main.MainActivity
+import com.iamsdt.androidsketchpad.ui.services.UpdateService
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -14,7 +16,13 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityModule{
 
     @ContributesAndroidInjector
-    abstract fun getMainActivity():SplashScreen
+    abstract fun getSplashActivity():SplashScreen
+
+    @ContributesAndroidInjector
+    abstract fun getMainActivity():MainActivity
+
+    @ContributesAndroidInjector
+    abstract fun updateServices():UpdateService
 
     @ContributesAndroidInjector
     abstract fun connectionReciver():ConnectivityChangeReceiver

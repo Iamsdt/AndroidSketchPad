@@ -15,7 +15,7 @@ import javax.inject.Singleton
  * at 6:06 PM
  */
 
-@Module
+@Module(includes = [NetworkModule::class])
 class PicassoModule {
 
     @Provides
