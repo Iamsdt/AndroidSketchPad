@@ -37,7 +37,7 @@ class LayerUtils(private val spUtils: SpUtils,
     val uiLIveEvent: SingleLiveEvent<EventMessage> = SingleLiveEvent()
 
     fun executePostCall(call: Call<PostsResponse>, token: String = "",
-                        isCalledFromService:Boolean) {
+                        isCalledFromService: Boolean) {
 
         val thread = HandlerThread("Postcall")
         thread.start()
@@ -76,7 +76,6 @@ class LayerUtils(private val spUtils: SpUtils,
                             }
 
                             if (inserted != 0L && !isCalledFromService) {
-                                MainActivity.postRequestComplete = true
                                 uiLIveEvent.postValue(EventMessage(POST_KEY, "complete", 1))
                             }
 
@@ -92,9 +91,12 @@ class LayerUtils(private val spUtils: SpUtils,
                         Timber.i("Open for new request")
                         if (isCalledFromService)
                             serviceLiveData.postValue(EventMessage(POST_KEY, token, 1))
-                    } else{
+                    } else {
                         if (isCalledFromService)
-                        serviceLiveData.postValue(EventMessage(POST_KEY, token, 0))
+                            serviceLiveData.postValue(EventMessage(POST_KEY, token, 0))
+                        else
+                            uiLIveEvent.postValue(EventMessage(POST_KEY, "complete", 0))
+
                     }
                 }
 
@@ -121,7 +123,7 @@ class LayerUtils(private val spUtils: SpUtils,
 
                         val list = data.items ?: emptyList()
                         AsyncTask.execute({
-                            var inserted:Long = 0
+                            var inserted: Long = 0
                             for (page in list) {
                                 val pageTable = PageTable(
                                         page.id, page.published, page.title, page.updated,
@@ -131,11 +133,11 @@ class LayerUtils(private val spUtils: SpUtils,
 
                                 inserted += pageTableDao.add(pageTable)
                             }
-                            if (inserted != 0L){
+                            if (inserted != 0L) {
                                 serviceLiveData.postValue(EventMessage(PAGE_KEY, "Success", 1))
                             }
                         })
-                    } else{
+                    } else {
                         serviceLiveData.postValue(EventMessage(PAGE_KEY, "failed", 0))
                     }
 
@@ -165,7 +167,7 @@ class LayerUtils(private val spUtils: SpUtils,
                         spUtils.saveBlog(data)
                         Timber.i("Saved blog data ${data.name}")
                         serviceLiveData.postValue(EventMessage(BLOG_KEY, "Success", 1))
-                    } else{
+                    } else {
                         serviceLiveData.postValue(EventMessage(BLOG_KEY, "failed", 0))
                     }
                 }

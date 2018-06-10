@@ -80,9 +80,13 @@ class MainActivity : AppCompatActivity(),
         viewModel.uiLiveData.observe(this, Observer {
             if (it != null && it.key == POST_KEY){
                 if (it.status == 1){
-                    if (!postRequestComplete) viewModel.getTokenPost()
+                    if (!postRequestComplete){
+                        viewModel.nextPost()
+                        postRequestComplete = true
+                    }
+
                 } else{
-                    viewModel.getTokenPost()
+                    viewModel.nextPost()
                 }
 
             }

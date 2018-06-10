@@ -16,11 +16,12 @@ import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
+import timber.log.Timber
 import javax.inject.Inject
 
 class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
                                  val postTableDao: PostTableDao,
-                                 val spUtils: SpUtils):ViewModel(){
+                                 val spUtils: SpUtils) : ViewModel() {
 
     private var initialSize = 15
 
@@ -51,17 +52,25 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
         return LivePagedListBuilder(source, config).build()
     }
 
-    val uiLiveData:SingleLiveEvent<EventMessage> = remoteDataLayer.layerUtils.uiLIveEvent
+    val uiLiveData: SingleLiveEvent<EventMessage> = remoteDataLayer.layerUtils.uiLIveEvent
 
-    fun getTokenPost(){
-        remoteDataLayer.getPostWithToken(spUtils.getPageToken,false)
+    fun nextPost() {
+        val token = spUtils.getPageToken
+        Timber.i("Token :$token")
+        //if token is empty then first call is not finished successfully
+        if (token.isNotEmpty())
+            remoteDataLayer.getPostWithToken(token, false)
+        else
+            remoteDataLayer.getPostDetailsForFirstTime(false)
     }
 
-    fun requestNewPost(int: Int){
+    fun requestNewPost(int: Int) {
 
         val result = int - initialSize
 
-        if (result > 4){
+        Timber.i("VM result:$result")
+
+        if (result > 4) {
             uiLiveData.postValue(EventMessage(ConstantUtils.Event.POST_KEY, "request", 0))
             initialSize = int
         }
