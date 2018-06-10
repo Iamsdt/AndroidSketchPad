@@ -7,9 +7,9 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
 import android.arch.persistence.room.Room
-import com.iamsdt.androidsketchpad.database.MyDB
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.MyDB
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.DB_NAME
 import dagger.Module
 import dagger.Provides

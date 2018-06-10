@@ -20,8 +20,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
-import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.squareup.picasso.Picasso

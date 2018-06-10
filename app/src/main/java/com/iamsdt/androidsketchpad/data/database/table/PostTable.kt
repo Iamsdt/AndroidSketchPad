@@ -1,4 +1,4 @@
-package com.iamsdt.androidsketchpad.database.table
+package com.iamsdt.androidsketchpad.data.database.table
 
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey

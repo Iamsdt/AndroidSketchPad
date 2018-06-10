@@ -3,7 +3,7 @@
  * on 6/9/18 6:48 PM
  */
 
-package com.iamsdt.androidsketchpad.database
+package com.iamsdt.androidsketchpad.data.database
 import android.arch.persistence.room.TypeConverter
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.ImagesItem
 import kotlin.text.StringBuilder

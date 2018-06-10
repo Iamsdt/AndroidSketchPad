@@ -9,10 +9,10 @@ import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
-import com.iamsdt.androidsketchpad.database.table.PageTable
-import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.table.PageTable
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
@@ -20,7 +20,6 @@ import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import kotlinx.coroutines.experimental.async
-import org.greenrobot.eventbus.EventBus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,12 +1,12 @@
-package com.iamsdt.androidsketchpad.database
+package com.iamsdt.androidsketchpad.data.database
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
-import com.iamsdt.androidsketchpad.database.table.PageTable
-import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.table.PageTable
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 
 /**
  * Created by Shudipto Trafder on 3/31/2018.

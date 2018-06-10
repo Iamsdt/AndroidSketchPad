@@ -11,8 +11,8 @@ import com.iamsdt.androidsketchpad.data.loader.DataLayer
 import com.iamsdt.androidsketchpad.data.loader.LayerUtils
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.squareup.picasso.Picasso

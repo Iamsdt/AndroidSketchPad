@@ -9,14 +9,11 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
-import com.iamsdt.androidsketchpad.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.database.dao.PostTableDao
-import com.iamsdt.androidsketchpad.database.table.PageTable
-import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.table.PageTable
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
-import com.iamsdt.androidsketchpad.utils.ext.BookMark
-import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
-import kotlinx.coroutines.experimental.async
 import timber.log.Timber
 
 class DataLayer(private val remoteDataLayer: RemoteDataLayer,

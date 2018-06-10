@@ -1,10 +1,9 @@
-package com.iamsdt.androidsketchpad.database.dao
+package com.iamsdt.androidsketchpad.data.database.dao
 
 import android.arch.lifecycle.LiveData
 import android.arch.paging.DataSource
-import android.arch.paging.PagedList
 import android.arch.persistence.room.*
-import com.iamsdt.androidsketchpad.database.table.PostTable
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 
 /**
  * Created by Shudipto Trafder on 3/31/2018.
