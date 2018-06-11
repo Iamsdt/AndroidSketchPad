@@ -30,10 +30,18 @@
     </android.support.design.widget.AppBarLayout>
 
     <include
+        android:id="@+id/detailsView"
         layout="@layout/content_details"
         android:layout_marginTop="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <include
+        android:id="@+id/loading"
+        android:visibility="gone"
+        layout="@layout/loading_layer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </android.support.design.widget.CoordinatorLayout>

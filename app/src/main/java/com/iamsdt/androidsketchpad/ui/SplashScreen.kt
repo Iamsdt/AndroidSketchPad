@@ -30,7 +30,7 @@ class SplashScreen : AppCompatActivity() {
 
             //show app intro
             //runThread(500,)
-            runThread(1000,AppIntro::class)
+            runThread(100,AppIntro::class)
 
             spUtils.setAppRunFirstTime()
             //complete:6/10/2018 Debug only remove latter

@@ -38,9 +38,9 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
 
     fun requestBookmark(id: String, bookmarked: Boolean) {
         if (bookmarked)
-            setBookmark(id)
-        else
             deleteBookmark(id)
+        else
+            setBookmark(id)
     }
 
 

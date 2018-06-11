@@ -6,6 +6,7 @@ complete remove coroutines
 complete add shimmer library in main activity
 complete change list design like blog
 todo complete navigation
+todo fix data loading issue
 
 //details
 complete add loading indicator in details activity

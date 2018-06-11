@@ -21,6 +21,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.R.id.loading
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.SpUtils
@@ -58,7 +59,7 @@ class DetailsActivity : AppCompatActivity() {
 
     var isBookmarked = false
 
-    var previousPostTable:PostTable ?= null
+    var previousPostTable: PostTable? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,8 +94,8 @@ class DetailsActivity : AppCompatActivity() {
             }
 
             override fun onPageFinished(view: WebView?, url: String?) {
-                showMainView()
                 super.onPageFinished(view, url)
+                showMainView()
             }
         }
 
@@ -119,7 +120,7 @@ class DetailsActivity : AppCompatActivity() {
                 isBookmarked = it.bookmark
 
                 //just prevent multiple times load of web view
-                if (uiUpdate(it)){
+                if (uiUpdate(it)) {
                     webView.loadData(HtmlHelper.getHtml(it.content),
                             "text/html", "UTF-8")
 
@@ -132,9 +133,6 @@ class DetailsActivity : AppCompatActivity() {
 
                 //save this table
                 previousPostTable = it
-
-                if (::menuItem.isInitialized && it.bookmark)
-                    menuItem.setIcon(R.drawable.ic_bookmark_done)
 
             } else {
                 //show empty view
@@ -151,14 +149,14 @@ class DetailsActivity : AppCompatActivity() {
             if (::menuItem.isInitialized) {
                 when (it) {
                     BookMark.SET -> {
-                        menuItem.setIcon(R.drawable.ic_bookmark_done)
                         showToast(ToastType.SUCCESSFUL, "Bookmarked")
+                        menuItem.setIcon(R.drawable.ic_bookmark_done)
                         isBookmarked = true
                     }
 
                     BookMark.DELETE -> {
-                        menuItem.setIcon(R.drawable.ic_bookmark)
                         showToast(ToastType.WARNING, "Bookmark removed")
+                        menuItem.setIcon(R.drawable.ic_bookmark)
                         isBookmarked = false
                     }
                 }
@@ -168,31 +166,23 @@ class DetailsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun uiUpdate(postTable: PostTable):Boolean{
+    private fun uiUpdate(postTable: PostTable): Boolean {
         if (previousPostTable == null) return true
 
         //it's is not possible to change content on the details screen
         return previousPostTable!!.content != postTable.content
-        || previousPostTable!!.url != postTable.url ||
+                || previousPostTable!!.url != postTable.url ||
                 previousPostTable!!.title != postTable.title
     }
 
     private fun showLoadingView() {
-        author.gone()
-        labelCard.gone()
-        webView.gone()
-        titleTV.gone()
-
+        detailsView.gone()
         //loading screen
         loading.show()
     }
 
     private fun showMainView() {
-        author.show()
-        labelCard.show()
-        webView.show()
-        titleTV.show()
-
+        detailsView.show()
         //loading screen
         loading.gone()
     }
@@ -213,14 +203,18 @@ class DetailsActivity : AppCompatActivity() {
         val author = spUtils.getAuthor()
         authorName.text = author.displayName
         authorDes.text = author.des
-        picasso.load(author.imageUrl).fit().into(authorImg)
+        if (author.imageUrl.isNotEmpty()) {
+            picasso.load(author.imageUrl).fit().into(authorImg)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.details, menu)
 
         menuItem = menu.findItem(R.id.bookmark)
-        menuItem.setIcon(R.drawable.ic_bookmark)
+
+        if (isBookmarked)
+            menuItem.setIcon(R.drawable.ic_bookmark_done)
 
         val shareMenu = menu.findItem(R.id.share)
         shareActionProvider = MenuItemCompat.getActionProvider(shareMenu) as ShareActionProvider

@@ -21,6 +21,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.R.id.author
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
@@ -54,14 +55,13 @@ class MainAdapter(private val picasso: Picasso,
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val model: PostTable? = getItem(position)
-        holder.bind(model)
-
-        if (model != null) {
+        try {
+            val model: PostTable? = getItem(position)
+            holder.bind(model)
 
             holder.itemView.setOnClickListener {
                 val intent = Intent(context, DetailsActivity::class.java)
-                intent.putExtra(Intent.EXTRA_TEXT, model.id)
+                intent.putExtra(Intent.EXTRA_TEXT, model?.id)
                 context.startActivity(intent)
             }
 
@@ -72,28 +72,30 @@ class MainAdapter(private val picasso: Picasso,
                 val thread = HandlerThread("Bookmark")
                 thread.start()
                 Handler(thread.looper).post({
-                    if (model.bookmark) {
+                    if (model?.bookmark == true) {
                         //book mark
                         delete = postTableDao.deleteBookmark(model.id)
                     } else {
-                        set = postTableDao.setBookmark(model.id)
+                        set = postTableDao.setBookmark(model!!.id)
                     }
 
                     Handler(Looper.getMainLooper()).post({
                         if (set > 0) {
                             Toasty.success(context, "Bookmarked", Toast.LENGTH_SHORT, true).show()
-                            holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
+                            //holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
                         }
 
                         if (delete > 0) {
                             Toasty.warning(context, "Bookmark deleted", Toast.LENGTH_SHORT, true).show()
-                            holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark))
+                            //holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark))
                         }
                     })
 
                     thread.quitSafely()
                 })
             }
+        } catch (e:Exception){
+            Timber.e(e,"$position ${currentList?.size}")
         }
     }
 
@@ -119,8 +121,14 @@ class MainAdapter(private val picasso: Picasso,
             } else dateTV.gone()
 
             val labels = post?.labels ?: emptyList()
-            if (labels.isNotEmpty()){
+            if (labels.isNotEmpty()) {
                 labelTV.text = labels[0]
+            }
+
+            if (post?.bookmark == true){
+                bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
+            } else{
+                bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark))
             }
         }
     }
@@ -130,12 +138,17 @@ class MainAdapter(private val picasso: Picasso,
             // Concert details may have changed if reloaded from the database,
             // but ID is fixed.
             override fun areItemsTheSame(oldConcert: PostTable,
-                                         newConcert: PostTable): Boolean =
-                    oldConcert.id == newConcert.id
+                                         newConcert: PostTable): Boolean {
+
+                Timber.i("compare callback item ${oldConcert.id}:${newConcert.id} " +
+                        "${oldConcert.bookmark}:${newConcert.bookmark}")
+
+                   return oldConcert.id == newConcert.id
+            }
 
             override fun areContentsTheSame(oldConcert: PostTable,
-                                            newConcert: PostTable): Boolean =
-                    oldConcert == newConcert
+                                            newConcert: PostTable): Boolean{
+                    return oldConcert == newConcert}
         }
     }
 }
