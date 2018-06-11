@@ -5,6 +5,37 @@ todo remove coroutines
 //main
 todo add shimmer library in main activity
 todo change list design like blog
+todo complete navigation
 
-//
+//details
 todo add loading indicator in details activity
+todo add text size increase button
+todo add share action provider
+todo add menu
+todo add author
+todo add bookmark option
+
+//splash
+fixme fix splash loading
+todo increase loading time
+
+//bookmark
+todo add bookmark screen
+todo swipe to delete option
+
+//settings
+todo add sync time interval
+
+
+takeALook on this this will on version 2
+//version 2
+//details
+todo add labels
+todo add related post 3
+
+//database
+todo save data according to labels and
+todo make it possible to get this according to labels
+
+//navigation
+todo change with list view
