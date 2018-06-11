@@ -5,9 +5,11 @@
 
 package com.iamsdt.androidsketchpad.ui.details
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -16,9 +18,14 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.customTab
+import com.iamsdt.themelibrary.ThemeUtils
+import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.content_details.*
+import org.jsoup.Jsoup
+import timber.log.Timber
 import javax.inject.Inject
 
 class DetailsActivity : AppCompatActivity() {
@@ -32,9 +39,12 @@ class DetailsActivity : AppCompatActivity() {
         ViewModelProviders.of(this, factory).get(DetailsVM::class.java)
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ThemeUtils.initialize(this)
         setContentView(R.layout.activity_details)
+        setSupportActionBar(toolbar)
 
         id = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
 
@@ -47,7 +57,7 @@ class DetailsActivity : AppCompatActivity() {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     customTab(request.url.toString())
                 } else {
-                   customTab(request.url.toString())
+                    customTab(request.url.toString())
                 }
                 return true
             }
@@ -70,12 +80,14 @@ class DetailsActivity : AppCompatActivity() {
         settings.setAppCacheEnabled(false)
         settings.cacheMode = WebSettings.LOAD_NO_CACHE
 
-        settings.allowContentAccess = false
         settings.loadWithOverviewMode = true
+        settings.loadsImagesAutomatically = true
+        settings.javaScriptEnabled = true
+
+        webView.setPadding(0, 0, 0, 0)
 
         viewModel.getDetails(id).observe(this, Observer {
-            webView.loadData(it?.content, "text/html", "UTF-8")
+            webView.loadData(HtmlHelper.getHtml(it?.content), "text/html", "UTF-8")
         })
-
     }
 }

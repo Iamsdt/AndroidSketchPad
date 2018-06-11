@@ -31,10 +31,13 @@
 
         <activity
             android:name=".ui.main.MainActivity"
-            android:label="@string/my_app"/>
+            android:label="@string/my_app"
+            android:theme="@style/LibraryAppTheme.NoActionBar"/>
 
-        <activity android:name=".ui.AppIntro" />
-        <activity android:name=".ui.details.DetailsActivity" />
+        <activity android:name=".ui.AppIntro"
+            android:theme="@style/LibraryAppTheme.NoActionBar"/>
+        <activity android:name=".ui.details.DetailsActivity"
+            android:theme="@style/LibraryAppTheme.NoActionBar"/>
     </application>
 
 </manifest>
