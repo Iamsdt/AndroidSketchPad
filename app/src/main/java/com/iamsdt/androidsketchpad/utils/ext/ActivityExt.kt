@@ -5,9 +5,14 @@
 
 package com.iamsdt.androidsketchpad.utils.ext
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.support.customtabs.CustomTabsIntent
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.iamsdt.androidsketchpad.R
 import es.dmoral.toasty.Toasty
 import kotlin.reflect.KClass
 
@@ -54,6 +59,17 @@ fun AppCompatActivity.showToast(
         ToastType.SUCCESSFUL -> Toasty.success(this,message,time,withIcon).show()
         ToastType.WARNING -> Toasty.warning(this,message,time,withIcon).show()
     }
+}
+
+
+fun AppCompatActivity.customTab(link: String) {
+    val builder = CustomTabsIntent.Builder()
+    builder.setToolbarColor(R.attr.colorPrimary)
+    builder.setShowTitle(false)
+    builder.setCloseButtonIcon(BitmapFactory.decodeResource(
+            resources, R.drawable.dialog_back))
+    val customTabsIntent = builder.build()
+    customTabsIntent.launchUrl(this, Uri.parse(link))
 }
 
 

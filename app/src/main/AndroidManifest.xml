@@ -34,6 +34,7 @@
             android:label="@string/my_app"/>
 
         <activity android:name=".ui.AppIntro" />
+        <activity android:name=".ui.details.DetailsActivity" />
     </application>
 
 </manifest>

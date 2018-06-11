@@ -9,6 +9,7 @@ package com.iamsdt.androidsketchpad.injection.module
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.iamsdt.androidsketchpad.injection.scopes.ViewModelKey
+import com.iamsdt.androidsketchpad.ui.details.DetailsVM
 import com.iamsdt.androidsketchpad.ui.main.MainVM
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import dagger.Binds
@@ -22,6 +23,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainVM::class)
     internal abstract fun bindMainVM(vm: MainVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsVM::class)
+    internal abstract fun detailsVM(vm: DetailsVM): ViewModel
 
 
     @Binds

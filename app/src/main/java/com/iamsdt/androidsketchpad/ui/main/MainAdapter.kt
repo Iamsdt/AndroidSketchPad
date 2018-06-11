@@ -8,6 +8,7 @@ package com.iamsdt.androidsketchpad.ui.main
 import android.app.Application
 import android.arch.paging.PagedListAdapter
 import android.content.Context
+import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
@@ -22,6 +23,7 @@ import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
+import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.squareup.picasso.Picasso
@@ -56,6 +58,13 @@ class MainAdapter(private val picasso: Picasso,
         holder.bind(model)
 
         if (model != null) {
+
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context,DetailsActivity::class.java)
+                intent.putExtra(Intent.EXTRA_TEXT,model.id)
+                context.startActivity(intent)
+            }
+
             holder.bookmarkImg.setOnClickListener {
                 var set = 0
                 var delete = 0
