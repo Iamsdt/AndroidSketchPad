@@ -1,5 +1,5 @@
-todo remove jsoup
-todo remove coroutines
+complete remove jsoup
+complete remove coroutines
 
 //left
 //main
@@ -8,12 +8,12 @@ todo change list design like blog
 todo complete navigation
 
 //details
-todo add loading indicator in details activity
-todo add text size increase button
-todo add share action provider
-todo add menu
-todo add author
-todo add bookmark option
+complete add loading indicator in details activity
+complete add text size increase button
+complete add share action provider
+complete add menu
+complete add author
+complete add bookmark option
 
 //splash
 fixme fix splash loading
@@ -30,8 +30,10 @@ todo add sync time interval
 takeALook on this this will on version 2
 //version 2
 //details
-todo add labels
+todo add labels clickable
 todo add related post 3
+todo add bottom share screen
+
 
 //database
 todo save data according to labels and

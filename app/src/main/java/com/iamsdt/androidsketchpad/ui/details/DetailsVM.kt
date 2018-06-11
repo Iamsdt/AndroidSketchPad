@@ -20,7 +20,7 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
     fun getDetails(id: String) =
             postTableDao.getSinglePost(id)
 
-    fun setBookmark(id: String){
+    private fun setBookmark(id: String) {
         AsyncTask.execute({
             val update = postTableDao.setBookmark(id)
             if (update != -1)
@@ -28,7 +28,7 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
         })
     }
 
-    fun deleteBookmark(id: String){
+    private fun deleteBookmark(id: String) {
         AsyncTask.execute({
             val delete = postTableDao.deleteBookmark(id)
             if (delete != -1)
@@ -36,8 +36,11 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
         })
     }
 
-    fun requestBookmark() {
-
+    fun requestBookmark(id: String, bookmarked: Boolean) {
+        if (bookmarked)
+            setBookmark(id)
+        else
+            deleteBookmark(id)
     }
 
 

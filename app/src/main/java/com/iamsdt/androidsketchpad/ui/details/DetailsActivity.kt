@@ -9,13 +9,10 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
-import android.provider.Settings
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.menu.MenuItemImpl
 import android.support.v7.widget.ShareActionProvider
 import android.view.Menu
 import android.view.MenuItem
@@ -24,6 +21,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.*
@@ -33,8 +31,6 @@ import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.author_card.*
 import kotlinx.android.synthetic.main.content_details.*
 import kotlinx.android.synthetic.main.loading_layer.*
-import org.greenrobot.eventbus.util.ErrorDialogManager.factory
-import org.jsoup.Jsoup
 import timber.log.Timber
 import java.lang.StringBuilder
 import javax.inject.Inject
@@ -59,6 +55,10 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var shareActionProvider: ShareActionProvider
 
     private lateinit var menuItem: MenuItem
+
+    var isBookmarked = false
+
+    var previousPostTable:PostTable ?= null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,7 +91,14 @@ class DetailsActivity : AppCompatActivity() {
                 customTab(url)
                 return true
             }
+
+            override fun onPageFinished(view: WebView?, url: String?) {
+                showMainView()
+                super.onPageFinished(view, url)
+            }
         }
+
+        showLoadingView()
 
         //web view settings
         val settings = webView.settings
@@ -109,23 +116,33 @@ class DetailsActivity : AppCompatActivity() {
 
         viewModel.getDetails(id).observe(this, Observer {
             if (it != null) {
-                webView.loadData(HtmlHelper.getHtml(it.content),
-                        "text/html", "UTF-8")
+                isBookmarked = it.bookmark
 
-                titleTV.text = it.title
-                setAuthor()
-                labels.text = getLabel(it.labels)
+                //just prevent multiple times load of web view
+                if (uiUpdate(it)){
+                    webView.loadData(HtmlHelper.getHtml(it.content),
+                            "text/html", "UTF-8")
+
+                    titleTV.text = it.title
+                    setAuthor()
+                    labels.text = getLabel(it.labels)
+                }
 
                 resetSap(it.title, it.url)
+
+                //save this table
+                previousPostTable = it
 
                 if (::menuItem.isInitialized && it.bookmark)
                     menuItem.setIcon(R.drawable.ic_bookmark_done)
 
             } else {
                 //show empty view
-                empty_tv.show()
-                empty_tv.setOnClickListener {
-                    onBackPressed()
+                if (loading != null && empty_tv != null) {
+                    empty_tv.show()
+                    empty_tv.setOnClickListener {
+                        onBackPressed()
+                    }
                 }
             }
         })
@@ -136,17 +153,48 @@ class DetailsActivity : AppCompatActivity() {
                     BookMark.SET -> {
                         menuItem.setIcon(R.drawable.ic_bookmark_done)
                         showToast(ToastType.SUCCESSFUL, "Bookmarked")
+                        isBookmarked = true
                     }
 
                     BookMark.DELETE -> {
                         menuItem.setIcon(R.drawable.ic_bookmark)
-                        showToast(ToastType.WARNING,"Bookmark removed")
+                        showToast(ToastType.WARNING, "Bookmark removed")
+                        isBookmarked = false
                     }
                 }
             }
         })
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun uiUpdate(postTable: PostTable):Boolean{
+        if (previousPostTable == null) return true
+
+        //it's is not possible to change content on the details screen
+        return previousPostTable!!.content != postTable.content
+        || previousPostTable!!.url != postTable.url ||
+                previousPostTable!!.title != postTable.title
+    }
+
+    private fun showLoadingView() {
+        author.gone()
+        labelCard.gone()
+        webView.gone()
+        titleTV.gone()
+
+        //loading screen
+        loading.show()
+    }
+
+    private fun showMainView() {
+        author.show()
+        labelCard.show()
+        webView.show()
+        titleTV.show()
+
+        //loading screen
+        loading.gone()
     }
 
     private fun getLabel(list: List<String>?): String {
@@ -205,7 +253,7 @@ class DetailsActivity : AppCompatActivity() {
             android.R.id.home -> onBackPressed()
 
             R.id.bookmark ->
-                viewModel.requestBookmark()
+                viewModel.requestBookmark(id, isBookmarked)
 
             R.id.action_settings -> {
                 //Settings //toNextActivity()

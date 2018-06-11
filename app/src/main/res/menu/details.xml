@@ -18,7 +18,7 @@
         android:id="@+id/bookmark"
         android:icon="@drawable/ic_bookmark"
         android:title="@string/details_bookmark"
-        app:showAsAction="always||ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/share"
         android:icon="@drawable/ic_menu_share"
