@@ -39,7 +39,7 @@ class MainAdapter(private val picasso: Picasso,
 
     val author = "By $author"
 
-    private var context:Context = context.baseContext
+    private var context: Context = context.baseContext
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(parent.context)
@@ -48,7 +48,7 @@ class MainAdapter(private val picasso: Picasso,
     }
 
     //must change context to avoid crash
-    fun changeContext(context: Context){
+    fun changeContext(context: Context) {
         this.context = context
         Timber.i("Change context to activity context")
     }
@@ -60,8 +60,8 @@ class MainAdapter(private val picasso: Picasso,
         if (model != null) {
 
             holder.itemView.setOnClickListener {
-                val intent = Intent(context,DetailsActivity::class.java)
-                intent.putExtra(Intent.EXTRA_TEXT,model.id)
+                val intent = Intent(context, DetailsActivity::class.java)
+                intent.putExtra(Intent.EXTRA_TEXT, model.id)
                 context.startActivity(intent)
             }
 
@@ -103,13 +103,12 @@ class MainAdapter(private val picasso: Picasso,
         private val authorTV: TextView = view.author
         private val dateTV: TextView = view.date
         val bookmarkImg: ImageView = view.bookmark
+        private val labelTV: TextView = view.labelTV
 
         fun bind(post: PostTable?) {
             val url = post?.imgUrl?.get(0)?.url ?: ""
             if (url.isNotEmpty()) {
                 picasso.load(url).fit().into(image)
-            } else {
-                image.gone()
             }
 
             titleTV.text = post?.title
@@ -118,11 +117,12 @@ class MainAdapter(private val picasso: Picasso,
             if (date.isNotEmpty()) {
                 dateTV.text = date
             } else dateTV.gone()
+
+            val labels = post?.labels ?: emptyList()
+            if (labels.isNotEmpty()){
+                labelTV.text = labels[0]
+            }
         }
-    }
-
-    private fun showToast(message: String) {
-
     }
 
     companion object {

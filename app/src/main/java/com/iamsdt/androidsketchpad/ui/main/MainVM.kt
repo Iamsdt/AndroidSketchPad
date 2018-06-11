@@ -31,7 +31,7 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
 
         val config = PagedList.Config.Builder()
                 .setPageSize(5)
-                .setInitialLoadSizeHint(10)//by default page size * 3
+                .setInitialLoadSizeHint(9)//by default page size * 3
                 .setPrefetchDistance(4) // default page size
                 .setEnablePlaceholders(true) //default true
                 // that's means scroll bar is not jump and all data set show on the

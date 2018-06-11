@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
@@ -26,7 +27,6 @@ import com.iamsdt.androidsketchpad.utils.ext.showToast
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ColorActivity
 import com.iamsdt.themelibrary.ThemeUtils
-import dagger.internal.DelegateFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_list.*
@@ -34,7 +34,6 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
-import java.util.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(),
@@ -64,13 +63,17 @@ class MainActivity : AppCompatActivity(),
         adapter.changeContext(this)
 
         mainRcv.layoutManager = LinearLayoutManager(this)
+        mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
+        mainRcv.showShimmerAdapter()
+
 
         viewModel.getPostData().observe(this, Observer {
             if (it == null || it.size <= 0){
                 //no data in database request data
                 viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
             } else{
+                mainRcv.hideShimmerAdapter()
                 adapter.submitList(it)
                 Timber.i("Submit list size:${it.size}")
                 viewModel.requestNewPost(it.size)

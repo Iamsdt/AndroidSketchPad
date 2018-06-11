@@ -13,6 +13,7 @@
     android:layout_height="match_parent"
     tools:showIn="@layout/main_layout">
 
+    <!--
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainRcv"
         android:layout_width="0dp"
@@ -21,5 +22,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/main_list_item" />
+        tools:listitem="@layout/main_list_item" /> -->
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/mainRcv"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shimmer_demo_child_count="5"
+        app:shimmer_demo_angle="20"
+        app:shimmer_demo_view_holder_item_background="@color/grey_700"
+        app:shimmer_demo_layout="@layout/demo_list_item"
+        tools:listitem="@layout/demo_list_item">
+
+    </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
+
 </android.support.constraint.ConstraintLayout>

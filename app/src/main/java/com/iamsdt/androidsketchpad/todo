@@ -3,8 +3,8 @@ complete remove coroutines
 
 //left
 //main
-todo add shimmer library in main activity
-todo change list design like blog
+complete add shimmer library in main activity
+complete change list design like blog
 todo complete navigation
 
 //details
@@ -26,6 +26,8 @@ todo swipe to delete option
 //settings
 todo add sync time interval
 
+//change empty view
+todo add icon
 
 takeALook on this this will on version 2
 //version 2
