@@ -25,19 +25,22 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".ui.services.UpdateService"
-            android:exported="false"
-            android:enabled="true" />
+        <service
+            android:name=".ui.services.UpdateService"
+            android:enabled="true"
+            android:exported="false" />
 
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/my_app"
-            android:theme="@style/LibraryAppTheme.NoActionBar"/>
+            android:theme="@style/LibraryAppTheme.NoActionBar" />
 
-        <activity android:name=".ui.AppIntro"
-            android:theme="@style/LibraryAppTheme.NoActionBar"/>
-        <activity android:name=".ui.details.DetailsActivity"
-            android:theme="@style/LibraryAppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.AppIntro"
+            android:theme="@style/LibraryAppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.details.DetailsActivity"
+            android:label="@string/my_app" />
     </application>
 
 </manifest>

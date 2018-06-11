@@ -67,6 +67,7 @@ class LayerUtils(private val spUtils: SpUtils,
                                         post.published,
                                         post.labels,
                                         post.content,
+                                        post.url,
                                         false)
 
                                 author = post.author

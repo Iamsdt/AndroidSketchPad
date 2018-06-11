@@ -7,7 +7,7 @@ package com.iamsdt.androidsketchpad.utils
 
 class HtmlHelper{
     companion object {
-        fun getHtml(content: String?) =
+        fun getHtml(content: String) =
                 """ <html>
 
 <head>

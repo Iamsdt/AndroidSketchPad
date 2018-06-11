@@ -7,7 +7,6 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
 import com.iamsdt.androidsketchpad.BuildConfig
-import com.iamsdt.androidsketchpad.data.loader.DataLayer
 import com.iamsdt.androidsketchpad.data.loader.LayerUtils
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
@@ -34,15 +33,6 @@ class AppModule {
                     spUtils.getAuthor().displayName,
                     postTableDao,
                     application)
-
-    @Provides
-    @Singleton
-    fun getDataLayer(remoteDataLayer: RemoteDataLayer,
-                     postTableDao: PostTableDao,
-                     pageTableDao: PageTableDao,
-                     spUtils: SpUtils): DataLayer =
-            DataLayer(remoteDataLayer, postTableDao, pageTableDao, spUtils)
-
 
     @Provides
     @Singleton

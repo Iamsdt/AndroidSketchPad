@@ -28,5 +28,6 @@ data class PostTable(
         val labels: List<String>?,
 
         val content: String = "",
+        val url: String = "",
 
         var bookmark:Boolean)

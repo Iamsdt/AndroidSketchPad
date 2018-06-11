@@ -16,6 +16,8 @@ import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 
+
+//not use any more
 class DataLayer(private val remoteDataLayer: RemoteDataLayer,
                 private val postTableDao: PostTableDao,
                 private val pageTableDao: PageTableDao,
