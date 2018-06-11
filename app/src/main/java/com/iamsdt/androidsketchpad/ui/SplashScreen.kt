@@ -25,14 +25,14 @@ class SplashScreen : AppCompatActivity() {
 
         if (spUtils.isFirstTime) {
 
+            //start service
             startService(Intent(this, UpdateService::class.java))
 
             //show app intro
             //runThread(500,)
             runThread(1000,AppIntro::class)
-            //start service
 
-            //spUtils.setAppRunFirstTime()
+            spUtils.setAppRunFirstTime()
             //complete:6/10/2018 Debug only remove latter
             //toNextActivity(MainActivity::class)
         } else {

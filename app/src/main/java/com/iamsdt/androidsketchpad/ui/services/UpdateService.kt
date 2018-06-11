@@ -38,8 +38,7 @@ class UpdateService : LifecycleService() {
         if (spUtils.isServiceFirstTime) {
             remoteDataLayer.getPageDetails()
             remoteDataLayer.getBlogDetails()
-            ////debugOnly:6/10/2018 set service run for first time
-            //spUtils.setServiceRunFirstTime()
+            spUtils.setServiceRunFirstTime()
             postFinished = true
         } else {
             //this will called everyday at once
