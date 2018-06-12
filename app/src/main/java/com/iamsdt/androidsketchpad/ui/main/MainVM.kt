@@ -30,7 +30,7 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
         val source = postTableDao.getAllPost
 
         val config = PagedList.Config.Builder()
-                .setPageSize(5)
+                .setPageSize(7)
                 .setInitialLoadSizeHint(10)//by default page size * 3
                 .setPrefetchDistance(5) // default page size
                 .setEnablePlaceholders(true) //default true

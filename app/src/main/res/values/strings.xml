@@ -45,5 +45,6 @@
 
     <!-- menifest -->
     <string name="about">About Blog</string>
+    <string name="bookmark">Bookmark</string>
 
 </resources>

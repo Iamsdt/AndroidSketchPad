@@ -134,7 +134,7 @@ class MainAdapter(private val picasso: Picasso,
     }
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostTable>() {
+        val DIFF_CALLBACK = object : DiffUtil.ItemCallback<PostTable>() {
             // Concert details may have changed if reloaded from the database,
             // but ID is fixed.
             override fun areItemsTheSame(oldConcert: PostTable,

@@ -111,9 +111,9 @@ class MainActivity : AppCompatActivity(),
                 val totalItemCount = manager.itemCount
                 val lastVisible = manager.findLastVisibleItemPosition()
 
-                val endHasBeenReached = lastVisible + 7 >= totalItemCount
+                val endHasBeenReached = lastVisible + 4 >= totalItemCount
 
-                if (totalItemCount >= 15 && endHasBeenReached) {
+                if (totalItemCount >= 20 && endHasBeenReached) {
                    if (!isRequested){
                        if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
                            viewModel.requestNewPost()

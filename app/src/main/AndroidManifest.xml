@@ -47,6 +47,8 @@
 
         <activity android:name=".ui.settings.SettingsActivity"
             android:label="@string/settings"/>
+        <activity android:name=".ui.bookmark.BookmarkActivity"
+            android:label="@string/bookmark"/>
     </application>
 
 </manifest>
