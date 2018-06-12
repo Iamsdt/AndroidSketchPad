@@ -31,23 +31,13 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
 
         val config = PagedList.Config.Builder()
                 .setPageSize(5)
-                .setInitialLoadSizeHint(9)//by default page size * 3
-                .setPrefetchDistance(4) // default page size
+                .setInitialLoadSizeHint(10)//by default page size * 3
+                .setPrefetchDistance(5) // default page size
                 .setEnablePlaceholders(true) //default true
                 // that's means scroll bar is not jump and all data set show on the
                 //recycler view first after 30 it will show empty view
                 // when load it will update with animation
                 .build()
-
-        //        val mediatorLiveData = MediatorLiveData<PagedList<PostTable>>()
-//        mediatorLiveData.addSource(data, {
-//            if (it == null || it.size <= 0) {
-//                Timber.i("Post List is null or empty so call for remote data")
-//                remoteDataLayer.getPostDetailsForFirstTime()
-//            } else{
-//
-//            }
-//        })
 
         return LivePagedListBuilder(source, config).build()
     }

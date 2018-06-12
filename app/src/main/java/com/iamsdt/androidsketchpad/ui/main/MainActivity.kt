@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity(),
 
         adapter.changeContext(this)
 
-        mainRcv.layoutManager = LinearLayoutManager(this)
+        mainRcv.layoutManager = LinearLayoutManager(this,
+                LinearLayoutManager.VERTICAL,false)
         mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
         mainRcv.showShimmerAdapter()

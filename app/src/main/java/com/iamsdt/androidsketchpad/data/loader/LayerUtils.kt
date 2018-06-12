@@ -8,6 +8,8 @@ package com.iamsdt.androidsketchpad.data.loader
 import android.os.AsyncTask
 import android.os.Handler
 import android.os.HandlerThread
+import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.R.id.author
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
@@ -57,8 +59,8 @@ class LayerUtils(private val spUtils: SpUtils,
                         Timber.i("New post token${data.nextPageToken}")
 
                         val list = data.items ?: emptyList()
-                        var author: Author? = null
                         AsyncTask.execute {
+                            var author: Author? = null
                             var inserted: Long = 0
                             for (post in list) {
                                 val postTable = PostTable(
@@ -81,10 +83,12 @@ class LayerUtils(private val spUtils: SpUtils,
                             }
 
                             Timber.i("Inserted:$inserted")
+                            //save author
+                            spUtils.saveAuthor(author)
+                            Timber.i("Save author:${author?.displayName}")
                         }
-                        //save author
-                        spUtils.saveAuthor(author)
-                        Timber.i("Save author:${author?.displayName}")
+
+
 
                         //set RemoteDataLayer.isAlreadyRequested is false
                         // that's means I am ready for new request
