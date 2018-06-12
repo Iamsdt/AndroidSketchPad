@@ -9,6 +9,7 @@ import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
@@ -93,8 +94,8 @@ class DetailsActivity : AppCompatActivity() {
                 return true
             }
 
-            override fun onPageFinished(view: WebView?, url: String?) {
-                super.onPageFinished(view, url)
+            override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
+                super.onPageStarted(view, url, favicon)
                 showMainView()
             }
         }
@@ -187,6 +188,11 @@ class DetailsActivity : AppCompatActivity() {
         loading.gone()
     }
 
+    private fun textIncrease() {
+        val settings = webView.settings
+        settings.textZoom = settings.textZoom + 10
+    }
+
     private fun getLabel(list: List<String>?): String {
         val sb = StringBuilder()
         for (li in list ?: emptyList()) {
@@ -254,7 +260,7 @@ class DetailsActivity : AppCompatActivity() {
             }
 
             R.id.textSize -> {
-                //increase text size
+                textIncrease()
             }
         }
 
