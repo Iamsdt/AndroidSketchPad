@@ -36,12 +36,12 @@ import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
 
 class SearchAdapter(private val picasso: Picasso,
-                  private val postTableDao: PostTableDao,
-                  context: Application)
-    : RecyclerView.Adapter<SearchAdapter.VH> (){
+                    private val postTableDao: PostTableDao,
+                    context: Application)
+    : RecyclerView.Adapter<SearchAdapter.VH>() {
 
 
-    val list:List<ItemsItem> = emptyList()
+    private var list: List<ItemsItem> = emptyList()
 
     override fun getItemCount(): Int =
             list.size
@@ -56,43 +56,58 @@ class SearchAdapter(private val picasso: Picasso,
 
     override fun onBindViewHolder(holder: VH, position: Int) {
 
-            val model: ItemsItem = list[position]
-            holder.bind(model)
+        val model: ItemsItem = list[position]
+        holder.bind(model)
 
-            holder.itemView.setOnClickListener {
-                val intent = Intent(context, SearchDetailsActivity::class.java)
-                intent.putExtra(Intent.EXTRA_TEXT, model.id)
-                context.startActivity(intent)
-            }
+        var set: Long = 0
 
-            holder.bookmarkImg.setOnClickListener {
-                var set: Long
+        holder.itemView.setOnClickListener {
+            val intent = Intent(context, SearchDetailsActivity::class.java)
+            intent.putExtra(Intent.EXTRA_TEXT, model.id)
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, set)
+            context.startActivity(intent)
+        }
 
-                val thread = HandlerThread("Bookmark")
-                thread.start()
-                Handler(thread.looper).post({
-                    val posTable = PostTable(model.id,
-                            model.images,
-                            model.title,
-                            model.published,
-                            model.labels,
-                            model.content,
-                            model.url,
-                            true)
+        holder.bookmarkImg.setOnClickListener {
 
-                    set = postTableDao.add(posTable)
 
-                    Handler(Looper.getMainLooper()).post({
-                        if (set > 0) {
-                            Toasty.success(context, "Bookmarked and saved locally", Toast.LENGTH_SHORT, true).show()
-                            holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
-                        }
-                    })
+            val thread = HandlerThread("Bookmark")
+            thread.start()
+            Handler(thread.looper).post({
+                val posTable = PostTable(model.id,
+                        model.images,
+                        model.title,
+                        model.published,
+                        model.labels,
+                        model.content,
+                        model.url,
+                        true)
 
-                    thread.quitSafely()
+                set = postTableDao.add(posTable)
+
+                Handler(Looper.getMainLooper()).post({
+                    if (set > 0) {
+                        Toasty.success(context, "Bookmarked and saved locally", Toast.LENGTH_SHORT, true).show()
+                        holder.bookmarkImg.setImageDrawable(context.getDrawable(R.drawable.ic_bookmark_done))
+                    }
                 })
-            }
 
+                thread.quitSafely()
+            })
+        }
+
+    }
+
+    //must change context to avoid crash
+    fun changeContext(context: Context) {
+        this.context = context
+        Timber.i("Change context to activity context")
+    }
+
+    fun submitList(list: List<ItemsItem>) {
+        this.list = list
+        //strong possibilities of different data
+        notifyDataSetChanged()
     }
 
     inner class VH(view: View) : RecyclerView.ViewHolder(view) {

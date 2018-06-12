@@ -13,6 +13,11 @@
             android:id="@+id/nav_page"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Pages" />
+
+        <item
+            android:id="@+id/nav_search"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Search" />
     </group>
 
     <item android:title="@string/action_settings">

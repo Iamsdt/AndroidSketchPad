@@ -24,6 +24,7 @@ import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.R.id.loading
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
+import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.*
@@ -256,7 +257,7 @@ class DetailsActivity : AppCompatActivity() {
                 viewModel.requestBookmark(id, isBookmarked)
 
             R.id.action_settings -> {
-                //Settings //toNextActivity()
+                toNextActivity(SettingsActivity::class)
             }
 
             R.id.textSize -> {

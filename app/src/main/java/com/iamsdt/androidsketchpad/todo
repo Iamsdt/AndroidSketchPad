@@ -1,26 +1,3 @@
-complete remove jsoup
-complete remove coroutines
-
-//left
-//main
-complete add shimmer library in main activity
-complete change list design like blog
-complete navigation
-todo fix data loading issue
-todo fill demo list
-
-//details
-complete add loading indicator in details activity
-complete add text size increase button
-complete add share action provider
-complete add menu
-complete add author
-complete add bookmark option
-
-//splash
-fixme fix splash loading
-todo increase loading time
-
 //bookmark
 complete add bookmark screen
 complete swipe to delete option
@@ -29,6 +6,28 @@ complete swipe to delete option
 complete add sync time interval
 
 //change empty view
-todo add icon
+complete add icon
 
 todo related post
+todo random 3 post
+
+todo add increase button on details and search details
+
+todo fix shimmer layout
+todo add demo shimmer layout
+
+
+todo add app intro
+
+todo add search option on search activity
+
+todo fix data loading issue on Main Main Activity
+
+todo complete app about and developer
+
+todo finished readme and licence in github
+
+//splash
+fixme fix splash loading
+todo increase loading time
+

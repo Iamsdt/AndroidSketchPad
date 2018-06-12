@@ -18,6 +18,7 @@ import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
+import com.iamsdt.androidsketchpad.data.retrofit.model.singlePost.SinglePostResponse
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
@@ -37,6 +38,11 @@ class LayerUtils(private val spUtils: SpUtils,
 
     val serviceLiveData: SingleLiveEvent<EventMessage> = SingleLiveEvent()
     val uiLIveEvent: SingleLiveEvent<EventMessage> = SingleLiveEvent()
+
+    //search related
+    val searchEvent: SingleLiveEvent<EventMessage> = SingleLiveEvent()
+    val searchData: SingleLiveEvent<PostsResponse> = SingleLiveEvent()
+    val singleSearchData: SingleLiveEvent<SinglePostResponse> = SingleLiveEvent()
 
     fun executePostCall(call: Call<PostsResponse>, token: String = "",
                         isCalledFromService: Boolean) {
@@ -87,7 +93,6 @@ class LayerUtils(private val spUtils: SpUtils,
                             spUtils.saveAuthor(author)
                             Timber.i("Save author:${author?.displayName}")
                         }
-
 
 
                         //set RemoteDataLayer.isAlreadyRequested is false
@@ -172,7 +177,7 @@ class LayerUtils(private val spUtils: SpUtils,
                         val data: BlogResponse = response.body()!!
                         spUtils.saveBlog(data)
                         Timber.i("Saved blog data ${data.name}")
-                        if (data.name.isNotEmpty()){
+                        if (data.name.isNotEmpty()) {
                             serviceLiveData.postValue(EventMessage(BLOG_KEY, "Success", 1))
                             uiLIveEvent.postValue(EventMessage(BLOG_KEY, "Success", 1))
                         }
@@ -186,5 +191,63 @@ class LayerUtils(private val spUtils: SpUtils,
             thread.quitSafely()
         }
 
+    }
+
+
+    //i don't want to save into database
+    // this is only called form activity
+    fun executeSearchCall(call: Call<PostsResponse>, token: String = "") {
+
+        AsyncTask.execute {
+            call.enqueue(object : Callback<PostsResponse> {
+                override fun onFailure(call: Call<PostsResponse>?, t: Throwable?) {
+                    Timber.i(t, "page data failed")
+                    searchEvent.postValue(EventMessage(POST_KEY, token, 0))
+                }
+
+                override fun onResponse(call: Call<PostsResponse>?, response: Response<PostsResponse>?) {
+
+                    if (response != null && response.isSuccessful) {
+
+                        val data: PostsResponse = response.body()!!
+
+                        Timber.i("New post token${data.nextPageToken}")
+
+                        searchData.postValue(data)
+
+                        searchEvent.postValue(EventMessage(POST_KEY, "${data.items?.size ?: 0}", 1))
+                    } else {
+                        searchEvent.postValue(EventMessage(POST_KEY, "complete", 0))
+                    }
+                }
+
+            })
+        }
+    }
+
+    fun executeSinglePageCall(call: Call<SinglePostResponse>) {
+        AsyncTask.execute {
+            call.enqueue(object : Callback<SinglePostResponse> {
+                override fun onFailure(call: Call<SinglePostResponse>?, t: Throwable?) {
+                    Timber.i(t, "page data failed")
+                    searchEvent.postValue(EventMessage(POST_KEY,"Failed", 0))
+                }
+
+                override fun onResponse(call: Call<SinglePostResponse>?, response: Response<SinglePostResponse>?) {
+                    if (response != null && response.isSuccessful) {
+
+                        val data = response.body()!!
+
+                        singleSearchData.postValue(data)
+
+                        searchEvent.postValue(EventMessage(POST_KEY, "", 1))
+
+                    } else {
+                        searchEvent.postValue(EventMessage(POST_KEY, "complete", 0))
+                    }
+                }
+
+            })
+        }
     }
 }

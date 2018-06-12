@@ -25,6 +25,7 @@ import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
 import com.iamsdt.androidsketchpad.ui.DeveloperActivity
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkActivity
 import com.iamsdt.androidsketchpad.ui.page.PageActivity
+import com.iamsdt.androidsketchpad.ui.search.SearchActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
 import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
@@ -162,6 +163,10 @@ class MainActivity : AppCompatActivity(),
 
             R.id.nav_bookmark -> {
                 toNextActivity(BookmarkActivity::class)
+            }
+
+            R.id.nav_search -> {
+                toNextActivity(SearchActivity::class)
             }
 
             R.id.nav_page -> {

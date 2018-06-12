@@ -31,7 +31,7 @@ interface RetInterface {
 
     //posts/postId
     @GET("/blogger/v3/blogs/141872694236847267/posts/{id}?fetchImages=true")
-    fun getSinglePost(@Path("id") posID: Int,
+    fun getSinglePost(@Path("id") posID: String,
                       @Query("key") key: String):Call<SinglePostResponse>
 
     ///pages?fetchImages=true&key

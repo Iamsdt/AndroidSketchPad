@@ -6,7 +6,6 @@
 package com.iamsdt.androidsketchpad.data.loader
 
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
-import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 
 class RemoteDataLayer(private val retInterface: RetInterface,
@@ -36,10 +35,15 @@ class RemoteDataLayer(private val retInterface: RetInterface,
 
     }
 
+    fun getSinglePost(id:String){
+        val call = retInterface.getSinglePost(id,apiKey)
+        layerUtils.executeSinglePageCall(call)
+    }
+
     fun getPostFromSearch(searchEvent: String) {
         Timber.i("Request post from search:$searchEvent")
         val call = retInterface.getPostFormSearch(searchEvent, apiKey)
-        layerUtils.executePostCall(call, isCalledFromService = false)
+        layerUtils.executeSearchCall(call)
     }
 
     fun getPageDetails() {
