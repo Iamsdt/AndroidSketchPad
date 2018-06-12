@@ -20,8 +20,11 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.ui.AboutApp
 import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
+import com.iamsdt.androidsketchpad.ui.DeveloperActivity
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkActivity
+import com.iamsdt.androidsketchpad.ui.page.PageActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
 import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
@@ -161,12 +164,8 @@ class MainActivity : AppCompatActivity(),
                 toNextActivity(BookmarkActivity::class)
             }
 
-            R.id.nav_categories -> {
-
-            }
-
             R.id.nav_page -> {
-
+                toNextActivity(PageActivity::class)
             }
 
             R.id.nav_setting -> {
@@ -183,11 +182,11 @@ class MainActivity : AppCompatActivity(),
             }
 
             R.id.nav_about_app -> {
-
+                toNextActivity(AboutApp::class)
             }
 
             R.id.nav_developer -> {
-
+                toNextActivity(DeveloperActivity::class)
             }
         }
 

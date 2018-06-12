@@ -7,6 +7,7 @@ package com.iamsdt.androidsketchpad.ui.main
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
+import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
@@ -23,21 +24,20 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
                                  val postTableDao: PostTableDao,
                                  val spUtils: SpUtils) : ViewModel() {
 
-    private var initialSize = 15
-
     fun getPostData(): LiveData<PagedList<PostTable>> {
 
         val source = postTableDao.getAllPost
 
         val config = PagedList.Config.Builder()
-                .setPageSize(6)
-                .setInitialLoadSizeHint(10)//by default page size * 3
+                .setPageSize(10)
+                .setInitialLoadSizeHint(20)//by default page size * 3
                 .setPrefetchDistance(5) // default page size
-                .setEnablePlaceholders(true) //default true
+                .setEnablePlaceholders(false) //default true
                 // that's means scroll bar is not jump and all data set show on the
                 //recycler view first after 30 it will show empty view
                 // when load it will update with animation
                 .build()
+
 
         return LivePagedListBuilder(source, config).build()
     }

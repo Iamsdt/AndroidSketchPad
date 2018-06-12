@@ -23,13 +23,13 @@ interface PostTableDao{
     fun delete(postTable: PostTable):Int
 
     @get:Query("Select * From PostTable")
-    val getAllPost: DataSource.Factory<Int, PostTable>
+    val getAllPost: DataSource.Factory<String, PostTable>
 
     @Query("Select * From PostTable where id = :id")
     fun getSinglePost(id:String):LiveData<PostTable>
 
     @get:Query("Select * From PostTable where bookmark = 1")
-    val getBookmarkedPost:DataSource.Factory<Int, PostTable>
+    val getBookmarkedPost:DataSource.Factory<String, PostTable>
 
     @Query("Update PostTable set bookmark = 1 where id = :id")
     fun setBookmark(id: String):Int

@@ -5,7 +5,7 @@ complete remove coroutines
 //main
 complete add shimmer library in main activity
 complete change list design like blog
-todo complete navigation
+complete navigation
 todo fix data loading issue
 todo fill demo list
 
@@ -22,26 +22,13 @@ fixme fix splash loading
 todo increase loading time
 
 //bookmark
-todo add bookmark screen
-todo swipe to delete option
+complete add bookmark screen
+complete swipe to delete option
 
 //settings
-todo add sync time interval
+complete add sync time interval
 
 //change empty view
 todo add icon
 
-takeALook on this this will on version 2
-//version 2
-//details
-todo add labels clickable
-todo add related post 3
-todo add bottom share screen
-
-
-//database
-todo save data according to labels and
-todo make it possible to get this according to labels
-
-//navigation
-todo change with list view
+todo related post

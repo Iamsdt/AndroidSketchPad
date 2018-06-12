@@ -51,6 +51,8 @@
             android:label="@string/bookmark"/>
         <activity android:name=".ui.page.PageActivity" />
         <activity android:name=".ui.page.PageDetailsActivity" />
+        <activity android:name=".ui.AboutApp" />
+        <activity android:name=".ui.DeveloperActivity" />
     </application>
 
 </manifest>
