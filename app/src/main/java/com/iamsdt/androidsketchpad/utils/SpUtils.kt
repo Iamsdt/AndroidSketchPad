@@ -101,6 +101,9 @@ class SpUtils(private val context: Context) {
 
 
     /** Blog details  SharedPreferences */
+
+    fun checkBlogData():Boolean =  blogSp.getString(NAME, "").isNotEmpty()
+
     fun getBlog(): BlogModel {
         val page = blogSp.getString(PAGE, "")
         val name = blogSp.getString(NAME, "")

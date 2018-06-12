@@ -86,8 +86,8 @@ class PageDetailsActivity : AppCompatActivity() {
 
         //web view settings
         val settings = page_webview.settings
-        settings.setAppCacheEnabled(false)
-        settings.cacheMode = WebSettings.LOAD_NO_CACHE
+        settings.setAppCacheEnabled(true)
+        settings.cacheMode = WebSettings.LOAD_CACHE_ELSE_NETWORK
 
         settings.loadWithOverviewMode = true
         settings.loadsImagesAutomatically = true

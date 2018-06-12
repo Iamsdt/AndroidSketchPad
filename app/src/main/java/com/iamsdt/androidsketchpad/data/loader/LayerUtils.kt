@@ -161,6 +161,7 @@ class LayerUtils(private val spUtils: SpUtils,
                 override fun onFailure(call: Call<BlogResponse>?, t: Throwable?) {
                     Timber.i(t, "blog data failed")
                     serviceLiveData.postValue(EventMessage(BLOG_KEY, "failed: $t", 0))
+                    uiLIveEvent.postValue(EventMessage(BLOG_KEY, "failed: $t", 0))
                 }
 
                 override fun onResponse(call: Call<BlogResponse>?,
@@ -171,9 +172,13 @@ class LayerUtils(private val spUtils: SpUtils,
                         val data: BlogResponse = response.body()!!
                         spUtils.saveBlog(data)
                         Timber.i("Saved blog data ${data.name}")
-                        serviceLiveData.postValue(EventMessage(BLOG_KEY, "Success", 1))
+                        if (data.name.isNotEmpty()){
+                            serviceLiveData.postValue(EventMessage(BLOG_KEY, "Success", 1))
+                            uiLIveEvent.postValue(EventMessage(BLOG_KEY, "Success", 1))
+                        }
                     } else {
                         serviceLiveData.postValue(EventMessage(BLOG_KEY, "failed", 0))
+                        uiLIveEvent.postValue(EventMessage(BLOG_KEY, "failed", 0))
                     }
                 }
 
