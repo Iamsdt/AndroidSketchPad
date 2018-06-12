@@ -15,12 +15,15 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
+import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
+import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.ToastType
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.showToast
@@ -62,8 +65,10 @@ class MainActivity : AppCompatActivity(),
 
         adapter.changeContext(this)
 
-        mainRcv.layoutManager = LinearLayoutManager(this,
+        val manager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL,false)
+
+        mainRcv.layoutManager = manager
         mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
         mainRcv.showShimmerAdapter()
@@ -77,13 +82,15 @@ class MainActivity : AppCompatActivity(),
                 mainRcv.hideShimmerAdapter()
                 adapter.submitList(it)
                 Timber.i("Submit list size:${it.size}")
-                viewModel.requestNewPost(it.size)
             }
         })
 
         viewModel.uiLiveData.observe(this, Observer {
             if (it != null && it.key == POST_KEY){
                 if (it.status == 1){
+                    //open for new request
+                    isRequested = false
+                    waitForNetwork = false
                     if (!postRequestComplete){
                         viewModel.nextPost()
                         postRequestComplete = true
@@ -91,6 +98,28 @@ class MainActivity : AppCompatActivity(),
 
                 } else{
                     viewModel.nextPost()
+                    isRequested = true
+                }
+
+            }
+        })
+
+        mainRcv.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val totalItemCount = manager.itemCount
+                val lastVisible = manager.findLastVisibleItemPosition()
+
+                val endHasBeenReached = lastVisible + 7 >= totalItemCount
+
+                if (totalItemCount >= 15 && endHasBeenReached) {
+                   if (!isRequested){
+                       if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
+                           viewModel.requestNewPost()
+                       else
+                           waitForNetwork = true
+                   }
                 }
 
             }
@@ -165,6 +194,9 @@ class MainActivity : AppCompatActivity(),
         if (eventMessage.key == ConstantUtils.internet) {
             if (eventMessage.message == ConstantUtils.connected) {
                 showToast(ToastType.SUCCESSFUL, "Network connected")
+                if (waitForNetwork){
+                    viewModel.requestNewPost()
+                }
             } else {
                 showToast(ToastType.WARNING, "No Internet")
             }
@@ -186,7 +218,6 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
         if (bus.isRegistered(this)) {
@@ -196,6 +227,8 @@ class MainActivity : AppCompatActivity(),
 
     companion object {
         var postRequestComplete = false
+        var isRequested = false
+        var waitForNetwork = false
     }
 
 }

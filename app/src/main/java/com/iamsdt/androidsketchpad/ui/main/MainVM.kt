@@ -54,15 +54,8 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
             remoteDataLayer.getPostDetailsForFirstTime(false)
     }
 
-    fun requestNewPost(int: Int) {
-
-        val result = int - initialSize
-
-        Timber.i("VM result:$result")
-
-        if (result > 4) {
-            uiLiveData.postValue(EventMessage(ConstantUtils.Event.POST_KEY, "request", 0))
-            initialSize = int
-        }
+    fun requestNewPost() {
+        MainActivity.postRequestComplete = false
+        uiLiveData.postValue(EventMessage(ConstantUtils.Event.POST_KEY, "request", 0))
     }
 }
