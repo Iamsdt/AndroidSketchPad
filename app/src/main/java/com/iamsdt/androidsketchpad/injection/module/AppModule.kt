@@ -14,6 +14,7 @@ import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkAdapter
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
+import com.iamsdt.androidsketchpad.ui.search.SearchAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.squareup.picasso.Picasso
 import dagger.Module
@@ -22,6 +23,15 @@ import javax.inject.Singleton
 
 @Module(includes = [DBModule::class, PicassoModule::class])
 class AppModule {
+
+    @Provides
+    @Singleton
+    fun getSearchAdapter(picasso: Picasso,
+                           postTableDao: PostTableDao,
+                           application: Application): SearchAdapter =
+            SearchAdapter(picasso,
+                    postTableDao,
+                    application)
 
     @Provides
     @Singleton

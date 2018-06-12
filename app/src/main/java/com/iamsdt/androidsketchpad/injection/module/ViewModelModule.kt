@@ -13,6 +13,8 @@ import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkVM
 import com.iamsdt.androidsketchpad.ui.details.DetailsVM
 import com.iamsdt.androidsketchpad.ui.main.MainVM
 import com.iamsdt.androidsketchpad.ui.page.PageDetailsVM
+import com.iamsdt.androidsketchpad.ui.search.SearchDetailsVM
+import com.iamsdt.androidsketchpad.ui.search.SearchVM
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -40,6 +42,17 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(PageDetailsVM::class)
     internal abstract fun bindPageDetailsVM(vm: PageDetailsVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchDetailsVM::class)
+    internal abstract fun bindSearchDetailsVM(vm: SearchDetailsVM): ViewModel
+
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchVM::class)
+    internal abstract fun bindSearchVM(vm: SearchVM): ViewModel
 
 
     @Binds

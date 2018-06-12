@@ -1,9 +1,9 @@
 /*
  * Created by Shudipto Trafder
- * on 6/12/18 12:20 PM
+ * on 6/12/18 10:33 PM
  */
 
-package com.iamsdt.androidsketchpad.ui
+package com.iamsdt.androidsketchpad.ui.search
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,9 +12,7 @@ import com.iamsdt.androidsketchpad.R
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_aboutblog.*
 
-class DeveloperActivity: AppCompatActivity(){
-
-
+class SearchDetailsActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
@@ -32,4 +30,3 @@ class DeveloperActivity: AppCompatActivity(){
         return super.onOptionsItemSelected(item)
     }
 }
-

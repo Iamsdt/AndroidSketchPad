@@ -53,6 +53,8 @@
         <activity android:name=".ui.page.PageDetailsActivity" />
         <activity android:name=".ui.AboutApp" />
         <activity android:name=".ui.DeveloperActivity" />
+        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.search.SearchDetailsActivity" />
     </application>
 
 </manifest>
