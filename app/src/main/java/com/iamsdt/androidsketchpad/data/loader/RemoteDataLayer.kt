@@ -9,8 +9,7 @@ import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 
-class RemoteDataLayer(private val spUtils: SpUtils,
-                      private val retInterface: RetInterface,
+class RemoteDataLayer(private val retInterface: RetInterface,
                       val layerUtils: LayerUtils,
                       private val apiKey: String) {
 
