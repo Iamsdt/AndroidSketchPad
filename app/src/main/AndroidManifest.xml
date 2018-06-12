@@ -41,7 +41,12 @@
         <activity
             android:name=".ui.details.DetailsActivity"
             android:label="@string/my_app" />
-        <activity android:name=".ui.AboutBlogActivity" />
+
+        <activity android:name=".ui.AboutBlogActivity"
+            android:label="@string/about"/>
+
+        <activity android:name=".ui.settings.SettingsActivity"
+            android:label="@string/settings"/>
     </application>
 
 </manifest>

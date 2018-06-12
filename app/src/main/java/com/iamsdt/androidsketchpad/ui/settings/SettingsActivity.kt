@@ -14,8 +14,8 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.R.id.toolbar
 import com.iamsdt.themelibrary.ThemeUtils
+import kotlinx.android.synthetic.main.activity_settings.*
 
 class SettingsActivity: AppCompatActivity() {
 
@@ -23,8 +23,8 @@ class SettingsActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //set theme
         ThemeUtils.initialize(this)
-        //setContentView(R.layout.activity_settings)
-        //setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_settings)
+        setSupportActionBar(toolbar)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

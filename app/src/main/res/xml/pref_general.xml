@@ -6,4 +6,17 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceCategory
+        android:title="@string/pref_sync"
+        android:summary="@string/pref_sync_des"
+        android:icon="@android:drawable/stat_notify_sync">
+
+        <ListPreference
+            android:defaultValue="@string/week1_value"
+            android:entries="@array/syncInterval"
+            android:entryValues="@array/syncInterval_value"
+            android:key="list_preference_1"
+            android:title="List preference" />
+    </PreferenceCategory>
+
 </PreferenceScreen>

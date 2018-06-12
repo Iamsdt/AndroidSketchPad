@@ -8,7 +8,9 @@ package com.iamsdt.androidsketchpad.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.support.v7.preference.PreferenceManager
 import androidx.core.content.edit
+import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.retrofit.model.blog.BlogResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Author.DISPLAY_NAME
@@ -90,10 +92,12 @@ class SpUtils(private val context: Context) {
             context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
 
     /** Settings related SharedPreferences */
-    fun syncTimeInterval(context: Context):Int{
-        // TODO: 6/10/2018 put real time value with settings
-        return 7
-    }
+    fun syncTimeInterval(context: Context):Int =
+            settings.getString(context.getString(R.string.list_key),
+                    context.getString(R.string.week1_value)).toInt()
+
+    val settings:SharedPreferences get() = PreferenceManager
+            .getDefaultSharedPreferences(context)
 
 
     /** Blog details  SharedPreferences */

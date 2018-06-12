@@ -17,4 +17,33 @@
     <string name="details_share">Share</string>
     <string name="settings">Settings</string>
     <string name="details_mock_text">Something went wrong!\nPlease navigate back.\nTap to back</string>
+
+
+
+    <!-- Settings -->
+    <!-- array -->
+    <string name="week1">1 week</string>
+    <string name="week2">2 weeks</string>
+    <string name="week3">3 weeks</string>
+    <string name="month">4 month</string>
+
+    <string name="week1_value">7</string>
+    <string name="week2_value">14</string>
+    <string name="week3_value">21</string>
+    <string name="month_value">30</string>
+
+    <string name="list_key">listKey</string>
+    <string name="list_Label">Sync Interval</string>
+
+    <string name="share_data_Label">Share anonymous data</string>
+    <string name="share_data_key">anonymous</string>
+
+    <string name="pref_sync">Sync Setting</string>
+    <string name="pref_sync_des">After selected interval,
+        data will be updated automatically</string>
+
+
+    <!-- menifest -->
+    <string name="about">About Blog</string>
+
 </resources>

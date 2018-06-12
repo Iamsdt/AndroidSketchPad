@@ -46,6 +46,7 @@ class SettingsFragment: PreferenceFragmentCompat(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
 
+
         val preference = findPreference(key)
 
         if (preference != null) {
@@ -77,5 +78,10 @@ class SettingsFragment: PreferenceFragmentCompat(),
     override fun onStart() {
         super.onStart()
         preferenceScreen.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        preferenceScreen.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
     }
 }

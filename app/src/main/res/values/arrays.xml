@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/12/18 3:45 PM
+  -->
+
+<resources>
+
+    <string-array name="syncInterval">
+        <item>@string/week1</item>
+        <item>@string/week2</item>
+        <item>@string/week3</item>
+        <item>@string/month</item>
+    </string-array>
+
+    <string-array name="syncInterval_value">
+        <item>@string/week1_value</item>
+        <item>@string/week2_value</item>
+        <item>@string/week3_value</item>
+        <item>@string/month_value</item>
+    </string-array>
+
+</resources>
