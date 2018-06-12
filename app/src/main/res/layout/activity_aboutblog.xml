@@ -24,6 +24,9 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/about_blog"/>
+    <include layout="@layout/about_blog"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </android.support.design.widget.CoordinatorLayout>
