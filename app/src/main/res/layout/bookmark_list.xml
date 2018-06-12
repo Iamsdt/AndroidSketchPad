@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/12/18 6:14 PM
+  -->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- Swipe Layout-->
+    <include
+        android:id="@+id/swipeLayout"
+        layout="@layout/undo_layout" />
+
+    <!-- Regular Layout-->
+    <include
+        android:id="@+id/regular_layout"
+        layout="@layout/main_list_item" />
+
+</FrameLayout>

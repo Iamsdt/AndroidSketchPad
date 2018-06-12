@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by Shudipto Trafder
   ~ on 6/12/18 4:14 PM
   -->
@@ -25,11 +24,13 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/bookmarkLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/bookmarkRcv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -39,5 +40,9 @@
             tools:listitem="@layout/main_list_item" />
     </android.support.constraint.ConstraintLayout>
 
+    <include
+        android:id="@+id/noBookmark"
+        layout="@layout/no_bookmark"
+        android:visibility="gone"/>
 
 </android.support.design.widget.CoordinatorLayout>

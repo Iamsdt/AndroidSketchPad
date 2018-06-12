@@ -45,6 +45,8 @@
 
     <!-- menifest -->
     <string name="about">About Blog</string>
-    <string name="bookmark">Bookmark</string>
+    <string name="bookmark">Bookmarks List</string>
+    <string name="no_bookmark">You don\'t have any bookmark yet.\n
+    click on bookmark icon to save as bookmark</string>
 
 </resources>

@@ -7,6 +7,7 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
 import com.iamsdt.androidsketchpad.ui.SplashScreen
+import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkActivity
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
@@ -25,6 +26,9 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun DetailsActivity(): DetailsActivity
+
+    @ContributesAndroidInjector
+    abstract fun BookmarkActivity(): BookmarkActivity
 
 
     @ContributesAndroidInjector

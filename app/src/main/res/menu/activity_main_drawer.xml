@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    tools:ignore="HardcodedText">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Home" />
         <item
             android:id="@+id/nav_bookmark"
             android:icon="@drawable/ic_menu_gallery"
@@ -15,7 +12,7 @@
         <item
             android:id="@+id/nav_categories"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Categories" />
+            android:title="Labels" />
 
         <item
             android:id="@+id/nav_page"
@@ -45,12 +42,12 @@
                 android:title="About" />
 
             <item
-                android:id="@+id/nav_copyright"
+                android:id="@+id/nav_about_app"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Copyright" />
 
             <item
-                android:id="@+id/nav_tms"
+                android:id="@+id/nav_developer"
                 android:icon="@drawable/ic_menu_share"
                 android:title="Terms of uses" />
         </menu>

@@ -17,9 +17,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
+import android.widget.Toast
 import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
+import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
+import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
@@ -27,6 +31,7 @@ import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.ToastType
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.showToast
+import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ColorActivity
 import com.iamsdt.themelibrary.ThemeUtils
@@ -51,8 +56,8 @@ class MainActivity : AppCompatActivity(),
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private val viewModel:MainVM by lazy {
-        ViewModelProviders.of(this,factory).get(MainVM::class.java)
+    private val viewModel: MainVM by lazy {
+        ViewModelProviders.of(this, factory).get(MainVM::class.java)
     }
 
     private val themeRequestCode = 101
@@ -66,7 +71,7 @@ class MainActivity : AppCompatActivity(),
         adapter.changeContext(this)
 
         val manager = LinearLayoutManager(this,
-                LinearLayoutManager.VERTICAL,false)
+                LinearLayoutManager.VERTICAL, false)
 
         mainRcv.layoutManager = manager
         mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
@@ -75,10 +80,16 @@ class MainActivity : AppCompatActivity(),
 
 
         viewModel.getPostData().observe(this, Observer {
-            if (it == null || it.size <= 0){
+            if (it == null || it.size <= 0) {
                 //no data in database request data
-                viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
-            } else{
+                if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
+                    viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
+                else {
+                    fetchFirstPost = true
+                    showToast(ToastType.ERROR, "No Internet to fetch data", Toast.LENGTH_LONG)
+                }
+            } else {
+                fetchFirstPost = false
                 mainRcv.hideShimmerAdapter()
                 adapter.submitList(it)
                 Timber.i("Submit list size:${it.size}")
@@ -86,17 +97,17 @@ class MainActivity : AppCompatActivity(),
         })
 
         viewModel.uiLiveData.observe(this, Observer {
-            if (it != null && it.key == POST_KEY){
-                if (it.status == 1){
+            if (it != null && it.key == POST_KEY) {
+                if (it.status == 1) {
                     //open for new request
                     isRequested = false
                     waitForNetwork = false
-                    if (!postRequestComplete){
+                    if (!postRequestComplete) {
                         viewModel.nextPost()
                         postRequestComplete = true
                     }
 
-                } else{
+                } else {
                     viewModel.nextPost()
                     isRequested = true
                 }
@@ -114,12 +125,12 @@ class MainActivity : AppCompatActivity(),
                 val endHasBeenReached = lastVisible + 4 >= totalItemCount
 
                 if (totalItemCount >= 20 && endHasBeenReached) {
-                   if (!isRequested){
-                       if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
-                           viewModel.requestNewPost()
-                       else
-                           waitForNetwork = true
-                   }
+                    if (!isRequested) {
+                        if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
+                            viewModel.requestNewPost()
+                        else
+                            waitForNetwork = true
+                    }
                 }
 
             }
@@ -145,8 +156,9 @@ class MainActivity : AppCompatActivity(),
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
         when (item.itemId) {
+
             R.id.nav_bookmark -> {
-                //startActivity(Intent(this@MainActivity, BookmarkActivity::class.java))
+                toNextActivity(BookmarkActivity::class)
             }
 
             R.id.nav_categories -> {
@@ -158,21 +170,24 @@ class MainActivity : AppCompatActivity(),
             }
 
             R.id.nav_setting -> {
-                //startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                toNextActivity(SettingsActivity::class)
             }
 
             R.id.nav_choseColor -> {
+                ColorActivity.hideNightModeIcon()
                 startActivityForResult(ColorActivity.createIntent(this), themeRequestCode)
             }
 
             R.id.nav_about -> {
+                toNextActivity(AboutBlogActivity::class)
+            }
+
+            R.id.nav_about_app -> {
 
             }
 
-            R.id.nav_copyright -> {
-            }
+            R.id.nav_developer -> {
 
-            R.id.nav_tms -> {
             }
         }
 
@@ -194,9 +209,11 @@ class MainActivity : AppCompatActivity(),
         if (eventMessage.key == ConstantUtils.internet) {
             if (eventMessage.message == ConstantUtils.connected) {
                 showToast(ToastType.SUCCESSFUL, "Network connected")
-                if (waitForNetwork){
+                if (waitForNetwork)
                     viewModel.requestNewPost()
-                }
+
+                if (fetchFirstPost)
+                    viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
             } else {
                 showToast(ToastType.WARNING, "No Internet")
             }
@@ -226,6 +243,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     companion object {
+        var fetchFirstPost = false
         var postRequestComplete = false
         var isRequested = false
         var waitForNetwork = false

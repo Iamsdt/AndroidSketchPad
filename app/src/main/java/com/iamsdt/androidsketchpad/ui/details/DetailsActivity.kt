@@ -199,7 +199,7 @@ class DetailsActivity : AppCompatActivity() {
             if (li.isNotEmpty())
                 sb.append("$li,")
         }
-        val string = sb.toString().replaceBeforeLast(",", "")
+        val string = sb.toString().replaceAfterLast(",", "")
         Timber.i("Replace string:$string")
 
         return string

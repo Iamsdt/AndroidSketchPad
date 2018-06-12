@@ -12,6 +12,7 @@ import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkAdapter
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.squareup.picasso.Picasso
@@ -19,16 +20,26 @@ import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [DBModule::class,PicassoModule::class])
+@Module(includes = [DBModule::class, PicassoModule::class])
 class AppModule {
 
+    @Provides
+    @Singleton
+    fun getBookmarkAdapter(picasso: Picasso,
+                           spUtils: SpUtils,
+                           postTableDao: PostTableDao,
+                           application: Application): BookmarkAdapter =
+            BookmarkAdapter(picasso,
+                    spUtils.getAuthor().displayName,
+                    postTableDao,
+                    application)
 
     @Provides
     @Singleton
     fun getAdapter(picasso: Picasso,
                    spUtils: SpUtils,
                    postTableDao: PostTableDao,
-                   application: Application):MainAdapter =
+                   application: Application): MainAdapter =
             MainAdapter(picasso,
                     spUtils.getAuthor().displayName,
                     postTableDao,
