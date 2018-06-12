@@ -22,7 +22,7 @@ interface PageTableDao{
     fun delete(pageTable: PageTable):Int
 
     @get:Query("Select * From PageTable")
-    val getAllPage: LiveData<PageTable>
+    val getAllPage: LiveData<List<PageTable>>
 
     @Query("Select * From PageTable where id = :id")
     fun getSinglePage(id:String): LiveData<PageTable>

@@ -12,6 +12,7 @@ import com.iamsdt.androidsketchpad.injection.scopes.ViewModelKey
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkVM
 import com.iamsdt.androidsketchpad.ui.details.DetailsVM
 import com.iamsdt.androidsketchpad.ui.main.MainVM
+import com.iamsdt.androidsketchpad.ui.page.PageDetailsVM
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import dagger.Binds
 import dagger.Module
@@ -34,6 +35,11 @@ internal abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(BookmarkVM::class)
     internal abstract fun bookmarkVM(vm: BookmarkVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PageDetailsVM::class)
+    internal abstract fun bindPageDetailsVM(vm: PageDetailsVM): ViewModel
 
 
     @Binds

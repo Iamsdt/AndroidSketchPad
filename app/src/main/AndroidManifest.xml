@@ -49,6 +49,8 @@
             android:label="@string/settings"/>
         <activity android:name=".ui.bookmark.BookmarkActivity"
             android:label="@string/bookmark"/>
+        <activity android:name=".ui.page.PageActivity" />
+        <activity android:name=".ui.page.PageDetailsActivity" />
     </application>
 
 </manifest>

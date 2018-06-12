@@ -29,6 +29,8 @@ class AboutBlogActivity:AppCompatActivity(){
 
         val blog = spUtils.getBlog()
 
+        //todo fix if blog empty
+
         toolbar.title = blog.name
         nameTv.text = blog.name
         desTV.text = blog.des
