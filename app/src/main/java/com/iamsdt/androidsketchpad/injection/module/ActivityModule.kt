@@ -5,6 +5,7 @@
 
 package com.iamsdt.androidsketchpad.injection.module
 
+import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
 import com.iamsdt.androidsketchpad.ui.SplashScreen
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
@@ -24,6 +25,10 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector
     abstract fun DetailsActivity(): DetailsActivity
+
+
+    @ContributesAndroidInjector
+    abstract fun AboutBlogActivity(): AboutBlogActivity
 
     @ContributesAndroidInjector
     abstract fun updateServices(): UpdateService
