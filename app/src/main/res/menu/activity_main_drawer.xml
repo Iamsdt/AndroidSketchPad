@@ -7,16 +7,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_bookmark"
-            android:icon="@drawable/ic_bookmark"
+            android:icon="@drawable/ic_bookmark_black_24dp"
             android:title="Bookmark" />
         <item
             android:id="@+id/nav_page"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/page"
             android:title="Pages" />
 
         <item
             android:id="@+id/nav_search"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/search"
             android:title="Search" />
     </group>
 
@@ -29,7 +29,7 @@
 
             <item
                 android:id="@+id/nav_choseColor"
-                android:icon="@drawable/ic_menu_share"
+                android:icon="@drawable/plate"
                 android:title="Choose Theme" />
         </menu>
     </item>
@@ -38,18 +38,18 @@
         <menu>
             <item
                 android:id="@+id/nav_about"
-                android:icon="@drawable/ic_menu_share"
-                android:title="About" />
+                android:icon="@drawable/ic_info_black_24dp"
+                android:title="About Blog" />
 
             <item
                 android:id="@+id/nav_about_app"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Copyright" />
+                android:icon="@drawable/info"
+                android:title="About App" />
 
             <item
                 android:id="@+id/nav_developer"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Terms of uses" />
+                android:icon="@drawable/developer"
+                android:title="Developer" />
         </menu>
     </item>
 

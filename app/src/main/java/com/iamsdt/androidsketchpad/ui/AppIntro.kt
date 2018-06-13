@@ -20,6 +20,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.ui.main.MainActivity
+import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
 import kotlinx.android.synthetic.main.activity_app_intro.*
 
 
@@ -66,6 +68,7 @@ class AppIntro : AppCompatActivity(),ViewPager.OnPageChangeListener {
     }
 
     private fun launchHomeScreen() {
+        toNextActivity(MainActivity::class)
         finish()
     }
 

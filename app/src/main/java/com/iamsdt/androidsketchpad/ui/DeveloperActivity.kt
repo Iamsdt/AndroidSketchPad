@@ -24,23 +24,22 @@ class DeveloperActivity: AppCompatActivity(){
         setContentView(R.layout.activity_developer)
         setSupportActionBar(toolbar)
 
-        // TODO: 6/13/2018 add link
 
         facebook.setOnClickListener {
-            customTab("")
+            customTab("https://facebook.com/iamsdt")
         }
 
         twitter.setOnClickListener {
-            customTab("")
+            customTab("https://twitter.com/iamsdt")
         }
 
 
         github.setOnClickListener {
-            customTab("")
+            customTab("https://github.com/Iamsdt")
         }
 
         linkedin.setOnClickListener {
-            customTab("")
+            customTab("https://www.linkedin.com/in/iamsdt")
         }
 
 

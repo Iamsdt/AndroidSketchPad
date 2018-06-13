@@ -11,8 +11,8 @@
     <color name="dot_inactive_screen4">#a854d4</color>
     <color name="dot_inactive_screen5">#a854d4</color>
 
-    <color name="dot_active_screen1">#f98da5</color>
-    <color name="dot_active_screen2">#8cf9eb</color>
+    <color name="dot_active_screen1">@color/blue_500</color>
+    <color name="dot_active_screen2">@color/green_500</color>
     <color name="dot_active_screen3">#93c6fd</color>
     <color name="dot_active_screen4">#e4b5fc</color>
     <color name="dot_active_screen5">#e4b5fc</color>

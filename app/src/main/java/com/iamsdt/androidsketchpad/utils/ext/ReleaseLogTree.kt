@@ -21,7 +21,7 @@ class ReleaseLogTree : Timber.Tree() {
     }
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
-        // TODO: 5/28/2018 set a crash library
+        // complete: 5/28/2018 set a crash library
 //        if (priority == Log.ERROR || priority == Log.WARN)
 //            CrashLibrary.log(priority, tag, message)
 

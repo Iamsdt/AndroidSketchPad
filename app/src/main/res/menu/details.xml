@@ -9,7 +9,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/textSize"
-        android:icon="@android:drawable/btn_plus"
+        android:icon="@drawable/text_increase"
         android:title="@string/details_menu_text"
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction" />
