@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/13/18 5:10 PM
+  -->
+
+<shape android:shape="rectangle"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <solid android:color="@color/purple_500"/>
+
+    <size android:height="20dp"
+        android:width="20dp"/>
+
+</shape>

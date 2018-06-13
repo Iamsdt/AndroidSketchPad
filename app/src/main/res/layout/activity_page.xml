@@ -37,12 +37,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shimmer_demo_child_count="5"
-            app:shimmer_demo_angle="20"
-            app:shimmer_demo_layout_manager_type="linear_vertical"
-            app:shimmer_demo_view_holder_item_background="@color/grey_500"
-            app:shimmer_demo_layout="@layout/page_list_item"
-            tools:listitem="@layout/page_list_item">
+            app:shimmer_demo_child_count="10"
+            app:shimmer_demo_angle="30"
+            app:shimmer_demo_view_holder_item_background="@color/grey_700"
+            app:shimmer_demo_layout="@layout/demo_page_list"
+            tools:listitem="@layout/demo_page_list">
 
         </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
 

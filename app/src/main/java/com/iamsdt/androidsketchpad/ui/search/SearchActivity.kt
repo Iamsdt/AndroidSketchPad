@@ -86,7 +86,6 @@ class SearchActivity : AppCompatActivity() {
                 LinearLayoutManager.VERTICAL, false)
 
         mainRcv.layoutManager = manager
-        mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
 
         if (!ConnectivityChangeReceiver.getInternetStatus(this))

@@ -3,6 +3,7 @@ package com.iamsdt.androidsketchpad.ui
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.animation.AnimationUtils
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
@@ -11,6 +12,7 @@ import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.runThread
 import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
+import kotlinx.android.synthetic.main.activity_splash.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -23,22 +25,27 @@ class SplashScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
+        val set = AnimationUtils.loadAnimation(this,
+                R.anim.splash_screen_animation)
+
+        app_icon.animation = set
+        app_name.animation = set
+
+        set.start()
+
         if (spUtils.isFirstTime) {
 
             //start service
             //startService(Intent(this, UpdateService::class.java))
 
             //show app intro
-            //runThread(500,)
-            //runThread(100,AppIntro::class)
+            //runThread(1000,AppIntro::class)
 
             //spUtils.setAppRunFirstTime()
-            //complete:6/10/2018 Debug only remove latter
-            toNextActivity(AppIntro::class)
+            toNextActivity(MainActivity::class)
         } else {
             //show main screen
-            //runThread(1000,)
-            runThread(1000,MainActivity::class)
+            runThread(1500,MainActivity::class)
             runServices()
         }
     }

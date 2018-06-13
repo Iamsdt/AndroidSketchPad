@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Created by Shudipto Trafder
   ~ on 6/10/18 3:34 PM
   -->
 
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/splash_bcg" />
+    <item android:drawable="@drawable/splash_bcg"/>
 
     <item
         android:drawable="@drawable/icon"
-        android:gravity="clip_horizontal" />
+        android:gravity="clip_horizontal"
+        android:top="180dp"
+        android:bottom="180dp"/>
 
 </layer-list>

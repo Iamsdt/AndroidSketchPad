@@ -8,7 +8,7 @@
     android:background="@drawable/splash_bcg">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/app_icon"
         android:layout_width="0dp"
         android:layout_height="240dp"
         android:layout_marginBottom="8dp"
@@ -20,17 +20,14 @@
         app:srcCompat="@drawable/icon" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/my_app"
         android:textColor="@color/grey_0"
         android:textSize="38sp"
-        app:layout_constraintVertical_bias=".6"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/app_icon" />
 </android.support.constraint.ConstraintLayout>
