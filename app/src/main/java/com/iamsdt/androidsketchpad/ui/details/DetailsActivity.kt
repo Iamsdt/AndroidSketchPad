@@ -103,11 +103,7 @@ class DetailsActivity : AppCompatActivity() {
 
         showLoadingView()
 
-        //web view settings
         val settings = webView.settings
-        //app web view catching
-        // TODO: 6/11/2018 add settings
-        //by default it false
         settings.setAppCacheEnabled(false)
         settings.cacheMode = WebSettings.LOAD_NO_CACHE
 

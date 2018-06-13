@@ -61,7 +61,7 @@ class SearchActivity : AppCompatActivity() {
 
     private var suggestions: SearchRecentSuggestions? = null
 
-    // TODO: 6/13/2018 add search button on toolbar
+    // complete: 6/13/2018 add search button on toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
