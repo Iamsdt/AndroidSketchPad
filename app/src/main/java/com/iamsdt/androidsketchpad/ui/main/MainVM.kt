@@ -7,7 +7,6 @@ package com.iamsdt.androidsketchpad.ui.main
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.paging.DataSource
 import android.arch.paging.LivePagedListBuilder
 import android.arch.paging.PagedList
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao

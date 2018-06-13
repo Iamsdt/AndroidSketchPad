@@ -12,13 +12,11 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
@@ -53,7 +51,7 @@ class BookmarkAdapter(private val picasso: Picasso,
         PagedListAdapter<PostTable, BookmarkAdapter.BookVH>(DIFF_CALLBACK) {
 
 
-    private val PENDING_REMOVAL_TIMEOUT = 3000 // 3sec
+    private val pendingItemRemoval = 3000 // 3sec
     private val handler = Handler() // hanlder for running delayed runnables
     private val pendingRunables: MutableMap<PostTable?, Runnable> = HashMap() // map of items to pending runnables, so we can cancel a removal if need be
 
@@ -150,7 +148,7 @@ class BookmarkAdapter(private val picasso: Picasso,
             val pendingRemovalRunnable = Runnable {
                 remove(currentList?.indexOf(data) ?: 0)
             }
-            handler.postDelayed(pendingRemovalRunnable, PENDING_REMOVAL_TIMEOUT.toLong())
+            handler.postDelayed(pendingRemovalRunnable, pendingItemRemoval.toLong())
             pendingRunables[data] = pendingRemovalRunnable
         }
     }

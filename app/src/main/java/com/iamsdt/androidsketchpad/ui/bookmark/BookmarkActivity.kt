@@ -15,7 +15,6 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.SwipeUtil
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.gone

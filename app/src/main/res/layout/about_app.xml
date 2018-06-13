@@ -25,6 +25,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:contentDescription="@string/app_icon"
                 android:id="@+id/imageView4"
                 android:layout_width="64dp"
                 android:layout_height="64dp"

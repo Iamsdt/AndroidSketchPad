@@ -13,7 +13,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.data.loader.DataLayer
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ext.ToastType

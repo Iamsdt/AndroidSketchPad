@@ -40,6 +40,6 @@
         android:background="@null"
         android:text="Next"
         android:textColor="@android:color/white"
-        tools:ignore="RelativeOverlap" />
+        tools:ignore="HardcodedText,RelativeOverlap" />
 
 </RelativeLayout>

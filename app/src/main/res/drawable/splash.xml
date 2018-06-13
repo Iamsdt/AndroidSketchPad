@@ -10,6 +10,8 @@
         android:drawable="@drawable/icon"
         android:gravity="clip_horizontal"
         android:top="180dp"
+        android:left="10dp"
+        android:right="10dp"
         android:bottom="180dp"/>
 
 </layer-list>

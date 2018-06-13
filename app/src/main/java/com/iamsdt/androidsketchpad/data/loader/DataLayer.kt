@@ -7,12 +7,9 @@ package com.iamsdt.androidsketchpad.data.loader
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.arch.paging.LivePagedListBuilder
-import android.arch.paging.PagedList
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
-import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 

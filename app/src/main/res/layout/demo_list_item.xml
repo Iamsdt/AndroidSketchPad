@@ -64,6 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <ImageView
+            android:contentDescription="loading post image"
             android:id="@+id/bookmark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +72,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bookmark" />
+            app:srcCompat="@drawable/ic_bookmark"
+            tools:ignore="HardcodedText" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.CardView

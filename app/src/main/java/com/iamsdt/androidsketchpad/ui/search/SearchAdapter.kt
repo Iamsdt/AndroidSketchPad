@@ -6,14 +6,11 @@
 package com.iamsdt.androidsketchpad.ui.search
 
 import android.app.Application
-import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
-import android.provider.SearchRecentSuggestions
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -22,13 +19,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.R.id.author
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.ItemsItem
-import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
-import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
-import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone

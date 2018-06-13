@@ -15,6 +15,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:contentDescription="post author image"
             android:id="@+id/authorImg"
             android:layout_width="64dp"
             android:layout_height="64dp"
@@ -22,7 +23,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/authorDes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/authorName"
-            app:srcCompat="@drawable/user_icon" />
+            app:srcCompat="@drawable/user_icon"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/authorName"

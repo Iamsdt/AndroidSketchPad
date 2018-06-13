@@ -13,7 +13,7 @@ import com.iamsdt.androidsketchpad.data.database.table.PostTable
  * at 11:43 AM
  */
 
-@TypeConverters(DataConverter::class,ConveterListString::class)
+@TypeConverters(DataConverter::class,ConverterListString::class)
 @Database(entities = [PageTable::class,PostTable::class],version = 1,
         exportSchema = false)
 abstract class MyDB:RoomDatabase(){

@@ -31,7 +31,6 @@ import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
-import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.ToastType
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.showToast

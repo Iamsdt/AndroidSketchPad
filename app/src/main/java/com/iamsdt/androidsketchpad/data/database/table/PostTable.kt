@@ -3,7 +3,7 @@ package com.iamsdt.androidsketchpad.data.database.table
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.arch.persistence.room.TypeConverters
-import com.iamsdt.androidsketchpad.data.database.ConveterListString
+import com.iamsdt.androidsketchpad.data.database.ConverterListString
 import com.iamsdt.androidsketchpad.data.database.DataConverter
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.ImagesItem
 
@@ -24,7 +24,7 @@ data class PostTable(
 
         var published: String = "",
 
-        @TypeConverters(ConveterListString::class)
+        @TypeConverters(ConverterListString::class)
         val labels: List<String>?,
 
         val content: String = "",

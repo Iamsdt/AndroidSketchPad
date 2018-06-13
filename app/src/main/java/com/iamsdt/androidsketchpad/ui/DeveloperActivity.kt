@@ -13,7 +13,6 @@ import com.iamsdt.androidsketchpad.utils.ext.customTab
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_developer.*
 import kotlinx.android.synthetic.main.developer.*
-import okhttp3.internal.Util
 
 class DeveloperActivity: AppCompatActivity(){
 

@@ -1,7 +1,6 @@
 package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
-import android.content.Context
 import dagger.Module
 import dagger.Provides
 import okhttp3.Cache

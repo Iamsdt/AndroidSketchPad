@@ -5,16 +5,20 @@
 
 package com.iamsdt.androidsketchpad.ui.search
 
+import android.app.SearchManager
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
+import android.content.Intent
+import android.database.Cursor
 import android.os.Bundle
+import android.provider.SearchRecentSuggestions
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.MenuItem
 import android.widget.Toast
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.ui.main.MainVM
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
@@ -23,22 +27,13 @@ import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.showToast
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ThemeUtils
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_list.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
-import android.provider.SearchRecentSuggestions
-import android.support.v7.widget.SearchView
-import android.content.Context.SEARCH_SERVICE
-import android.app.SearchManager
-import android.content.Context
-import android.database.Cursor
-import android.view.View
-import kotlinx.android.synthetic.main.activity_search.*
-import android.content.Intent
-import com.iamsdt.androidsketchpad.R.id.searchViewN
 
 
 class SearchActivity : AppCompatActivity() {
@@ -56,7 +51,7 @@ class SearchActivity : AppCompatActivity() {
         ViewModelProviders.of(this, factory).get(SearchVM::class.java)
     }
 
-    var document: String = ""
+    private var document: String = ""
 
     private var suggestions: SearchRecentSuggestions? = null
 

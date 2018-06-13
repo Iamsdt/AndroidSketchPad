@@ -7,7 +7,7 @@ package com.iamsdt.androidsketchpad.data.database
 
 import android.arch.persistence.room.TypeConverter
 
-class ConveterListString{
+class ConverterListString{
     @TypeConverter
     fun toList(string: String?):List<String>{
         val list = arrayListOf<String>()

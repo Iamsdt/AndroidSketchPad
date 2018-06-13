@@ -1,7 +1,6 @@
 package com.iamsdt.androidsketchpad
 
 import android.app.Activity
-import android.app.Application
 import android.os.Bundle
 import com.iamsdt.androidsketchpad.injection.AppComponent
 import com.iamsdt.androidsketchpad.injection.DaggerAppComponent
@@ -20,7 +19,7 @@ import timber.log.Timber
  */
 class MyApplication : DaggerApplication() {
 
-    val component:AppComponent by lazy {
+    private val component:AppComponent by lazy {
         DaggerAppComponent.builder()
                 .application(this)
                 .build()

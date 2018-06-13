@@ -19,6 +19,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:contentDescription="@string/app_icon"
         android:id="@+id/imageView"
         android:layout_width="64dp"
         android:layout_height="64dp"

@@ -8,8 +8,6 @@ package com.iamsdt.androidsketchpad.data.loader
 import android.os.AsyncTask
 import android.os.Handler
 import android.os.HandlerThread
-import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.R.id.author
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
@@ -19,11 +17,9 @@ import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.data.retrofit.model.page.PageResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
 import com.iamsdt.androidsketchpad.data.retrofit.model.singlePost.SinglePostResponse
-import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.PAGE_KEY
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
-import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_WITH_TOKEN
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import com.iamsdt.androidsketchpad.utils.model.EventMessage

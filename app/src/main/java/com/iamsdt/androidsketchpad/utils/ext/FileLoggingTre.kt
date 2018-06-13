@@ -23,7 +23,7 @@ class FileLoggingTree:Timber.DebugTree(){
 
     //don't forget to take permission
 
-    private val LOG_TAG = FileLoggingTree::class.java.simpleName
+    private val tag = FileLoggingTree::class.java.simpleName
 
     override fun log(priority: Int, tag: String?, message: String, t: Throwable?) {
         try {
@@ -51,7 +51,7 @@ class FileLoggingTree:Timber.DebugTree(){
                 writer.close()
             }
         } catch (e: Exception) {
-            Log.e(LOG_TAG, "Error while logging into file : $e")
+            Log.e(this.tag, "Error while logging into file : $e")
         }
 
     }

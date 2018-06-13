@@ -23,11 +23,11 @@ abstract class SwipeUtil(dragDirs: Int,
         ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs) {
 
     var background: Drawable? = null
-    var deleteIcon: Drawable? = null
+    private var deleteIcon: Drawable? = null
 
-    var xMarkMargin: Int = 0
+    private var xMarkMargin: Int = 0
 
-    var initiated: Boolean = false
+    private var initiated: Boolean = false
 
     var leftColorCode: Int = 0
 

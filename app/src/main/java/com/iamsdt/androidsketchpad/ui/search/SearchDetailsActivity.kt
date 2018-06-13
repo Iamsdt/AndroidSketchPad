@@ -59,7 +59,7 @@ class SearchDetailsActivity : AppCompatActivity() {
 
     private lateinit var menuItem: MenuItem
 
-    var isBookmarked = false
+    private var isBookmarked = false
 
     private val viewModel: SearchDetailsVM by lazy {
         ViewModelProviders.of(this, factory).get(SearchDetailsVM::class.java)
@@ -67,7 +67,7 @@ class SearchDetailsActivity : AppCompatActivity() {
 
     lateinit var id: String
 
-    var singlePostResponse:SinglePostResponse ?= null
+    private var singlePostResponse:SinglePostResponse ?= null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {

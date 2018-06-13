@@ -14,8 +14,6 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
-import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.ShareActionProvider
 import android.view.Menu
@@ -26,7 +24,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
-import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.RemoteUtils

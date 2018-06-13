@@ -43,7 +43,7 @@
         data will be updated automatically</string>
 
 
-    <!-- menifest -->
+    <!-- manifest -->
     <string name="about">About Blog</string>
     <string name="bookmark">Bookmarks List</string>
     <string name="no_bookmark">You don\'t have any bookmark yet.\n
@@ -52,5 +52,6 @@
     <string name="search">search</string>
     <string name="speak_voice">Speak now</string>
     <string name="app_version">Version:1</string>
+    <string name="app_icon">App icon</string>
 
 </resources>

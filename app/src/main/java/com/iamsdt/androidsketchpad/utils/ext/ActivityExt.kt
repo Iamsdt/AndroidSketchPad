@@ -5,7 +5,6 @@
 
 package com.iamsdt.androidsketchpad.utils.ext
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.net.Uri

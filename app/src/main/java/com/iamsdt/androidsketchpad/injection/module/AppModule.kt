@@ -7,13 +7,12 @@ package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
 import com.iamsdt.androidsketchpad.BuildConfig
+import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
+import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.loader.LayerUtils
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
-import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkAdapter
-import com.iamsdt.androidsketchpad.ui.details.DetailsAdapter
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.ui.search.SearchAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils

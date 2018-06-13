@@ -8,6 +8,7 @@
     android:background="@drawable/splash_bcg">
 
     <ImageView
+        android:contentDescription="App icon"
         android:id="@+id/app_icon"
         android:layout_width="0dp"
         android:layout_height="240dp"
@@ -17,7 +18,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".2"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/icon"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/app_name"

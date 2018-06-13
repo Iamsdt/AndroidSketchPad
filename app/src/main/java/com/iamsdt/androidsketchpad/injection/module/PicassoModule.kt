@@ -1,7 +1,6 @@
 package com.iamsdt.androidsketchpad.injection.module
 
 import android.app.Application
-import android.content.Context
 import com.jakewharton.picasso.OkHttp3Downloader
 import com.squareup.picasso.Downloader
 import com.squareup.picasso.Picasso

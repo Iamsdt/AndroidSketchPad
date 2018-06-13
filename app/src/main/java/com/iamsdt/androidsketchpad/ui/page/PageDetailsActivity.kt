@@ -20,7 +20,6 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
-import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
 import com.iamsdt.androidsketchpad.utils.ext.customTab
 import com.iamsdt.androidsketchpad.utils.ext.gone

@@ -31,40 +31,40 @@ abstract class ActivityModule {
     abstract fun getMainActivity(): MainActivity
 
     @ContributesAndroidInjector
-    abstract fun DetailsActivity(): DetailsActivity
+    abstract fun detailsActivity(): DetailsActivity
 
     @ContributesAndroidInjector
-    abstract fun BookmarkActivity(): BookmarkActivity
-
-
-    @ContributesAndroidInjector
-    abstract fun PageActivity(): PageActivity
-
-    @ContributesAndroidInjector
-    abstract fun PageDetailsActivity(): PageDetailsActivity
-
-    @ContributesAndroidInjector
-    abstract fun AboutBlogActivity(): AboutBlogActivity
-
-    @ContributesAndroidInjector
-    abstract fun SearchActivity(): SearchActivity
+    abstract fun bookmarkActivity(): BookmarkActivity
 
 
     @ContributesAndroidInjector
-    abstract fun SearchDetailsActivity(): SearchDetailsActivity
+    abstract fun pageActivity(): PageActivity
+
+    @ContributesAndroidInjector
+    abstract fun pageDetailsActivity(): PageDetailsActivity
+
+    @ContributesAndroidInjector
+    abstract fun aboutBlogActivity(): AboutBlogActivity
+
+    @ContributesAndroidInjector
+    abstract fun searchActivity(): SearchActivity
 
 
     @ContributesAndroidInjector
-    abstract fun DeveloperActivity(): DeveloperActivity
+    abstract fun searchDetailsActivity(): SearchDetailsActivity
 
 
     @ContributesAndroidInjector
-    abstract fun AboutApp(): AboutApp
+    abstract fun developerActivity(): DeveloperActivity
+
+
+    @ContributesAndroidInjector
+    abstract fun aboutApp(): AboutApp
 
 
     @ContributesAndroidInjector
     abstract fun updateServices(): UpdateService
 
     @ContributesAndroidInjector
-    abstract fun connectionReciver(): ConnectivityChangeReceiver
+    abstract fun connectionReceiver(): ConnectivityChangeReceiver
 }
