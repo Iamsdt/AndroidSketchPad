@@ -18,6 +18,7 @@ import com.iamsdt.androidsketchpad.data.database.table.PageTable
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import kotlinx.android.synthetic.main.page_list_item.view.*
+import java.util.*
 
 class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageVH>() {
 
@@ -57,8 +58,7 @@ class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageV
 
         fun bind(page: PageTable) {
             title.text = page.title
-
-            title.setTextColor(context.resources.getColor(R.color.cyan_500))
+            getColor()
 
             val pub = "Live since ${DateUtils.getReadableDate(page.published)}"
             val up = "Last update : ${DateUtils.getReadableDate(page.updated)}"
@@ -73,8 +73,22 @@ class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageV
         }
 
         private fun getRandomColor():Int{
-            // TODO: 6/12/2018 add color array
-            return 0
+            // complete: 6/12/2018 add color array
+
+            val array = listOf(R.color.cyan_500,
+                    R.color.indigo_500,
+                    R.color.orange_500,
+                    R.color.purple_500,
+                    R.color.deep_orange_500,
+                    R.color.green_500,
+                    R.color.pink_500,
+                    R.color.light_blue_500,
+                    R.color.light_green_500)
+
+            val random= Random(8)
+            val value =random.nextInt()
+
+            return array[value]
         }
     }
 }
