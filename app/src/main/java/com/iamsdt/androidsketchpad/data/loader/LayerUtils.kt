@@ -61,7 +61,11 @@ class LayerUtils(private val spUtils: SpUtils,
                         //save token
                         val data: PostsResponse = response.body()!!
 
-                        spUtils.savePageToken(data.nextPageToken)
+
+                        if (data.nextPageToken.isNotEmpty()){
+                            spUtils.savePageToken(data.nextPageToken)
+                        }
+
                         Timber.i("New post token${data.nextPageToken}")
 
                         val list = data.items ?: emptyList()
