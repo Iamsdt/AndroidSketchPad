@@ -9,8 +9,11 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.utils.ext.customTab
 import com.iamsdt.themelibrary.ThemeUtils
-import kotlinx.android.synthetic.main.activity_aboutblog.*
+import kotlinx.android.synthetic.main.activity_developer.*
+import kotlinx.android.synthetic.main.developer.*
+import okhttp3.internal.Util
 
 class DeveloperActivity: AppCompatActivity(){
 
@@ -18,8 +21,27 @@ class DeveloperActivity: AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
-        setContentView(R.layout.activity_aboutblog)
+        setContentView(R.layout.activity_developer)
         setSupportActionBar(toolbar)
+
+        // TODO: 6/13/2018 add link
+
+        facebook.setOnClickListener {
+            customTab("")
+        }
+
+        twitter.setOnClickListener {
+            customTab("")
+        }
+
+
+        github.setOnClickListener {
+            customTab("")
+        }
+
+        linkedin.setOnClickListener {
+            customTab("")
+        }
 
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

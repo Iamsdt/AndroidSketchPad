@@ -65,7 +65,8 @@ fun AppCompatActivity.showToast(
 fun AppCompatActivity.customTab(link: String) {
     val builder = CustomTabsIntent.Builder()
     builder.setToolbarColor(R.attr.colorPrimary)
-    builder.setShowTitle(false)
+    builder.setShowTitle(true)
+    builder.addDefaultShareMenuItem()
     builder.setCloseButtonIcon(BitmapFactory.decodeResource(
             resources, R.drawable.dialog_back))
     val customTabsIntent = builder.build()

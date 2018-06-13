@@ -9,16 +9,25 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
 import com.iamsdt.themelibrary.ThemeUtils
-import kotlinx.android.synthetic.main.activity_aboutblog.*
+import kotlinx.android.synthetic.main.about_app.*
+import kotlinx.android.synthetic.main.activity_about_app.*
 
 class AboutApp:AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
-        setContentView(R.layout.activity_aboutblog)
+        setContentView(R.layout.activity_about_app)
         setSupportActionBar(toolbar)
 
+        app_developer.setOnClickListener {
+            toNextActivity(DeveloperActivity::class)
+        }
+
+        app_license.setOnClickListener {
+            //open license in custom tab
+        }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

@@ -13,13 +13,11 @@ import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
-import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.BLOG_KEY
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.ToastType
 import com.iamsdt.androidsketchpad.utils.ext.showToast
-import com.iamsdt.androidsketchpad.utils.model.BlogModel
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.about_blog.*
 import kotlinx.android.synthetic.main.activity_aboutblog.*

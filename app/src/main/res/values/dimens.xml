@@ -13,4 +13,16 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
 
     <dimen name="ic_clear_margin">16dp</dimen>
+
+    <!-- app intro -->
+    <dimen name="welcome1_img">240dp</dimen>
+    <dimen name="welcome1_text">30sp</dimen>
+    <dimen name="welcome1_text2">25sp</dimen>
+
+    <!-- developer -->
+    <dimen name="dev_txt">28sp</dimen>
+    <dimen name="dev_txt1">23sp</dimen>
+    <dimen name="dev_img_width">200dp</dimen>
+
+    <dimen name="dev_img">210dp</dimen>
 </resources>

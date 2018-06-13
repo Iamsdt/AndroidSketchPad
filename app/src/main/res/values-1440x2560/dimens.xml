@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/13/18 9:14 AM
+  -->
+
+<resources>
+
+
+    <dimen name="welcome1_img">300dp</dimen>
+    <dimen name="welcome1_text">40sp</dimen>
+    <dimen name="welcome1_text2">30sp</dimen>
+
+    <dimen name="dev_txt">35sp</dimen>
+    <dimen name="dev_txt1">25sp</dimen>
+
+    <dimen name="dev_img_width">250dp</dimen>
+
+    <dimen name="dev_img">270dp</dimen>
+
+</resources>
