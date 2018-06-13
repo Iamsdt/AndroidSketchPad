@@ -13,6 +13,7 @@ import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
 import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkAdapter
+import com.iamsdt.androidsketchpad.ui.details.DetailsAdapter
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.ui.search.SearchAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
@@ -27,8 +28,8 @@ class AppModule {
     @Provides
     @Singleton
     fun getSearchAdapter(picasso: Picasso,
-                           postTableDao: PostTableDao,
-                           application: Application): SearchAdapter =
+                         postTableDao: PostTableDao,
+                         application: Application): SearchAdapter =
             SearchAdapter(picasso,
                     postTableDao,
                     application)

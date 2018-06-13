@@ -147,7 +147,7 @@ class MainAdapter(private val picasso: Picasso,
                 Timber.i("compare callback item ${oldConcert.id}:${newConcert.id} " +
                         "${oldConcert.bookmark}:${newConcert.bookmark}")
 
-                   return oldConcert.id == newConcert.id
+                   return oldConcert.id == newConcert.id && oldConcert.bookmark == newConcert.bookmark
             }
 
             override fun areContentsTheSame(oldConcert: PostTable,

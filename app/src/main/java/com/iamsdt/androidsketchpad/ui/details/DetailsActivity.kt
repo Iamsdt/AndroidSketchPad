@@ -14,6 +14,9 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.util.DiffUtil
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.ShareActionProvider
 import android.view.Menu
 import android.view.MenuItem
@@ -22,10 +25,11 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.R.id.loading
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
+import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.HtmlHelper
+import com.iamsdt.androidsketchpad.utils.RemoteUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.themelibrary.ThemeUtils
@@ -46,6 +50,8 @@ class DetailsActivity : AppCompatActivity() {
     @Inject
     lateinit var picasso: Picasso
 
+    lateinit var adapter: DetailsAdapter
+
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -59,9 +65,9 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var menuItem: MenuItem
 
-    var isBookmarked = false
+    private var isBookmarked = false
 
-    var previousPostTable: PostTable? = null
+    private var previousPostTable: PostTable? = null
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +77,11 @@ class DetailsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         id = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
+
+        adapter = DetailsAdapter(picasso,spUtils.getAuthor().displayName,this)
+
+        detailsRcv.layoutManager = LinearLayoutManager(this)
+        detailsRcv.adapter = adapter
 
         webView?.webViewClient = object : WebViewClient() {
             override fun shouldOverrideUrlLoading(
@@ -161,6 +172,12 @@ class DetailsActivity : AppCompatActivity() {
             }
         })
 
+        //rcv
+        viewModel.getRandomPost().observe(this, Observer {
+            if (it != null && it.isNotEmpty())
+                adapter.submitList(it)
+        })
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -207,7 +224,8 @@ class DetailsActivity : AppCompatActivity() {
         authorName.text = author.displayName
         authorDes.text = author.des
         if (author.imageUrl.isNotEmpty()) {
-            picasso.load(author.imageUrl).fit().into(authorImg)
+            picasso.load(RemoteUtils.getAuthorLink(author.imageUrl)).fit().into(authorImg)
+            Timber.i("${picasso.snapshot}")
         }
     }
 

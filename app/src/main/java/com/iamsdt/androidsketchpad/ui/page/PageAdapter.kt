@@ -8,6 +8,8 @@ package com.iamsdt.androidsketchpad.ui.page
 import android.content.Context
 import android.content.Intent
 import android.support.v4.content.ContextCompat
+import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +17,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
-import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import kotlinx.android.synthetic.main.page_list_item.view.*
 import java.util.*
@@ -35,20 +36,31 @@ class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageV
             list.size
 
     override fun onBindViewHolder(holder: PageVH, position: Int) {
-        val model = list[position]
-        holder.bind(model)
-        holder.itemView.setOnClickListener {
-            val intent = Intent(context, PageDetailsActivity::class.java)
-            intent.putExtra(Intent.EXTRA_HTML_TEXT, model.id)
-            context.startActivity(intent)
+        val model:PageTable ?= list[position]
+        if (model != null){
+            holder.bind(model)
+            holder.itemView.setOnClickListener {
+                val intent = Intent(context, PageDetailsActivity::class.java)
+                intent.putExtra(Intent.EXTRA_HTML_TEXT, model.id)
+                context.startActivity(intent)
+            }
         }
     }
 
     fun submitList(newList: List<PageTable>){
+
         list = newList
 
-        //our list is just like constant
-        notifyDataSetChanged()
+        AsyncListDiffer<PageTable>(this, object : DiffUtil.ItemCallback<PageTable>() {
+            override fun areItemsTheSame(oldItem: PageTable?, newItem: PageTable?): Boolean {
+                return oldItem?.id == newItem?.id
+            }
+
+            override fun areContentsTheSame(oldItem: PageTable?, newItem: PageTable?): Boolean {
+                return oldItem == newItem
+            }
+
+        }).submitList(list)
     }
 
     inner class PageVH(view: View) : RecyclerView.ViewHolder(view) {

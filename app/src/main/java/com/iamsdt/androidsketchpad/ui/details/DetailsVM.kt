@@ -20,6 +20,8 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
     fun getDetails(id: String) =
             postTableDao.getSinglePost(id)
 
+    fun getRandomPost() = postTableDao.randomPost()
+
     private fun setBookmark(id: String) {
         AsyncTask.execute({
             val update = postTableDao.setBookmark(id)
