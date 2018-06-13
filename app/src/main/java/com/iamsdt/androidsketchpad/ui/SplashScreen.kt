@@ -34,7 +34,7 @@ class SplashScreen : AppCompatActivity() {
 
             //spUtils.setAppRunFirstTime()
             //complete:6/10/2018 Debug only remove latter
-            toNextActivity(MainActivity::class)
+            toNextActivity(AppIntro::class)
         } else {
             //show main screen
             //runThread(1000,)
