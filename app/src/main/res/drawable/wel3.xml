@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Shudipto Trafder
+  ~ on 6/13/18 1:46 PM
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+android:shape="rectangle">
+<gradient
+    android:angle="225"
+    android:centerColor="@color/purple_500"
+    android:endColor="@color/deep_purple_500"
+    android:startColor="@color/pink_500"
+    android:type="linear" />
+</shape>
