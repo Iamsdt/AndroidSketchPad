@@ -120,9 +120,9 @@ class DetailsAdapter(private val picasso: Picasso,
             val url = post?.imgUrl?.get(0)?.url ?: ""
             if (url.isNotEmpty()) {
                 picasso.load(url).fit().into(image)
-            } else {
+            } else{
                 image.inVisible()
-                image.changeHeight(72)
+                image.changeHeight(90)
             }
 
 

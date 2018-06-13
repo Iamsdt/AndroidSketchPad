@@ -27,7 +27,9 @@ import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter.Companion.DIFF_CALLBACK
 import com.iamsdt.androidsketchpad.utils.DateUtils
+import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone
+import com.iamsdt.androidsketchpad.utils.ext.inVisible
 import com.iamsdt.androidsketchpad.utils.ext.show
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
@@ -192,6 +194,9 @@ class BookmarkAdapter(private val picasso: Picasso,
             val url = post?.imgUrl?.get(0)?.url ?: ""
             if (url.isNotEmpty()) {
                 picasso.load(url).fit().into(image)
+            }else{
+                image.inVisible()
+                image.changeHeight(90)
             }
 
             titleTV.text = post?.title

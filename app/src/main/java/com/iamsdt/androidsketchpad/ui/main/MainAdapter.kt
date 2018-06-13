@@ -114,7 +114,7 @@ class MainAdapter(private val picasso: Picasso,
                 picasso.load(url).fit().into(image)
             }else{
                 image.inVisible()
-                image.changeHeight(72)
+                image.changeHeight(90)
             }
 
             titleTV.text = post?.title
