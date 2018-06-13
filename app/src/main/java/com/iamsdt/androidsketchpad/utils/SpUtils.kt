@@ -34,6 +34,7 @@ import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.SP_NAME
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Companion.USED_PAGE_TOKEN
 import com.iamsdt.androidsketchpad.utils.model.AuthorModel
 import com.iamsdt.androidsketchpad.utils.model.BlogModel
+import timber.log.Timber
 
 class SpUtils(private val context: Context) {
 
@@ -149,6 +150,7 @@ class SpUtils(private val context: Context) {
 
     fun getAuthor(): AuthorModel {
         val imageUrl: String = authorSP.getString(IMAGEURL, "")
+        Timber.i("Author image link $imageUrl")
         val displayName: String = authorSP.getString(DISPLAY_NAME, "Shudipto Trafder")
         val id: String = authorSP.getString(ID, "")
         val url: String = authorSP.getString(URL, "")

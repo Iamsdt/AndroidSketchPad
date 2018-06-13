@@ -27,6 +27,7 @@ import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.iamsdt.androidsketchpad.utils.ext.show
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_page_details.*
+import kotlinx.android.synthetic.main.loading_layer.*
 import javax.inject.Inject
 
 
@@ -101,6 +102,14 @@ class PageDetailsActivity : AppCompatActivity() {
                         "text/html", "UTF-8")
 
                 page_title.text = it.title
+            } else{
+                //show empty view
+                if (page_loading != null && empty_tv != null) {
+                    empty_tv.show()
+                    empty_tv.setOnClickListener {
+                        onBackPressed()
+                    }
+                }
             }
         })
 
@@ -116,6 +125,7 @@ class PageDetailsActivity : AppCompatActivity() {
     private fun showLoading() {
         page_main.gone()
         page_loading.show()
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

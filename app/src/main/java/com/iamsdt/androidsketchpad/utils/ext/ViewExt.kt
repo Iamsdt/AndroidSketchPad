@@ -17,6 +17,15 @@ fun View.show(){
     visibility = View.VISIBLE
 }
 
+fun View.inVisible(){
+    visibility = View.INVISIBLE
+}
+
+fun View.changeHeight(height: Int){
+    requestLayout()
+    layoutParams.height = height
+}
+
 fun View.showSnackbar(snackbarText: String, timeLength: Int = Snackbar.LENGTH_SHORT) {
     Snackbar.make(this, snackbarText, timeLength).show()
 }

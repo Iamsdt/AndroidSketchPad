@@ -77,7 +77,7 @@ class SearchDetailsActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         id = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
-        isBookmarked = intent.getLongExtra(Intent.EXTRA_LOCAL_ONLY,0) == 0L
+        isBookmarked = intent.getLongExtra(Intent.EXTRA_LOCAL_ONLY,0) != 0L
 
         if (!ConnectivityChangeReceiver.getInternetStatus(this))
             showToast(ToastType.ERROR, "No internet to fetch", Toast.LENGTH_LONG)

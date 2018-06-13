@@ -42,7 +42,7 @@ class RemoteDataLayer(private val retInterface: RetInterface,
 
     fun getPostFromSearch(searchEvent: String) {
         Timber.i("Request post from search:$searchEvent")
-        val call = retInterface.getPostFormSearch(searchEvent, apiKey)
+        val call = retInterface.getPostFormSearch(searchEvent,apiKey)
         layerUtils.executeSearchCall(call)
     }
 

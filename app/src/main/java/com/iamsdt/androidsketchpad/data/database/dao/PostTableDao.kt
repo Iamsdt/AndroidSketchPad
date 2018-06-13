@@ -36,4 +36,7 @@ interface PostTableDao{
 
     @Query("Update PostTable set bookmark = 0 where id = :id")
     fun deleteBookmark(id: String):Int
+
+    @Query("Select * From PostTable ORDER BY RANDOM() LIMIT 3")
+    fun randomPost():LiveData<List<PostTable>>
 }

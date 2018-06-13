@@ -21,12 +21,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
-import com.iamsdt.androidsketchpad.R.id.author
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
+import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone
+import com.iamsdt.androidsketchpad.utils.ext.inVisible
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.main_list_item.view.*
@@ -111,6 +112,9 @@ class MainAdapter(private val picasso: Picasso,
             val url = post?.imgUrl?.get(0)?.url ?: ""
             if (url.isNotEmpty()) {
                 picasso.load(url).fit().into(image)
+            }else{
+                image.inVisible()
+                image.changeHeight(72)
             }
 
             titleTV.text = post?.title

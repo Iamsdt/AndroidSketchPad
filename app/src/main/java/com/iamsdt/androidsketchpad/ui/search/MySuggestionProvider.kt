@@ -5,7 +5,6 @@
 
 package com.iamsdt.androidsketchpad.ui.search
 
-import android.content.SearchRecentSuggestionsProvider.DATABASE_MODE_QUERIES
 import android.content.SearchRecentSuggestionsProvider
 
 
@@ -16,7 +15,7 @@ class MySuggestionProvider : SearchRecentSuggestionsProvider() {
 
     companion object {
 
-        val AUTHORITY = "com.example.MySuggestionProvider"
-        val MODE = DATABASE_MODE_QUERIES
+        const val AUTHORITY = "com.example.MySuggestionProvider"
+        const val MODE = DATABASE_MODE_QUERIES
     }
 }

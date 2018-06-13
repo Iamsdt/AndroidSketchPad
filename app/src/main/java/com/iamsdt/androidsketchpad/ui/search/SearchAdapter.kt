@@ -12,6 +12,7 @@ import android.content.Intent
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
+import android.provider.SearchRecentSuggestions
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -29,7 +30,9 @@ import com.iamsdt.androidsketchpad.data.retrofit.model.posts.PostsResponse
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.utils.DateUtils
+import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone
+import com.iamsdt.androidsketchpad.utils.ext.inVisible
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.main_list_item.view.*
@@ -42,6 +45,7 @@ class SearchAdapter(private val picasso: Picasso,
 
 
     private var list: List<ItemsItem> = emptyList()
+
 
     override fun getItemCount(): Int =
             list.size
@@ -69,7 +73,6 @@ class SearchAdapter(private val picasso: Picasso,
         }
 
         holder.bookmarkImg.setOnClickListener {
-
 
             val thread = HandlerThread("Bookmark")
             thread.start()
@@ -119,9 +122,15 @@ class SearchAdapter(private val picasso: Picasso,
         private val labelTV: TextView = view.labelTV
 
         fun bind(post: ItemsItem) {
+
+            //this link will be always empty
             val url = post.images?.get(0)?.url ?: ""
+            Timber.i("post link $url")
             if (url.isNotEmpty()) {
                 picasso.load(url).fit().into(image)
+            } else{
+                image.inVisible()
+                image.changeHeight(72)
             }
 
             titleTV.text = post.title

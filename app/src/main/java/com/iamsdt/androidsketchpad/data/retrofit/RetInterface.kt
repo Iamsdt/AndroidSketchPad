@@ -19,10 +19,13 @@ interface RetInterface {
     @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
     fun getPostForFirstTime(@Query("key") key: String):Call<PostsResponse>
 
+
+    // complete: 6/13/2018 image is not fetch
+    //no option for image
     //posts/search?q=documentation
-    @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")
+    @GET("/blogger/v3/blogs/141872694236847267/posts/search")
     fun getPostFormSearch(
-            @Query("search") search: String,
+            @Query("q") search: String,
             @Query("key") key: String):Call<PostsResponse>
 
     @GET("/blogger/v3/blogs/141872694236847267/posts?fetchImages=true")

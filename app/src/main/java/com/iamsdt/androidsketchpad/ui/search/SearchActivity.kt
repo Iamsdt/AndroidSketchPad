@@ -38,8 +38,7 @@ import android.database.Cursor
 import android.view.View
 import kotlinx.android.synthetic.main.activity_search.*
 import android.content.Intent
-
-
+import com.iamsdt.androidsketchpad.R.id.searchViewN
 
 
 class SearchActivity : AppCompatActivity() {
@@ -116,6 +115,7 @@ class SearchActivity : AppCompatActivity() {
                 // user submit a query
                 mainRcv.showShimmerAdapter()
                 viewModel.requestSearch(query)
+                setRecentQuery(query)
                 return true
             }
 
@@ -141,10 +141,15 @@ class SearchActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun setRecentQuery(query: String) {
+        suggestions?.saveRecentQuery(query, null)
+
+    }
+
     override fun onNewIntent(intent: Intent) {
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            searchViewN.setQuery(query,false)
+            searchViewN.setQuery(query, false)
         }
     }
 

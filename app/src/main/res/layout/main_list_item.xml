@@ -22,10 +22,13 @@
             android:id="@+id/list_img"
             android:layout_width="0dp"
             android:layout_height="180dp"
+            android:visibility="visible"
+            android:contentDescription="post image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/firebase" />
+            app:srcCompat="@drawable/dark_icon"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/title"
@@ -73,9 +76,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="18dp"
             android:layout_marginTop="8dp"
+            android:contentDescription="bookmark icon"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_bookmark" />
+            app:srcCompat="@drawable/ic_bookmark"
+            tools:ignore="HardcodedText" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.CardView

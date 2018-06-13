@@ -8,6 +8,7 @@ package com.iamsdt.androidsketchpad.data.database.dao
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import com.iamsdt.androidsketchpad.data.database.table.PageTable
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 
 @Dao
 interface PageTableDao{

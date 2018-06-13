@@ -38,7 +38,7 @@ class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageV
         val model = list[position]
         holder.bind(model)
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, DetailsActivity::class.java)
+            val intent = Intent(context, PageDetailsActivity::class.java)
             intent.putExtra(Intent.EXTRA_HTML_TEXT, model.id)
             context.startActivity(intent)
         }
@@ -85,8 +85,8 @@ class PageAdapter(val context: Context) : RecyclerView.Adapter<PageAdapter.PageV
                     R.color.light_blue_500,
                     R.color.light_green_500)
 
-            val random= Random(8)
-            val value =random.nextInt()
+            val random= Random()
+            val value =random.nextInt(8)
 
             return array[value]
         }
