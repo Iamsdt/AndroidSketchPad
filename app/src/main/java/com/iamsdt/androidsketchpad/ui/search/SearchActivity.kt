@@ -29,6 +29,18 @@ import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
+import android.provider.SearchRecentSuggestions
+import android.support.v7.widget.SearchView
+import android.content.Context.SEARCH_SERVICE
+import android.app.SearchManager
+import android.content.Context
+import android.database.Cursor
+import android.view.View
+import kotlinx.android.synthetic.main.activity_search.*
+import android.content.Intent
+
+
+
 
 class SearchActivity : AppCompatActivity() {
 
@@ -47,15 +59,28 @@ class SearchActivity : AppCompatActivity() {
 
     var document: String = ""
 
+    private var suggestions: SearchRecentSuggestions? = null
+
     // TODO: 6/13/2018 add search button on toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
-        setContentView(R.layout.main_layout)
+        setContentView(R.layout.activity_search)
         setSupportActionBar(toolbar)
 
         adapter.changeContext(this)
+
+
+        //search
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        suggestions = SearchRecentSuggestions(this,
+                MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
+        searchViewN.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+        searchViewN.setIconifiedByDefault(false)
+        searchViewN.isQueryRefinementEnabled = true
+        searchViewN.requestFocus(1)
 
         val manager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false)
@@ -63,10 +88,9 @@ class SearchActivity : AppCompatActivity() {
         mainRcv.layoutManager = manager
         mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
-        mainRcv.showShimmerAdapter()
 
         if (!ConnectivityChangeReceiver.getInternetStatus(this))
-            showToast(ToastType.ERROR,"No internet to search", Toast.LENGTH_LONG)
+            showToast(ToastType.ERROR, "No internet to search", Toast.LENGTH_LONG)
 
 
         viewModel.searchData.observe(this, Observer {
@@ -88,9 +112,42 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
+        searchViewN.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // user submit a query
+                mainRcv.showShimmerAdapter()
+                viewModel.requestSearch(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                return newText.isNotEmpty()
+            }
+        })
+
+        searchViewN.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return true
+            }
+
+            override fun onSuggestionClick(position: Int): Boolean {
+                val selectedView = searchViewN.suggestionsAdapter
+                val cursor = selectedView.getItem(position) as Cursor
+                val index = cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
+                searchViewN.setQuery(cursor.getString(index), true)
+                return true
+            }
+        })
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onNewIntent(intent: Intent) {
+        if (Intent.ACTION_SEARCH == intent.action) {
+            val query = intent.getStringExtra(SearchManager.QUERY)
+            searchViewN.setQuery(query,false)
+        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home)

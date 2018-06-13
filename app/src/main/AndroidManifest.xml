@@ -53,8 +53,23 @@
         <activity android:name=".ui.page.PageDetailsActivity" />
         <activity android:name=".ui.AboutApp" />
         <activity android:name=".ui.DeveloperActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity android:name=".ui.search.SearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.search.SearchDetailsActivity" />
+
+        <provider android:name=".ui.search.MySuggestionProvider"
+            android:authorities="com.example.MySuggestionProvider"
+            android:exported="false"
+            android:enabled="true"/>
+        
+        <meta-data
+            android:name="android.app.searchable"
+            android:resource="@xml/searchable" />
+
     </application>
 
 </manifest>
