@@ -30,7 +30,7 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
         val config = PagedList.Config.Builder()
                 .setPageSize(10)
                 .setInitialLoadSizeHint(20)//by default page size * 3
-                .setPrefetchDistance(10) // default page size
+                .setPrefetchDistance(8) // default page size
                 .setEnablePlaceholders(false) //default true
                 // that's means scroll bar is not jump and all data set show on the
                 //recycler view first after 30 it will show empty view
@@ -47,10 +47,8 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
         val token = spUtils.getPageToken
         Timber.i("Token :$token")
         //if token is empty then first call is not finished successfully
-        if (token.isNotEmpty())
+        if (token.isNotEmpty() && remoteDataLayer.isReadyForNextToken())
             remoteDataLayer.getPostWithToken(token, false)
-        else
-            remoteDataLayer.getPostDetailsForFirstTime(false)
     }
 
     fun requestNewPost() {

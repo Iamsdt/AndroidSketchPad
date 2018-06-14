@@ -8,13 +8,13 @@ complete add sync time interval
 //change empty view
 complete add icon
 
-todo related post
-todo random 3 post
+complete related post
+complete random 3 post
 
-todo add increase button on details and search details
+complete add increase button on details and search details
 
 todo fix shimmer layout
-todo add demo shimmer layout
+complete add demo shimmer layout
 
 
 complete add app intro
@@ -30,4 +30,6 @@ complete finished readme and licence in github
 //splash
 complete fix splash loading
 todo increase loading time
+
+complete create a stop logic with stop token
 

@@ -129,6 +129,8 @@ class SearchDetailsActivity : AppCompatActivity() {
         viewModel.searchData.observe(this, Observer {
             if (it != null) {
 
+                toolbar.title = it.title
+
                 singlePostResponse = it
 
                 webView.loadData(HtmlHelper.getHtml(it.content),

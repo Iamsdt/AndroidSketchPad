@@ -29,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:id="@+id/searchViewN"
+                android:layout_marginStart="64dp"
                 app:iconifiedByDefault="false">
             </android.support.v7.widget.SearchView>
 

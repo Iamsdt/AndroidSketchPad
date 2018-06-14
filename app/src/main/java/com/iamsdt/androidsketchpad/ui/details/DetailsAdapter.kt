@@ -18,9 +18,7 @@ import android.widget.TextView
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.DateUtils
-import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone
-import com.iamsdt.androidsketchpad.utils.ext.inVisible
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
@@ -96,9 +94,6 @@ class DetailsAdapter(private val picasso: Picasso,
 
             if (imageList.isNotEmpty()) {
                 picasso.load(imageList[0].url).fit().into(image)
-            } else {
-                image.inVisible()
-                image.changeHeight(90)
             }
 
 

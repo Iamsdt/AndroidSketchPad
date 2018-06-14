@@ -57,10 +57,10 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun getRemoteDataLayer(
+    fun getRemoteDataLayer(spUtils: SpUtils,
             retInterface: RetInterface,
             layerUtils: LayerUtils): RemoteDataLayer =
-            RemoteDataLayer(retInterface, layerUtils, BuildConfig.BloggerApiKey)
+            RemoteDataLayer(retInterface, layerUtils, BuildConfig.BloggerApiKey,spUtils)
 
 
     @Provides

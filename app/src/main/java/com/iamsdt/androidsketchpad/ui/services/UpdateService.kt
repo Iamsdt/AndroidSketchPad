@@ -48,7 +48,6 @@ class UpdateService : LifecycleService() {
             if (timeForUpdate()) {
                 //first save the existing page token to new page token
                 // until this page token it will it will update
-                spUtils.saveServicePageToken(spUtils.getPageToken)
                 remoteDataLayer.getPostDetailsForFirstTime()
                 remoteDataLayer.getPageDetails()
             }
@@ -62,7 +61,7 @@ class UpdateService : LifecycleService() {
                         if (it.status == 1) {
                             postFinished = true
                             Timber.i("Post data insert failed ")
-                            if (isReadyForNextToken()) {
+                            if (remoteDataLayer.isReadyForNextToken()) {
                                 Timber.i("Request for next token post")
                                 remoteDataLayer.getPostWithToken(spUtils.getPageToken)
                             }
@@ -97,9 +96,6 @@ class UpdateService : LifecycleService() {
 
         return super.onStartCommand(intent, flags, startId)
     }
-
-    private fun isReadyForNextToken(): Boolean =
-            spUtils.getPageToken != spUtils.getServicePageToken
 
     private fun setUpdateTime() {
         if (blogFinished && pageFinished && postFinished) {

@@ -72,13 +72,13 @@ class SpUtils(private val context: Context) {
         }
     }
 
-    fun saveServicePageToken(string: String) {
+    fun saveUsedPageToken(string: String) {
         sp.edit {
             putString(USED_PAGE_TOKEN, string)
         }
     }
 
-    val getServicePageToken: String get() = sp.getString(USED_PAGE_TOKEN, "")
+    val getUesedPageToken: String get() = sp.getString(USED_PAGE_TOKEN, "")
 
     fun savePageToken(string: String) {
         sp.edit {

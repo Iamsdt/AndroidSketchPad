@@ -50,15 +50,22 @@
             android:label="@string/settings"/>
         <activity android:name=".ui.bookmark.BookmarkActivity"
             android:label="@string/bookmark"/>
-        <activity android:name=".ui.page.PageActivity" />
+        <activity android:name=".ui.page.PageActivity"
+            android:label="@string/page"/>
         <activity android:name=".ui.page.PageDetailsActivity" />
-        <activity android:name=".ui.AboutApp" />
-        <activity android:name=".ui.DeveloperActivity" />
-        <activity android:name=".ui.search.SearchActivity">
+        <activity android:name=".ui.AboutApp"
+            android:label="@string/about_app"/>
+        <activity android:name=".ui.DeveloperActivity"
+            android:label="@string/developer_label"/>
+        <activity android:name=".ui.search.SearchActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".ui.search.SearchDetailsActivity" />
 
@@ -66,10 +73,6 @@
             android:authorities="com.example.MySuggestionProvider"
             android:exported="false"
             android:enabled="true"/>
-        
-        <meta-data
-            android:name="android.app.searchable"
-            android:resource="@xml/searchable" />
 
     </application>
 

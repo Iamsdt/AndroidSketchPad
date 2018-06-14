@@ -97,6 +97,7 @@ class PageDetailsActivity : AppCompatActivity() {
 
         viewModel.getSinglePage(id).observe(this, Observer {
             if (it != null) {
+                toolbar.title = it.title
                 page_webview.loadData(it.content,
                         "text/html", "UTF-8")
 

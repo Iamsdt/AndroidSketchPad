@@ -125,6 +125,8 @@ class DetailsActivity : AppCompatActivity() {
             if (it != null) {
                 isBookmarked = it.bookmark
 
+                toolbar.title = it.title
+
                 //just prevent multiple times load of web view
                 if (uiUpdate(it)) {
                     webView.loadData(HtmlHelper.getHtml(it.content),

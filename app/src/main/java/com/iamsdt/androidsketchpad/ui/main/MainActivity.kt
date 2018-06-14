@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity(),
 
     private val themeRequestCode = 101
 
+    var postSize = 10
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +83,6 @@ class MainActivity : AppCompatActivity(),
         mainRcv.adapter = adapter
         mainRcv.showShimmerAdapter()
 
-
         viewModel.getPostData().observe(this, Observer {
             if (it == null || it.size <= 0) {
                 //no data in database request data
@@ -89,6 +90,7 @@ class MainActivity : AppCompatActivity(),
                     viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
                 else {
                     fetchFirstPost = true
+                    waitForNetwork = true
                     showToast(ToastType.ERROR, "No Internet to fetch data", Toast.LENGTH_LONG)
                 }
             } else {
@@ -96,6 +98,10 @@ class MainActivity : AppCompatActivity(),
                 mainRcv.hideShimmerAdapter()
                 adapter.submitList(it)
                 Timber.i("Submit list size:${it.size}")
+
+                //if post size is grater than 10 then it will update
+                if (it.size > 10)
+                    postSize = it.size
             }
         })
 
@@ -111,8 +117,14 @@ class MainActivity : AppCompatActivity(),
                     }
 
                 } else {
-                    viewModel.nextPost()
-                    isRequested = true
+                    //if first time post is not complete
+                    //then request first time post
+                    if (fetchFirstPost) {
+                        viewModel.remoteDataLayer.getPostDetailsForFirstTime(false)
+                    } else {
+                        viewModel.nextPost()
+                        isRequested = true
+                    }
                 }
 
             }
@@ -127,7 +139,7 @@ class MainActivity : AppCompatActivity(),
 
                 val endHasBeenReached = lastVisible + 4 >= totalItemCount
 
-                if (totalItemCount >= 20 && endHasBeenReached) {
+                if (totalItemCount >= postSize && endHasBeenReached) {
                     if (!isRequested) {
                         if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
                             viewModel.requestNewPost()
@@ -222,7 +234,6 @@ class MainActivity : AppCompatActivity(),
             }
         }
     }
-
 
     //register and unregister event bus
     override fun onStart() {

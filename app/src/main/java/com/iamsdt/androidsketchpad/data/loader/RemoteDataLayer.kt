@@ -6,11 +6,13 @@
 package com.iamsdt.androidsketchpad.data.loader
 
 import com.iamsdt.androidsketchpad.data.retrofit.RetInterface
+import com.iamsdt.androidsketchpad.utils.SpUtils
 import timber.log.Timber
 
 class RemoteDataLayer(private val retInterface: RetInterface,
                       val layerUtils: LayerUtils,
-                      private val apiKey: String) {
+                      private val apiKey: String,
+                      val spUtils: SpUtils) {
 
     fun getBlogDetails() {
         Timber.i("Request for blog data")
@@ -51,6 +53,14 @@ class RemoteDataLayer(private val retInterface: RetInterface,
         val call = retInterface.getPageList(apiKey)
         layerUtils.executePageCall(call)
     }
+
+    fun isReadyForNextToken(): Boolean {
+        val page = spUtils.getPageToken
+        val old = spUtils.getUesedPageToken
+
+        return page != old
+    }
+
 
     companion object {
         var isAlreadyRequested = false

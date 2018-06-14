@@ -14,7 +14,7 @@ class ConstantUtils{
         //sp
         const val SP_NAME = "APP_SP"
         const val PAGE_TOKEN = "page_token"
-        const val USED_PAGE_TOKEN = "page_token"
+        const val USED_PAGE_TOKEN = "used_page_token"
         const val APP_RUN_FIRST_TIME = "firstTime"
         const val SERVICE_RUN_FIRST_TIME = "ServiceFirstTime"
         const val SERVICE_RUN_DATE= "serviceDate"

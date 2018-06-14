@@ -53,5 +53,8 @@
     <string name="speak_voice">Speak now</string>
     <string name="app_version">Version:1</string>
     <string name="app_icon">App icon</string>
+    <string name="page">Pages</string>
+    <string name="developer_label">About Developer</string>
+    <string name="about_app">About App</string>
 
 </resources>

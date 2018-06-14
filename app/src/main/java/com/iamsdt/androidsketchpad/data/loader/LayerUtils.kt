@@ -53,18 +53,23 @@ class LayerUtils(private val spUtils: SpUtils,
                 }
 
                 override fun onResponse(call: Call<PostsResponse>?, response: Response<PostsResponse>?) {
+
                     if (response != null && response.isSuccessful) {
                         //save token
-                        val data: PostsResponse = response.body()!!
+                        val data: PostsResponse ?= response.body()
 
 
-                        if (data.nextPageToken.isNotEmpty()){
+                        if (data?.nextPageToken?.isNotEmpty() == true){
                             spUtils.savePageToken(data.nextPageToken)
                         }
 
-                        Timber.i("New post token${data.nextPageToken}")
+                        if (token.isNotEmpty()){
+                            spUtils.saveUsedPageToken(token)
+                        }
 
-                        val list = data.items ?: emptyList()
+                        Timber.i("New post token${data?.nextPageToken}")
+
+                        val list = data?.items ?: emptyList()
                         AsyncTask.execute {
                             var author: Author? = null
                             var inserted: Long = 0
@@ -129,9 +134,9 @@ class LayerUtils(private val spUtils: SpUtils,
                                         response: Response<PageResponse>?) {
                     if (response != null && response.isSuccessful) {
                         //save token
-                        val data: PageResponse = response.body()!!
+                        val data: PageResponse ?= response.body()
 
-                        val list = data.items ?: emptyList()
+                        val list = data?.items ?: emptyList()
                         AsyncTask.execute({
                             var inserted: Long = 0
                             for (page in list) {
@@ -209,13 +214,13 @@ class LayerUtils(private val spUtils: SpUtils,
 
                     if (response != null && response.isSuccessful) {
 
-                        val data: PostsResponse = response.body()!!
+                        val data: PostsResponse ?= response.body()
 
-                        Timber.i("New post token${data.nextPageToken}")
+                        Timber.i("New post token${data?.nextPageToken}")
 
                         searchData.postValue(data)
 
-                        searchEvent.postValue(EventMessage(POST_KEY, "${data.items?.size ?: 0}", 1))
+                        searchEvent.postValue(EventMessage(POST_KEY, "${data?.items?.size ?: 0}", 1))
                     } else {
                         searchEvent.postValue(EventMessage(POST_KEY, "complete", 0))
                     }
