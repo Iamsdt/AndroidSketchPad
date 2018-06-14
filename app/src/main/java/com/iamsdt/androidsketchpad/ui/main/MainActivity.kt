@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity(),
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
 
         adapter.changeContext(this)
 
