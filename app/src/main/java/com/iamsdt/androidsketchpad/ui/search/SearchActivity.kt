@@ -16,6 +16,7 @@ import android.provider.SearchRecentSuggestions
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
+import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import com.iamsdt.androidsketchpad.R
@@ -28,7 +29,6 @@ import com.iamsdt.androidsketchpad.utils.ext.showToast
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.main_layout.*
 import kotlinx.android.synthetic.main.main_list.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -61,20 +61,9 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         ThemeUtils.initialize(this)
         setContentView(R.layout.activity_search)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(search_toolbar)
 
         adapter.changeContext(this)
-
-
-        //search
-        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        suggestions = SearchRecentSuggestions(this,
-                MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
-        searchViewN.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-
-        searchViewN.setIconifiedByDefault(false)
-        searchViewN.isQueryRefinementEnabled = true
-        searchViewN.requestFocus(1)
 
         val manager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false)
@@ -90,6 +79,7 @@ class SearchActivity : AppCompatActivity() {
             if (it?.items?.isNotEmpty() == true) {
                 mainRcv.hideShimmerAdapter()
                 adapter.submitList(it.items)
+                document = ""
             }
         })
 
@@ -97,6 +87,7 @@ class SearchActivity : AppCompatActivity() {
             if (it?.key == POST_KEY) {
                 if (it.status == 1 && it.message == "0") {
                     showToast(ToastType.INFO, "No data found")
+                    document = ""
                 } else if (it.status == 0) {
                     if (ConnectivityChangeReceiver.getInternetStatus(this)
                             && document.isNotEmpty())
@@ -105,33 +96,10 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
-        searchViewN.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                // user submit a query
-                mainRcv.showShimmerAdapter()
-                viewModel.requestSearch(query)
-                setRecentQuery(query)
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                return newText.isNotEmpty()
-            }
-        })
-
-        searchViewN.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
-            override fun onSuggestionSelect(position: Int): Boolean {
-                return true
-            }
-
-            override fun onSuggestionClick(position: Int): Boolean {
-                val selectedView = searchViewN.suggestionsAdapter
-                val cursor = selectedView.getItem(position) as Cursor
-                val index = cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
-                searchViewN.setQuery(cursor.getString(index), true)
-                return true
-            }
-        })
+        //set suggestion option
+        suggestions = SearchRecentSuggestions(this,
+                MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE)
+        handleSearch(intent)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -142,10 +110,44 @@ class SearchActivity : AppCompatActivity() {
     }
 
     override fun onNewIntent(intent: Intent) {
+        handleSearch(intent)
+    }
+
+    private fun handleSearch(intent: Intent){
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            searchViewN.setQuery(query, false)
+            // TODO: 6/14/2018 search
+            mainRcv.showShimmerAdapter()
+            viewModel.requestSearch(query)
+            setRecentQuery(query)
+            document = query
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search, menu)
+
+        val searchView:SearchView = menu?.findItem(R.id.search)?.actionView as SearchView
+        //search
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.setIconifiedByDefault(true)
+
+        searchView.setOnSuggestionListener(object : SearchView.OnSuggestionListener {
+            override fun onSuggestionSelect(position: Int): Boolean {
+                return true
+            }
+
+            override fun onSuggestionClick(position: Int): Boolean {
+                val selectedView = searchView.suggestionsAdapter
+                val cursor = selectedView.getItem(position) as Cursor
+                val index = cursor.getColumnIndexOrThrow(SearchManager.SUGGEST_COLUMN_TEXT_1)
+                searchView.setQuery(cursor.getString(index), true)
+                return true
+            }
+        })
+
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
