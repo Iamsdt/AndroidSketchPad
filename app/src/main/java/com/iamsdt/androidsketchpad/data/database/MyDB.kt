@@ -12,13 +12,12 @@ import com.iamsdt.androidsketchpad.data.database.table.PostTable
  * Created by Shudipto Trafder on 3/31/2018.
  * at 11:43 AM
  */
-
-@TypeConverters(DataConverter::class,ConverterListString::class)
-@Database(entities = [PageTable::class,PostTable::class],version = 1,
+@TypeConverters(DataConverter::class, ConverterListString::class)
+@Database(entities = [PageTable::class, PostTable::class], version = 1,
         exportSchema = false)
-abstract class MyDB:RoomDatabase(){
+abstract class MyDB : RoomDatabase() {
 
-    abstract val pageTableDao:PageTableDao
-    abstract val postTableDao:PostTableDao
+    abstract val pageTableDao: PageTableDao
+    abstract val postTableDao: PostTableDao
 
 }
