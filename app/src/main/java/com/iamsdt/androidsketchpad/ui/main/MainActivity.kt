@@ -113,6 +113,7 @@ class MainActivity : AppCompatActivity(),
                     isRequested = false
                     waitForNetwork = false
                     if (!postRequestComplete) {
+                        Timber.i("Ui live data, request new post")
                         viewModel.nextPost()
                         postRequestComplete = true
                     }
@@ -141,6 +142,7 @@ class MainActivity : AppCompatActivity(),
                 val endHasBeenReached = lastVisible + 4 >= totalItemCount
 
                 if (totalItemCount >= postSize && endHasBeenReached) {
+                    Timber.i("Request from recycer view")
                     if (!isRequested) {
                         if (ConnectivityChangeReceiver.getInternetStatus(this@MainActivity))
                             viewModel.requestNewPost()
@@ -225,6 +227,8 @@ class MainActivity : AppCompatActivity(),
         if (eventMessage.key == ConstantUtils.internet) {
             if (eventMessage.message == ConstantUtils.connected) {
                 showToast(ToastType.SUCCESSFUL, "Network connected")
+                Timber.i("net work connected: waitForNetwork:$waitForNetwork " +
+                        "and fetchFirstPost:$fetchFirstPost")
                 if (waitForNetwork)
                     viewModel.requestNewPost()
 

@@ -52,9 +52,23 @@
 
 # Retain generic type information for use by reflection by converters and adapters.
 -keepattributes Signature
+-keepattributes Exceptions
 # Retain service method parameters.
--keepclassmembernames,allowobfuscation interface * {
+-keepclassmembernames interface * {
     @retrofit2.http.* <methods>;
 }
+-dontnote retrofit2.Platform
+
 # Ignore annotation used for build tooling.
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+-ignorewarnings
+
+#Joda time 2.3
+-dontwarn org.joda.convert.**
+-dontwarn org.joda.time.**
+-keep class org.joda.time.**
+-keep interface org.joda.time.**
+
+#Search view
+-keep class android.support.v7.widget.SearchView {*;}

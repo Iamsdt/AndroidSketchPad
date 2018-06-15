@@ -50,7 +50,7 @@ class AppIntro : AppCompatActivity(),ViewPager.OnPageChangeListener {
         view_pager.adapter = myViewPagerAdapter
         view_pager.addOnPageChangeListener(this)
 
-        btn_next.setOnClickListener({ v ->
+        btn_next.setOnClickListener({ _ ->
             // checking for last page
             // if last page home screen will be launched
             val current = getItem(+1)
@@ -81,6 +81,7 @@ class AppIntro : AppCompatActivity(),ViewPager.OnPageChangeListener {
         layoutDots.removeAllViews()
         for (i in dots.indices) {
             dots[i] = TextView(this)
+            @Suppress("DEPRECATION")
             dots[i]?.text = Html.fromHtml("&#8226;")
             dots[i]?.textSize = 35f
             dots[i]?.setTextColor(colorsInactive[currentPage])
@@ -143,8 +144,7 @@ class AppIntro : AppCompatActivity(),ViewPager.OnPageChangeListener {
 
 
         override fun destroyItem(container: ViewGroup, position: Int, view: Any) {
-            val view = view as View
-            container.removeView(view)
+            container.removeView(view as View)
         }
     }
 }

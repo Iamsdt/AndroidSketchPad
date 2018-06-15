@@ -65,6 +65,7 @@ class SearchActivity : AppCompatActivity() {
 
         adapter.changeContext(this)
 
+
         val manager = LinearLayoutManager(this,
                 LinearLayoutManager.VERTICAL, false)
 

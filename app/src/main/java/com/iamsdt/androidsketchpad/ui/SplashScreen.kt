@@ -11,7 +11,6 @@ import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.runThread
-import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 import timber.log.Timber
 import javax.inject.Inject
@@ -36,13 +35,13 @@ class SplashScreen : AppCompatActivity() {
         if (spUtils.isFirstTime) {
 
             //start service
-            //startService(Intent(this, UpdateService::class.java))
+            startService(Intent(this, UpdateService::class.java))
 
             //show app intro
-            //runThread(1000,AppIntro::class)
+            runThread(1000,AppIntro::class)
 
-            //spUtils.setAppRunFirstTime()
-            toNextActivity(MainActivity::class)
+            spUtils.setAppRunFirstTime()
+            //toNextActivity(MainActivity::class)
         } else {
             //show main screen
             runThread(1500,MainActivity::class)

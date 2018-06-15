@@ -79,7 +79,7 @@ class AboutBlogActivity : AppCompatActivity() {
         val page = "Total Page : ${blog.page}"
         pageCount.text = page
 
-        val up = "Last update : ${blog.update}"
+        val up = "Last update : ${DateUtils.getReadableDate(blog.update)}"
         updateTV.text = up
     }
 

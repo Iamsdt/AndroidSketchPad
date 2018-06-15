@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import com.iamsdt.androidsketchpad.R
+import com.iamsdt.androidsketchpad.utils.ext.customTab
 import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.about_app.*
@@ -27,6 +28,11 @@ class AboutApp:AppCompatActivity(){
 
         app_license.setOnClickListener {
             //open license in custom tab
+        }
+
+        mainBlog.setOnClickListener {
+            //open license in custom tab
+            customTab("https://androsketchpad.blogspot.com")
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
