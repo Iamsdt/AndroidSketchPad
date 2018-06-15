@@ -23,9 +23,7 @@ import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
-import com.iamsdt.androidsketchpad.utils.ext.ToastType
-import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
-import com.iamsdt.androidsketchpad.utils.ext.showToast
+import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_search.*
@@ -72,13 +70,16 @@ class SearchActivity : AppCompatActivity() {
         mainRcv.layoutManager = manager
         mainRcv.adapter = adapter
 
+        shimmerLayout.gone()
+
         if (!ConnectivityChangeReceiver.getInternetStatus(this))
             showToast(ToastType.ERROR, "No internet to search", Toast.LENGTH_LONG)
 
 
         viewModel.searchData.observe(this, Observer {
             if (it?.items?.isNotEmpty() == true) {
-                mainRcv.hideShimmerAdapter()
+                shimmerLayout.stopShimmerAnimation()
+                shimmerLayout.gone()
                 adapter.submitList(it.items)
                 document = ""
             }
@@ -117,8 +118,10 @@ class SearchActivity : AppCompatActivity() {
     private fun handleSearch(intent: Intent){
         if (Intent.ACTION_SEARCH == intent.action) {
             val query = intent.getStringExtra(SearchManager.QUERY)
-            // TODO: 6/14/2018 search
-            mainRcv.showShimmerAdapter()
+            // complete: 6/14/2018 search
+            shimmerLayout.show()
+            shimmerLayout.startShimmerAnimation()
+            mainRcv.removeAllViews()
             viewModel.requestSearch(query)
             setRecentQuery(query)
             document = query

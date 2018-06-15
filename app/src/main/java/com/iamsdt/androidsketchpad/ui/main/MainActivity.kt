@@ -18,7 +18,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.MenuItem
 import android.widget.Toast
-import com.cooltechworks.views.shimmer.ShimmerRecyclerView
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.AboutApp
 import com.iamsdt.androidsketchpad.ui.AboutBlogActivity
@@ -31,10 +30,7 @@ import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
 import com.iamsdt.androidsketchpad.utils.ConstantUtils.Event.POST_KEY
-import com.iamsdt.androidsketchpad.utils.ext.ToastType
-import com.iamsdt.androidsketchpad.utils.ext.ViewModelFactory
-import com.iamsdt.androidsketchpad.utils.ext.showToast
-import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
+import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ColorActivity
 import com.iamsdt.themelibrary.ThemeUtils
@@ -80,9 +76,9 @@ class MainActivity : AppCompatActivity(),
                 LinearLayoutManager.VERTICAL, false)
 
         mainRcv.layoutManager = manager
-        mainRcv.setDemoLayoutManager(ShimmerRecyclerView.LayoutMangerType.LINEAR_VERTICAL)
         mainRcv.adapter = adapter
-        mainRcv.showShimmerAdapter()
+
+        shimmerLayout.startShimmerAnimation()
 
         viewModel.getPostData().observe(this, Observer {
             if (it == null || it.size <= 0) {
@@ -96,7 +92,8 @@ class MainActivity : AppCompatActivity(),
                 }
             } else {
                 fetchFirstPost = false
-                mainRcv.hideShimmerAdapter()
+                shimmerLayout.stopShimmerAnimation()
+                shimmerLayout.gone()
                 adapter.submitList(it)
                 Timber.i("Submit list size:${it.size}")
 

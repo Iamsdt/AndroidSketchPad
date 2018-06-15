@@ -13,7 +13,22 @@
     android:layout_height="match_parent"
     tools:showIn="@layout/main_layout">
 
-    <!--
+    <io.supercharge.shimmerlayout.ShimmerLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <include layout="@layout/demo_list_item"/>
+            <include layout="@layout/demo_list_item"/>
+            <include layout="@layout/demo_list_item"/>
+        </LinearLayout>
+
+    </io.supercharge.shimmerlayout.ShimmerLayout>
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/mainRcv"
         android:layout_width="0dp"
@@ -22,8 +37,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/main_list_item" /> -->
+        tools:listitem="@layout/main_list_item" />
 
+    <!--
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
         android:layout_width="match_parent"
         android:id="@+id/mainRcv"
@@ -34,12 +50,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:shimmer_demo_child_count="5"
         app:shimmer_demo_angle="20"
-        app:shimmer_demo_layout_manager_type="grid"
-        app:shimmer_demo_grid_child_count="1"
+        app:shimmer_demo_layout_manager_type="linear_horizontal"
         app:shimmer_demo_view_holder_item_background="@color/grey_500"
         app:shimmer_demo_layout="@layout/demo_list_item"
         tools:listitem="@layout/demo_list_item">
 
-    </com.cooltechworks.views.shimmer.ShimmerRecyclerView>
+    </com.cooltechworks.views.shimmer.ShimmerRecyclerView> -->
 
 </android.support.constraint.ConstraintLayout>

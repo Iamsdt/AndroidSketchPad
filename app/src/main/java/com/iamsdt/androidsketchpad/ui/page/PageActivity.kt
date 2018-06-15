@@ -16,6 +16,7 @@ import com.iamsdt.androidsketchpad.data.database.dao.PageTableDao
 import com.iamsdt.androidsketchpad.data.loader.RemoteDataLayer
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ext.ToastType
+import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.iamsdt.androidsketchpad.utils.ext.showToast
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_page.*
@@ -43,6 +44,8 @@ class PageActivity:AppCompatActivity(){
         pageRcv.layoutManager = manager
         pageRcv.adapter = adapter
 
+        pageShimmer.startShimmerAnimation()
+
         pageTableDao.getAllPage.observe(this, Observer {
             if (it == null || it.isEmpty()){
                 if (ConnectivityChangeReceiver.getInternetStatus(this))
@@ -51,6 +54,8 @@ class PageActivity:AppCompatActivity(){
                     showToast(ToastType.ERROR,"No internet available to fetch data",
                             Toast.LENGTH_LONG)
             } else{
+                pageShimmer.stopShimmerAnimation()
+                pageShimmer.gone()
                 adapter.submitList(it)
             }
         })
