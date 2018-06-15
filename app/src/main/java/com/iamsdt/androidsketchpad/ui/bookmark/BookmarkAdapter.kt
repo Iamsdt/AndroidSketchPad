@@ -19,6 +19,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
@@ -27,7 +28,6 @@ import com.iamsdt.androidsketchpad.ui.main.MainAdapter.Companion.DIFF_CALLBACK
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.iamsdt.androidsketchpad.utils.ext.show
-import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.bookmark_list.view.*
 import kotlinx.android.synthetic.main.main_list_item.view.*
@@ -42,8 +42,7 @@ This adapter can work with live data
  */
 
 
-class BookmarkAdapter(private val picasso: Picasso,
-                      author: String,
+class BookmarkAdapter(author: String,
                       private val postTableDao: PostTableDao,
                       context: Application) :
         PagedListAdapter<PostTable, BookmarkAdapter.BookVH>(DIFF_CALLBACK) {
@@ -154,7 +153,7 @@ class BookmarkAdapter(private val picasso: Picasso,
     private fun remove(position: Int) {
         val data = currentList?.get(position)
 
-        if (itemsPendingRemoval.contains(data)){
+        if (itemsPendingRemoval.contains(data)) {
             itemsPendingRemoval.remove(data)
         }
 
@@ -189,7 +188,7 @@ class BookmarkAdapter(private val picasso: Picasso,
         fun bind(post: PostTable?) {
             val url = post?.imgUrl?.get(0)?.url ?: ""
             if (url.isNotEmpty()) {
-                picasso.load(url).fit().into(image)
+                Glide.with(context).load(url).into(image)
             }
 
             titleTV.text = post?.title

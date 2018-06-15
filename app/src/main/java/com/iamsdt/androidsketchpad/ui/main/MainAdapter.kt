@@ -20,6 +20,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
@@ -27,13 +28,11 @@ import com.iamsdt.androidsketchpad.data.retrofit.model.common.ImagesItem
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
-import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
 
-class MainAdapter(private val picasso: Picasso,
-                  author: String,
+class MainAdapter(author: String,
                   private val postTableDao: PostTableDao,
                   context: Application)
     : PagedListAdapter<PostTable, MainAdapter.VH>(DIFF_CALLBACK) {
@@ -112,7 +111,7 @@ class MainAdapter(private val picasso: Picasso,
         fun bind(post: PostTable) {
             val list: List<ImagesItem> = post.imgUrl ?: emptyList()
             if (list.isNotEmpty() && list[0].url.isNotEmpty()) {
-                picasso.load(list[0].url).fit().into(image)
+                Glide.with(context).load(list[0].url).into(image)
             }
 
             titleTV.text = post.title

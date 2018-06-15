@@ -15,16 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
 
-class DetailsAdapter(private val picasso: Picasso,
-                     author: String,val context: Activity)
+class DetailsAdapter(author: String, val context: Activity)
     : RecyclerView.Adapter<DetailsAdapter.ItemViewHolder>() {
 
     val author = "By $author"
@@ -93,7 +92,7 @@ class DetailsAdapter(private val picasso: Picasso,
             val imageList = post.imgUrl ?: emptyList()
 
             if (imageList.isNotEmpty()) {
-                picasso.load(imageList[0].url).fit().into(image)
+                Glide.with(context).load(imageList[0].url).into(image)
             }
 
 

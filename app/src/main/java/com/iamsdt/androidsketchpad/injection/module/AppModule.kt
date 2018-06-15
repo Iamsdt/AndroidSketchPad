@@ -16,51 +16,45 @@ import com.iamsdt.androidsketchpad.ui.bookmark.BookmarkAdapter
 import com.iamsdt.androidsketchpad.ui.main.MainAdapter
 import com.iamsdt.androidsketchpad.ui.search.SearchAdapter
 import com.iamsdt.androidsketchpad.utils.SpUtils
-import com.squareup.picasso.Picasso
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [DBModule::class, PicassoModule::class])
+@Module(includes = [DBModule::class])
 class AppModule {
 
     @Provides
     @Singleton
-    fun getSearchAdapter(picasso: Picasso,
-                         postTableDao: PostTableDao,
-                         application: Application): SearchAdapter =
-            SearchAdapter(picasso,
-                    postTableDao,
+    fun getSearchAdapter(
+            postTableDao: PostTableDao,
+            application: Application): SearchAdapter =
+            SearchAdapter(postTableDao,
                     application)
 
     @Provides
     @Singleton
-    fun getBookmarkAdapter(picasso: Picasso,
-                           spUtils: SpUtils,
+    fun getBookmarkAdapter(spUtils: SpUtils,
                            postTableDao: PostTableDao,
                            application: Application): BookmarkAdapter =
-            BookmarkAdapter(picasso,
-                    spUtils.getAuthor().displayName,
+            BookmarkAdapter(spUtils.getAuthor().displayName,
                     postTableDao,
                     application)
 
     @Provides
     @Singleton
-    fun getAdapter(picasso: Picasso,
-                   spUtils: SpUtils,
+    fun getAdapter(spUtils: SpUtils,
                    postTableDao: PostTableDao,
                    application: Application): MainAdapter =
-            MainAdapter(picasso,
-                    spUtils.getAuthor().displayName,
+            MainAdapter(spUtils.getAuthor().displayName,
                     postTableDao,
                     application)
 
     @Provides
     @Singleton
     fun getRemoteDataLayer(spUtils: SpUtils,
-            retInterface: RetInterface,
-            layerUtils: LayerUtils): RemoteDataLayer =
-            RemoteDataLayer(retInterface, layerUtils, BuildConfig.BloggerApiKey,spUtils)
+                           retInterface: RetInterface,
+                           layerUtils: LayerUtils): RemoteDataLayer =
+            RemoteDataLayer(retInterface, layerUtils, BuildConfig.BloggerApiKey, spUtils)
 
 
     @Provides

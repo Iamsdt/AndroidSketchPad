@@ -22,6 +22,7 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.retrofit.model.common.Author
 import com.iamsdt.androidsketchpad.data.retrofit.model.singlePost.SinglePostResponse
@@ -32,7 +33,6 @@ import com.iamsdt.androidsketchpad.utils.HtmlHelper
 import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ThemeUtils
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.author_card.*
 import kotlinx.android.synthetic.main.content_details.*
@@ -49,8 +49,6 @@ class SearchDetailsActivity : AppCompatActivity() {
     @Inject
     lateinit var bus: EventBus
 
-    @Inject
-    lateinit var picasso:Picasso
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -216,7 +214,7 @@ class SearchDetailsActivity : AppCompatActivity() {
 
         val url = author.image.url
         if (url.isNotEmpty()) {
-            picasso.load(url).fit().into(authorImg)
+            Glide.with(this).load(url).into(authorImg)
         }
     }
 

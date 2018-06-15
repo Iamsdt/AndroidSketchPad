@@ -17,7 +17,6 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = [
     AndroidInjectionModule::class,
-    PicassoModule::class,
     NetworkModule::class,
     RetrofitModule::class,
     EventBusModule::class,
