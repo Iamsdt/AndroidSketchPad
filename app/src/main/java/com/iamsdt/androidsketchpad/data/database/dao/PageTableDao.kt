@@ -21,7 +21,7 @@ interface PageTableDao{
     @Delete
     fun delete(pageTable: PageTable):Int
 
-    @get:Query("Select * From PageTable")
+    @get:Query("Select * From PageTable ORDER BY PageTable.published")
     val getAllPage: LiveData<List<PageTable>>
 
     @Query("Select * From PageTable where id = :id")

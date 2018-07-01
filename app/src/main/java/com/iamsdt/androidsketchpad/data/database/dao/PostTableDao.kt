@@ -22,7 +22,7 @@ interface PostTableDao{
     @Delete
     fun delete(postTable: PostTable):Int
 
-    @get:Query("Select * From PostTable")
+    @get:Query("Select * From PostTable ORDER BY PostTable.published DESC")
     val getAllPost: DataSource.Factory<Int, PostTable>
 
     @Query("Select * From PostTable where id = :id")
