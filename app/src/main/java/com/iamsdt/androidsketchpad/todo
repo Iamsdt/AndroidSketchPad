@@ -13,7 +13,7 @@ complete random 3 post
 
 complete add increase button on details and search details
 
-todo fix shimmer layout
+complete fix shimmer layout
 complete add demo shimmer layout
 
 
@@ -21,7 +21,7 @@ complete add app intro
 
 complete add search option on search activity
 
-todo fix data loading issue on Main Main Activity
+complete fix data loading issue on Main Main Activity
 
 complete complete app about and developer
 
@@ -29,7 +29,19 @@ complete finished readme and licence in github
 
 //splash
 complete fix splash loading
-todo increase loading time
+complete increase loading time
 
 complete create a stop logic with stop token
+
+//todo remove log and crash handler
+
+//todo add analytics
+//todo add crash report
+//todo add remote config
+
+//fixme details crash on bookmark icon
+//fixme search view show one shimmer
+//fixme picture load error
+//fixme search view bookmark rewrite whole data make it just update
+/fixme finish app intro after complete
 

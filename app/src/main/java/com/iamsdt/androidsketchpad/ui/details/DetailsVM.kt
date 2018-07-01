@@ -5,9 +5,12 @@
 
 package com.iamsdt.androidsketchpad.ui.details
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.os.AsyncTask
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
+import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.ext.BookMark
 import com.iamsdt.androidsketchpad.utils.ext.SingleLiveEvent
 import javax.inject.Inject
@@ -20,7 +23,16 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
     fun getDetails(id: String) =
             postTableDao.getSinglePost(id)
 
-    fun getRandomPost() = postTableDao.randomPost()
+    fun getRandomPost():LiveData<List<PostTable>>{
+        val liveData = MutableLiveData<List<PostTable>>()
+
+        AsyncTask.execute({
+            val list = postTableDao.randomPost()
+            liveData.postValue(list)
+        })
+
+        return liveData
+    }
 
     private fun setBookmark(id: String) {
         AsyncTask.execute({
