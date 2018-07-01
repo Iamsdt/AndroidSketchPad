@@ -24,7 +24,6 @@ import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
-import com.iamsdt.androidsketchpad.data.retrofit.model.common.ImagesItem
 import com.iamsdt.androidsketchpad.ui.details.DetailsActivity
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
@@ -109,9 +108,15 @@ class MainAdapter(author: String,
         private val labelTV: TextView = view.labelTV
 
         fun bind(post: PostTable) {
-            val list: List<ImagesItem> = post.imgUrl ?: emptyList()
-            if (list.isNotEmpty() && list[0].url.isNotEmpty()) {
-                Glide.with(context).load(list[0].url).into(image)
+
+            if (post.imgUrl?.isNotEmpty() == true) {
+                val url = post.imgUrl?.get(0)?.url
+                Timber.i("Main img url ID:${post.title} and link $url")
+                if (url != null) {
+                    Glide.with(context).load(url).into(image)
+                }
+            } else{
+                image.setImageResource(R.drawable.dark_icon)
             }
 
             titleTV.text = post.title

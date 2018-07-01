@@ -20,6 +20,7 @@ import javax.inject.Singleton
     NetworkModule::class,
     RetrofitModule::class,
     EventBusModule::class,
+    PicassoModule::class,
     ViewModelModule::class,
     ActivityModule::class,
     AppModule::class,
