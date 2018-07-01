@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ~ Created by Shudipto Trafder
-  ~ on 6/9/18 11:25 PM
+  ~ on 7/1/18 4:42 PM
   -->
 
 <android.support.constraint.ConstraintLayout
@@ -10,7 +10,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/main_layout">
+    tools:showIn="@layout/activity_search">
 
     <io.supercharge.shimmerlayout.ShimmerLayout
         android:id="@+id/shimmerLayout"
@@ -20,9 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <include layout="@layout/demo_list_item"/>
-            <include layout="@layout/demo_list_item"/>
-            <include layout="@layout/demo_list_item"/>
+            <include layout="@layout/demo_search"/>
         </LinearLayout>
 
     </io.supercharge.shimmerlayout.ShimmerLayout>

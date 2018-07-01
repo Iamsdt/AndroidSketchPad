@@ -27,7 +27,7 @@ import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.androidsketchpad.utils.model.EventMessage
 import com.iamsdt.themelibrary.ThemeUtils
 import kotlinx.android.synthetic.main.activity_search.*
-import kotlinx.android.synthetic.main.main_list.*
+import kotlinx.android.synthetic.main.search_list.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
