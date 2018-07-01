@@ -18,7 +18,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
@@ -27,12 +26,14 @@ import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.changeHeight
 import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.iamsdt.androidsketchpad.utils.ext.inVisible
+import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
 
 class SearchAdapter(
         private val postTableDao: PostTableDao,
+        private val picasso: Picasso,
         context: Application)
     : RecyclerView.Adapter<SearchAdapter.VH>() {
 
@@ -117,10 +118,12 @@ class SearchAdapter(
         fun bind(post: ItemsItem) {
 
             //this link will be always empty
+            //no picture will come
+            //rest api don't provide image
             val url = post.images?.get(0)?.url ?: ""
             Timber.i("post link $url")
             if (url.isNotEmpty()) {
-                Glide.with(context).load(url).into(image)
+                picasso.load(url).into(image)
             } else {
                 image.inVisible()
                 image.changeHeight(90)

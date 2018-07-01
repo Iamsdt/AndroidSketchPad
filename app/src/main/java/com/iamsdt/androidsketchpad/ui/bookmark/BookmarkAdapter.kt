@@ -19,7 +19,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.dao.PostTableDao
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
@@ -28,6 +27,7 @@ import com.iamsdt.androidsketchpad.ui.main.MainAdapter.Companion.DIFF_CALLBACK
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
 import com.iamsdt.androidsketchpad.utils.ext.show
+import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlinx.android.synthetic.main.bookmark_list.view.*
 import kotlinx.android.synthetic.main.main_list_item.view.*
@@ -44,6 +44,7 @@ This adapter can work with live data
 
 class BookmarkAdapter(author: String,
                       private val postTableDao: PostTableDao,
+                      val picasso: Picasso,
                       context: Application) :
         PagedListAdapter<PostTable, BookmarkAdapter.BookVH>(DIFF_CALLBACK) {
 
@@ -188,12 +189,13 @@ class BookmarkAdapter(author: String,
         fun bind(post: PostTable?) {
 
             if (post?.imgUrl?.isNotEmpty() == true) {
-
                 val url = post.imgUrl?.get(0)?.url
-
+                Timber.i("Main img url ID:${post.title} and link $url")
                 if (url != null) {
-                    Glide.with(context).load(url).into(image)
+                    picasso.load(url).into(image)
                 }
+            } else{
+                image.setImageResource(R.drawable.dark_icon)
             }
 
             titleTV.text = post?.title

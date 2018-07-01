@@ -15,15 +15,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.utils.DateUtils
 import com.iamsdt.androidsketchpad.utils.ext.gone
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.main_list_item.view.*
 import timber.log.Timber
 
-class DetailsAdapter(author: String, val context: Activity)
+class DetailsAdapter(author: String, val picasso: Picasso, val context: Activity)
     : RecyclerView.Adapter<DetailsAdapter.ItemViewHolder>() {
 
     val author = "By $author"
@@ -89,12 +89,15 @@ class DetailsAdapter(author: String, val context: Activity)
 
         fun bind(post: PostTable) {
 
-            val imageList = post.imgUrl ?: emptyList()
-
-            if (imageList.isNotEmpty()) {
-                Glide.with(context).load(imageList[0].url).into(image)
+            if (post.imgUrl?.isNotEmpty() == true) {
+                val url = post.imgUrl?.get(0)?.url
+                Timber.i("Main img url ID:${post.title} and link $url")
+                if (url != null) {
+                    picasso.load(url).into(image)
+                }
+            } else{
+                image.setImageResource(R.drawable.dark_icon)
             }
-
 
             titleTV.text = post.title
             authorTV.text = author
