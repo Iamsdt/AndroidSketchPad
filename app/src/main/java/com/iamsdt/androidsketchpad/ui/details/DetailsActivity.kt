@@ -22,7 +22,6 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import com.bumptech.glide.Glide
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.data.database.table.PostTable
 import com.iamsdt.androidsketchpad.ui.settings.SettingsActivity
@@ -31,6 +30,7 @@ import com.iamsdt.androidsketchpad.utils.RemoteUtils
 import com.iamsdt.androidsketchpad.utils.SpUtils
 import com.iamsdt.androidsketchpad.utils.ext.*
 import com.iamsdt.themelibrary.ThemeUtils
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.author_card.*
 import kotlinx.android.synthetic.main.content_details.*
@@ -43,6 +43,9 @@ class DetailsActivity : AppCompatActivity() {
 
     @Inject
     lateinit var spUtils: SpUtils
+
+    @Inject
+    lateinit var picasso: Picasso
 
     lateinit var adapter: DetailsAdapter
 
@@ -72,7 +75,7 @@ class DetailsActivity : AppCompatActivity() {
 
         id = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
 
-        adapter = DetailsAdapter(spUtils.getAuthor().displayName,this)
+        adapter = DetailsAdapter(spUtils.getAuthor().displayName,picasso,this)
 
         detailsRcv.layoutManager = LinearLayoutManager(this)
         detailsRcv.adapter = adapter
@@ -224,7 +227,7 @@ class DetailsActivity : AppCompatActivity() {
         authorName.text = author.displayName
         authorDes.text = author.des
         if (author.imageUrl.isNotEmpty()) {
-            Glide.with(this).load(RemoteUtils.getAuthorLink(author.imageUrl)).into(authorImg)
+            picasso.load(RemoteUtils.getAuthorLink(author.imageUrl)).into(authorImg)
         }
     }
 
