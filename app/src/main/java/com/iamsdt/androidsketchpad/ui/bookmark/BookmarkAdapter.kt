@@ -186,9 +186,14 @@ class BookmarkAdapter(author: String,
         val undo: TextView = view.undoBtn
 
         fun bind(post: PostTable?) {
-            val url = post?.imgUrl?.get(0)?.url ?: ""
-            if (url.isNotEmpty()) {
-                Glide.with(context).load(url).into(image)
+
+            if (post?.imgUrl?.isNotEmpty() == true) {
+
+                val url = post.imgUrl?.get(0)?.url
+
+                if (url != null) {
+                    Glide.with(context).load(url).into(image)
+                }
             }
 
             titleTV.text = post?.title

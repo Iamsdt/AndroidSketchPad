@@ -120,7 +120,11 @@ class DetailsActivity : AppCompatActivity() {
 
         viewModel.getDetails(id).observe(this, Observer {
             if (it != null) {
-                isBookmarked = it.bookmark
+
+                if (isBookmarked != it.bookmark){
+                    isBookmarked = it.bookmark
+                    viewModel.requestChangeIcon(isBookmarked)
+                }
 
                 toolbar.title = it.title
 

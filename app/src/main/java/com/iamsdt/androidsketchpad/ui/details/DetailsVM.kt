@@ -57,5 +57,13 @@ class DetailsVM @Inject constructor(val postTableDao: PostTableDao)
             setBookmark(id)
     }
 
+    fun requestChangeIcon(boolean: Boolean){
+        if (boolean){
+            singleLiveEvent.value = (BookMark.SET)
+        } else{
+            singleLiveEvent.value = (BookMark.DELETE)
+        }
+    }
+
 
 }
