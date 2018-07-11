@@ -4,10 +4,15 @@
   ~ on 6/9/18 11:25 PM
   -->
 
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeToRefresh"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:showIn="@layout/main_layout">
@@ -57,3 +62,4 @@
     </com.cooltechworks.views.shimmer.ShimmerRecyclerView> -->
 
 </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -5,16 +5,37 @@
 
 package com.iamsdt.androidsketchpad.utils
 
-class RemoteUtils{
-    companion object {
-        fun getAuthorDes():String{
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 
-            // TODO: 6/9/2018 implement this
-            return "Programmer"
+
+class RemoteUtils {
+
+    companion object {
+        fun getAuthorDes(): String {
+
+            var title = "Programmer"
+
+            val mFirebaseRemoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+
+            mFirebaseRemoteConfig.fetch().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    title = mFirebaseRemoteConfig.getString("About_Programmer")
+                }
+            }
+
+            return title
         }
 
-        fun getAuthorLink(string: String):String{
-            val link = "https://3.bp.blogspot.com/-1KNdWN2tyMA/WyD5toWHveI/AAAAAAAAC-4/aiRbNmrHiiQ9DIaRD0vO_0f1COBAZXGcwCLcBGAs/s1600/Developer.png"
+        fun getAuthorLink(string: String): String {
+            var link = "https://3.bp.blogspot.com/-1KNdWN2tyMA/WyD5toWHveI/AAAAAAAAC-4/aiRbNmrHiiQ9DIaRD0vO_0f1COBAZXGcwCLcBGAs/s1600/Developer.png"
+
+            val mFirebaseRemoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
+
+            mFirebaseRemoteConfig.fetch().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    link = mFirebaseRemoteConfig.getString("imgLink")
+                }
+            }
 
             return link
         }

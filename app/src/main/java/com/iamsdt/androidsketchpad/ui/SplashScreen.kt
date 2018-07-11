@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.animation.AnimationUtils
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.ui.services.UpdateService
@@ -33,6 +34,14 @@ class SplashScreen : AppCompatActivity() {
         set.start()
 
         if (spUtils.isFirstTime) {
+
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "App launch")
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "App launch for first time")
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "First launch")
+
+            FirebaseAnalytics.getInstance(this)
+                    .logEvent(FirebaseAnalytics.Event.APP_OPEN, bundle)
 
             //start service
             startService(Intent(this, UpdateService::class.java))

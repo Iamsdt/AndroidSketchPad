@@ -19,6 +19,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.utils.ConnectivityChangeReceiver
 import com.iamsdt.androidsketchpad.utils.ConstantUtils
@@ -125,6 +126,14 @@ class SearchActivity : AppCompatActivity() {
             viewModel.requestSearch(query)
             setRecentQuery(query)
             document = query
+
+            //Search
+            val bundle = Bundle()
+            bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Search Data")
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "User search query")
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Search $query")
+            FirebaseAnalytics.getInstance(this)
+                    .logEvent(FirebaseAnalytics.Event.SEARCH,bundle)
         }
     }
 

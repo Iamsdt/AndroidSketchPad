@@ -8,6 +8,7 @@ package com.iamsdt.androidsketchpad.ui
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.utils.ext.customTab
 import com.iamsdt.themelibrary.ThemeUtils
@@ -23,6 +24,13 @@ class DeveloperActivity: AppCompatActivity(){
         setContentView(R.layout.activity_developer)
         setSupportActionBar(toolbar)
 
+        //Search
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "Developer")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Developer Activity")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "Developer Details")
+        FirebaseAnalytics.getInstance(this)
+                .logEvent(FirebaseAnalytics.Event.GENERATE_LEAD,bundle)
 
         facebook.setOnClickListener {
             customTab("https://facebook.com/iamsdt")

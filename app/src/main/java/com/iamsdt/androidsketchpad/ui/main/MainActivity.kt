@@ -43,6 +43,8 @@ import org.greenrobot.eventbus.ThreadMode
 import timber.log.Timber
 import javax.inject.Inject
 
+
+
 class MainActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener {
 
@@ -109,6 +111,8 @@ class MainActivity : AppCompatActivity(),
                     //open for new request
                     isRequested = false
                     waitForNetwork = false
+
+                    swipeToRefresh.isRefreshing = false
                     if (!postRequestComplete) {
                         Timber.i("Ui live data, request new post")
                         viewModel.nextPost()
@@ -150,6 +154,12 @@ class MainActivity : AppCompatActivity(),
 
             }
         })
+
+        swipeToRefresh.setOnRefreshListener {
+            //do fresh
+            viewModel.refreshData()
+        }
+
 
         val toggle = ActionBarDrawerToggle(
                 this, drawer_layout, toolbar, R.string.navigation_drawer_open,

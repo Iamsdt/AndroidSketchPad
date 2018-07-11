@@ -55,4 +55,8 @@ class MainVM @Inject constructor(val remoteDataLayer: RemoteDataLayer,
         MainActivity.postRequestComplete = false
         uiLiveData.postValue(EventMessage(ConstantUtils.Event.POST_KEY, "request", 0))
     }
+
+    fun refreshData(){
+        remoteDataLayer.getPostDetailsForFirstTime(false)
+    }
 }
