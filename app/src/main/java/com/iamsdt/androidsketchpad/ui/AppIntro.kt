@@ -19,6 +19,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.iamsdt.androidsketchpad.R
 import com.iamsdt.androidsketchpad.ui.main.MainActivity
 import com.iamsdt.androidsketchpad.utils.ext.toNextActivity
@@ -35,6 +36,12 @@ class AppIntro : AppCompatActivity(),ViewPager.OnPageChangeListener {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 
         setContentView(R.layout.activity_app_intro)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Open for first time")
+
+        FirebaseAnalytics.getInstance(this)
+                .logEvent(FirebaseAnalytics.Event.APP_OPEN,bundle)
 
         layouts = intArrayOf(R.layout.welcome1,
                 R.layout.welcome2,

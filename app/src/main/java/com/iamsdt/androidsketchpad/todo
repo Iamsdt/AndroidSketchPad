@@ -35,47 +35,13 @@ complete create a stop logic with stop token
 
 //complete remove log and crash handler
 
-//todo add analytics
-//todo add crash report
-//todo add remote config
+//complete add analytics
+//complete add crash report
+//complete add remote config
 
 //complete details crash on bookmark icon
 //complete search view show one shimmer
 //complete picture load error
 //complete search view bookmark rewrite whole data make it just update
 /complete finish app intro after complete
-
-//refresh layout
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipe_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/my_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-</android.support.v4.widget.SwipeRefreshLayout>
-
-// SwipeRefreshLayout
-        mSwipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
-        mSwipeRefreshLayout.setOnRefreshListener(this);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_orange_dark,
-                android.R.color.holo_blue_dark);
-
-
-/**
-     * This method is called when swipe refresh is pulled down
-     */
-    @Override
-    public void onRefresh() {
-
-        // Fetching data from server
-        loadRecyclerViewData();
-    }
 

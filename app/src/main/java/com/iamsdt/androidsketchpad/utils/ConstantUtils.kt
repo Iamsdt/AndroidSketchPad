@@ -33,9 +33,7 @@ class ConstantUtils{
         const val BLOG_KEY = "BLOGCall"
         const val PAGE_KEY = "PageCall"
 
-        const val SERVICE = "SERVICE"
-
-        const val POST_WITH_TOKEN = "postToken"
+        //const val POST_WITH_TOKEN = "postToken"
     }
 
     //blog sp
@@ -59,6 +57,6 @@ class ConstantUtils{
         const val DISPLAY_NAME = "displayName"
         const val ID = "id"
         const val URL = "url"
-        const val DES = "des"
+        //const val DES = "des"
     }
 }
