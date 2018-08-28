@@ -68,15 +68,16 @@ Used Api: [Blogger Api 3](https://developers.google.com/blogger/docs/3.0/getting
 
 ##### See some screenshot </br>
 
-| About App | Main Activity | Details Activity |Search Activity|Splash Activity|
+| About App | Main Activity | Details Activity |Search Activity|Splash Activity|Navigation Drawer |
 |--- | --- | --- | ---|---|---|
-| ![About App][sample1] | ![Main Activity][sample2] | ![Details Activity][sample3] | ![Search Activity][sample4] | ![Splash Activity][sample5] |
+| ![About App][sample1] | ![Main Activity][sample2] | ![Details Activity][sample3] | ![Search Activity][sample4] | ![Splash Activity][sample5] | ![Navigation Drawer][sample6] |
 
 [sample1]: ../master/img/about.png "App About"
 [sample2]: ../master/img/main.png "Mian Activity"
 [sample3]: ../master/img/details.png "Details Activity"
 [sample4]: ../master/img/search.png "Search Activity"
 [sample5]: ../master/img/splash.png "Splash Activity"
+[sample6]: ../master/img/nav.png "Navigation Drawer"
 
 ## License
     Copyright {2018} {Shudipto Trafder}
