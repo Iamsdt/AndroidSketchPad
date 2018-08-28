@@ -7,12 +7,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <item
-        android:id="@+id/textSize"
-        android:icon="@drawable/text_increase"
-        android:title="@string/details_menu_text"
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction" />
+        <item
+            android:id="@+id/textSize"
+            android:icon="@drawable/text_increase"
+            android:title="@string/details_menu_text"
+            app:showAsAction="always"
+            tools:ignore="AlwaysShowAction" />
 
     <item
         android:id="@+id/bookmark"

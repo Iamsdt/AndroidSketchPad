@@ -28,6 +28,9 @@ interface PostTableDao{
     @Query("Select * From PostTable where id = :id")
     fun getSinglePost(id:String):LiveData<PostTable>
 
+    @Query("Select * From PostTable where id = :id")
+    fun getPost(id:String):PostTable
+
     @get:Query("Select * From PostTable where bookmark = 1")
     val getBookmarkedPost:DataSource.Factory<Int, PostTable>
 

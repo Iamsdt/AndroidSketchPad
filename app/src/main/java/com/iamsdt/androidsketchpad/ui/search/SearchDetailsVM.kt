@@ -27,19 +27,33 @@ class SearchDetailsVM @Inject constructor(
     fun requestBookmark(single: SinglePostResponse?) {
         if (single == null) return
 
-        AsyncTask.execute({
-            val postTable = PostTable(single.id,
-                    single.images,
-                    single.title,
-                    single.published, single.labels,
-                    single.content,
-                    single.url,
-                    true)
+        AsyncTask.execute {
 
-            val update = postTableDao.add(postTable)
+            var post: PostTable? = postTableDao.getPost(single.id)
+
+            if (post == null) {
+                post = PostTable(single.id,
+                        single.images,
+                        single.title,
+                        single.published,
+                        single.labels,
+                        single.content,
+                        single.url,
+                        true)
+            } else {
+                post.title = single.title
+                post.content = single.content
+                post.published = single.published
+                post.labels = single.labels
+                post.url = single.url
+                post.bookmark = true
+            }
+
+
+            val update = postTableDao.add(post)
             if (update != 0L)
                 singleLiveEvent.postValue(BookMark.SET)
-        })
+        }
 
     }
 

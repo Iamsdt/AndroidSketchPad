@@ -25,9 +25,9 @@ data class PostTable(
         var published: String = "",
 
         @TypeConverters(ConverterListString::class)
-        val labels: List<String>?,
+        var labels: List<String>?,
 
-        val content: String = "",
-        val url: String = "",
+        var content: String = "",
+        var url: String = "",
 
         var bookmark:Boolean)

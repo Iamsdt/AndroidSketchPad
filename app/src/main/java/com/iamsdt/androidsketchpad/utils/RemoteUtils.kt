@@ -26,8 +26,9 @@ class RemoteUtils {
             return title
         }
 
-        fun getAuthorLink(string: String): String {
-            var link = "https://3.bp.blogspot.com/-1KNdWN2tyMA/WyD5toWHveI/AAAAAAAAC-4/aiRbNmrHiiQ9DIaRD0vO_0f1COBAZXGcwCLcBGAs/s1600/Developer.png"
+        fun getAuthorLink(string: String = ""): String {
+            var link = if (string.isNotEmpty()) string
+            else "https://3.bp.blogspot.com/-1KNdWN2tyMA/WyD5toWHveI/AAAAAAAAC-4/aiRbNmrHiiQ9DIaRD0vO_0f1COBAZXGcwCLcBGAs/s1600/Developer.png"
 
             val mFirebaseRemoteConfig: FirebaseRemoteConfig = FirebaseRemoteConfig.getInstance()
 
