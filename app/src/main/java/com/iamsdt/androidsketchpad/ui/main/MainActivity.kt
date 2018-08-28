@@ -157,7 +157,11 @@ class MainActivity : AppCompatActivity(),
 
         swipeToRefresh.setOnRefreshListener {
             //do fresh
-            viewModel.refreshData()
+            if (ConnectivityChangeReceiver.getInternetStatus(this)){
+                viewModel.refreshData()
+            } else{
+                showToast(ToastType.ERROR,"No internet available")
+            }
         }
 
 
