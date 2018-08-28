@@ -15,10 +15,23 @@ click on bookmark icon then searched post will saved locally if it not already s
 
 Follow material guideline completely, use card view, swipe to refresh and Recyclerview
 
-Blog: [AndroidSketchpad](https://androidsketchpad.blogspot.com)
+Blog: [AndroidSketchpad](https://androsketchpad.blogspot.com/)
 
 ## Blog Introduction
+My Personal Blog where I write programming related articles. And also post tutorial on various topics, like
+1. core languages
+2. Android Framework
+3. Android Library
+4. Flutter App development
+5. Some tips and tricks
 
+##### Core languages include
+1. Java
+2. Kotlin
+3. Dart
+4. Python
+
+You can visit my blog in by following this [link](https://androsketchpad.blogspot.com/)
 
 ## Api
 Used Api: [Blogger Api 3](https://developers.google.com/blogger/docs/3.0/getting_started)
@@ -52,6 +65,18 @@ Used Api: [Blogger Api 3](https://developers.google.com/blogger/docs/3.0/getting
 10. Toasty
 11. UCE-Handler
 12. Shimmerlayout
+
+##### See some screenshot </br>
+
+| About App | Main Activity | Details Activity |Search Activity|Splash Activity|Theme Activity|
+|--- | --- | --- | ---|---|---|
+| ![About App][sample1] | ![Main Activity][sample2] | ![Details Activity][sample3] | ![Search Activity][sample4] | ![Splash Activity][sample5] | ![Theme Activity][sample6] |
+
+[sample1]: ../master/img/about.png "App About"
+[sample2]: ../master/img/main.png "Mian Activity"
+[sample3]: ../master/img/details.png "Details Activity"
+[sample4]: ../master/img/search.png "Search Activity"
+[sample5]: ../master/img/splash.png "Splash Activity"
 
 ## License
     Copyright {2018} {Shudipto Trafder}
