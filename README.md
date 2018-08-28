@@ -68,9 +68,9 @@ Used Api: [Blogger Api 3](https://developers.google.com/blogger/docs/3.0/getting
 
 ##### See some screenshot </br>
 
-| About App | Main Activity | Details Activity |Search Activity|Splash Activity|Theme Activity|
+| About App | Main Activity | Details Activity |Search Activity|Splash Activity|
 |--- | --- | --- | ---|---|---|
-| ![About App][sample1] | ![Main Activity][sample2] | ![Details Activity][sample3] | ![Search Activity][sample4] | ![Splash Activity][sample5] | ![Theme Activity][sample6] |
+| ![About App][sample1] | ![Main Activity][sample2] | ![Details Activity][sample3] | ![Search Activity][sample4] | ![Splash Activity][sample5] |
 
 [sample1]: ../master/img/about.png "App About"
 [sample2]: ../master/img/main.png "Mian Activity"
