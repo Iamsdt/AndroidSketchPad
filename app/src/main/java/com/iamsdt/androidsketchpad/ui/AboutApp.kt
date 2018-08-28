@@ -30,6 +30,10 @@ class AboutApp:AppCompatActivity(){
             //open license in custom tab
         }
 
+        app_git.setOnClickListener {
+            customTab("https://github.com/iamsdt")
+        }
+
         mainBlog.setOnClickListener {
             //open license in custom tab
             customTab("https://androsketchpad.blogspot.com")

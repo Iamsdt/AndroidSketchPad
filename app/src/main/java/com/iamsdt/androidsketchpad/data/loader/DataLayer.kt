@@ -26,12 +26,12 @@ class DataLayer(private val remoteDataLayer: RemoteDataLayer,
         val data = pageTableDao.getAllPage
         val mediatorLiveData = MediatorLiveData<PageTable>()
 
-        mediatorLiveData.addSource(data, {
+        mediatorLiveData.addSource(data) {
             if (it == null) {
                 Timber.i("Page table is null so call remote data")
                 remoteDataLayer.getPageDetails()
             }
-        })
+        }
 
         return mediatorLiveData
     }

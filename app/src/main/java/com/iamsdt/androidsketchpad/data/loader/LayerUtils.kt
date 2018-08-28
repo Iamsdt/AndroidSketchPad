@@ -137,9 +137,12 @@ class LayerUtils(private val spUtils: SpUtils,
                         val data: PageResponse ?= response.body()
 
                         val list = data?.items ?: emptyList()
-                        AsyncTask.execute({
+                        AsyncTask.execute {
                             var inserted: Long = 0
                             for (page in list) {
+                                //don't use this value
+                                if (page.title == "Sitemap" || page.title == "Contact us")
+                                    continue
                                 val pageTable = PageTable(
                                         page.id, page.published, page.title, page.updated,
                                         page.url, page.content)
@@ -151,7 +154,7 @@ class LayerUtils(private val spUtils: SpUtils,
                             if (inserted != 0L) {
                                 serviceLiveData.postValue(EventMessage(PAGE_KEY, "Success", 1))
                             }
-                        })
+                        }
                     } else {
                         serviceLiveData.postValue(EventMessage(PAGE_KEY, "failed", 0))
                     }

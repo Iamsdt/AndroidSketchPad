@@ -14,7 +14,7 @@
 
     <style name="splashTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimaryDark">@color/indigo_500</item>
-        <item name="android:windowBackground">@drawable/splash</item>
+        <item name="android:windowBackground">@drawable/splash_bcg</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
