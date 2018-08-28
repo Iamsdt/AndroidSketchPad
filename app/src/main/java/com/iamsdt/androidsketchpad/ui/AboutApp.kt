@@ -31,7 +31,7 @@ class AboutApp:AppCompatActivity(){
         }
 
         app_git.setOnClickListener {
-            customTab("https://github.com/iamsdt")
+            customTab("https://github.com/Iamsdt/AndroidSketchPad")
         }
 
         mainBlog.setOnClickListener {
